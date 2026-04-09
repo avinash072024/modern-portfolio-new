@@ -44,7 +44,7 @@
                     <div class="col-md-6">
                         <h6 class="mb-3">Experience</h6>
                         <div class="education-timeline ps-3 border-start border-primary border-2">
-                            @for (edu of experiences; track $index; let i = $index) {
+                            @for (edu of experiences.slice(0,2); track $index; let i = $index) {
                             <div class="edu-item position-relative mb-4 ps-4">
                                 <div class="dot bg-primary"></div>
                                 <span class="text-primary fw-bold small">{{ edu.duration }}</span>
@@ -52,6 +52,12 @@
                                 <p class="text-muted small">{{ edu.company }}</p>
                             </div>
                             }
+                            <div class="edu-item position-relative mb-4 ps-4">
+                                <div class="dot bg-primary"></div>
+                                <span class="text-primary fw-bold small">2024 - Present</span>
+                                <h5 class="fw-bold mt-1 mb-0">Senior Software Engineer</h5>
+                                <p class="text-muted small">Traxcn Ltd.</p>
+                            </div>
                         </div>
                     </div>
                     }
