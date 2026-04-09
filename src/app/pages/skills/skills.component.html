@@ -1,0 +1,48 @@
+<section class="skills-section pt-5 mt-5">
+    <!-- <div class="bg-glow"></div> -->
+     <div class="glow-bg"></div>
+
+    <div class="container pt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3">my expertise lies in</span>
+            <h2 class="display-5 fw-bold mb-3">Technical <span class="text-primary">Proficiency</span></h2>
+            <p class="text-secondary mx-auto" style="max-width: 600px;">
+                A comprehensive look at my tech stack and the tools I use to bring digital ideas to life.
+            </p>
+        </div>
+
+        @for (category of categories; track category.title) {
+        <div class="category-block mb-5 pb-5" data-aos="fade-up">
+            <h3 class="h5 fw-bold text-uppercase ls-2 mb-4 d-flex align-items-center gap-3">
+                {{category.title}}
+                <!-- <span class="flex-grow-1 border-bottom opacity-10"></span> -->
+            </h3>
+
+            <div class="row g-3">
+                @for (skill of category.skills; track skill.name) {
+                <div class="col-md-4 col-lg-3">
+                    <div class="skill-tile shadow-sm">
+                        <div class="d-flex align-items-center gap-3 mb-3">
+                            <div class="skill-icon-wrapper bg-body-secondary" [style.color]="skill.color">
+                                <i [class]="skill.icon"></i>
+                            </div>
+                            <span class="fw-semibold skill-name">{{skill.name}}</span>
+                        </div>
+
+                        <div class="skill-progress-container">
+                            <div class="d-flex justify-content-between small mb-1 opacity-75">
+                                <span>Expertise</span>
+                                <span>{{skill.level}}%</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" [style.width.%]="skill.level" [style.background]="skill.color"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+        }
+    </div>
+</section>

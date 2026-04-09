@@ -1,0 +1,39 @@
+<section class="services-section py-5 mt-5 overflow-hidden">
+    <div class="glow-bg"></div>
+
+    <div class="container pt-5">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3">MY SPECIALIZED NICHES</span>
+            <h2 class="display-4 fw-bold">Solutions I <span class="text-primary">Provide.</span></h2>
+            <p class="text-secondary mx-auto" style="max-width: 600px;">
+                Blending technical excellence with creative design to build digital products that perform as good as
+                they look.
+            </p>
+        </div>
+
+        <div class="row g-4 mt-2">
+            @for (service of services; track service?._id; let i = $index) {
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="i * 100">
+                <div class="service-card glass-card h-100 p-4">
+                    <div class="icon-box mb-4">
+                        <i [class]="service?.icon" class="text-primary display-5"></i>
+                    </div>
+                    <h3 class="fw-bold h4 mb-3">{{service?.title}}</h3>
+                    <p class="text-secondary mb-4">
+                        {{service?.description}}
+                    </p>
+                    <ul class="list-unstyled service-list mb-0">
+                        @for (feature of service?.features; track feature) {
+                        <li><i class="bi bi-check-circle-fill text-primary"></i> {{ feature }}</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+</section>
+
+<app-cta [title]="'Have a unique requirement?'"
+    [subtitle]="`I love solving complex problems. Let's discuss your project.`" [buttonText]="`Let's Chat`"
+    [buttonLink]="'/contact'" />

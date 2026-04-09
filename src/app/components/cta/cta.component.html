@@ -1,0 +1,16 @@
+<div class="container py-5 my-5" data-aos="flip-up">
+    <div class="cta-banner shadow-lg d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <div class="cta-content text-center text-md-start position-relative">
+            <h2 class="fw-bold text-white mb-2">{{title}}</h2>
+            <p class="mb-0 text-white opacity-80">{{subtitle}}</p>
+        </div>
+
+        <div class="cta-action position-relative">
+            <a [routerLink]="buttonLink" class="btn btn-white-pill shadow-sm">
+                {{buttonText}} <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+
+        <div class="cta-gloss-overlay"></div>
+    </div>
+</div>

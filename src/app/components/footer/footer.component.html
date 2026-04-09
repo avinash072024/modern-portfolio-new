@@ -1,0 +1,86 @@
+<footer class="footer-section bg-body-tertiary mt-0 border-top border-opacity-10">
+    <div class="container pt-5">
+        <div class="row gy-5">
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up">
+                <a class="footer-brand fw-bold mb-3 d-inline-block" routerLink="/">
+                    {{myInformation?.firstName || 'Avinash' | titlecase}}<span class="text-primary">
+                        {{myInformation?.lastName || 'Marbhal' | titlecase}}.</span>
+                </a>
+                <p class="text-secondary mb-4 pe-lg-5">
+                    Specializing in building high-performance, modern web applications.
+                    Let's collaborate to turn your vision into a digital reality.
+                </p>
+                <div class="social-grid d-flex gap-3">
+                    <a [href]="myInformation?.facebook" target="_blank" class="social-item"><i
+                            class="bi bi-facebook"></i></a>
+                    <a [href]="myInformation?.linkedin" target="_blank" class="social-item"><i
+                            class="bi bi-linkedin"></i></a>
+                    <a [href]="`https://api.whatsapp.com/send?phone=${myInformation?.whatsapp}`" target="_blank"
+                        class="social-item"><i class="bi bi-whatsapp"></i></a>
+                    <a [href]="myInformation?.instagram" target="_blank" class="social-item"><i
+                            class="bi bi-instagram"></i></a>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Explore</h6>
+                <ul class="list-unstyled footer-links">
+                    <li><a routerLink="/">Home</a></li>
+                    <li><a routerLink="/about">About</a></li>
+                    <li><a routerLink="/projects">Portfolio</a></li>
+                    <li><a routerLink="/contact">Contact</a></li>
+                    <!-- <li><a routerLink="/services">Services</a></li> -->
+                </ul>
+            </div>
+
+            <div class="col-6 col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Focus Areas</h6>
+                <ul class="list-unstyled footer-tags">
+                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Angular
+                            19</span></li>
+                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">UI/UX
+                            Design</span></li>
+                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Bootstrap
+                            5.3</span></li>
+                    <li><span
+                            class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Performance</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Direct Link</h6>
+                <div class="contact-box p-3 rounded-4 border bg-body-tertiary">
+                    <p class="text-secondary mb-3">Have a question?</p>
+                    <a [href]="`mailto:${myInformation?.email}`" class="btn btn-primary rounded-pill px-3 mb-3 me-3">
+                        <i class="bi bi-envelope-at-fill"></i> Email Me
+                    </a>
+                    <a [href]="`tel:${myInformation?.phone}`" class="btn btn-primary rounded-pill px-3 mb-3">
+                        <i class="bi bi-telephone-fill"></i> Call Now
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <div
+            class="footer-bottom mt-5 py-4 border-top border-opacity-10 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <p class="mb-0 text-secondary small">
+                <i class="bi bi-c-circle"></i> {{currentYear}} <span
+                    class="fw-bold text-emphasis">{{(myInformation?.firstName || 'Avinash') | titlecase}}
+                    {{myInformation?.lastName ||
+                    'Marbhal' | titlecase}}</span>.
+            </p>
+            <!-- <p class="mb-0 text-secondary small">
+                Made with <i class="bi bi-heart-fill text-primary mx-1"></i> and Angular. | Visitors: {{visitorCount}}
+            </p> -->
+            <p class="mb-0 text-secondary small">
+                Made with <i class="bi bi-heart-fill text-primary mx-1"></i> and Angular.
+            </p>
+            <p class="mb-0 text-secondary small">
+                Visitors: {{visitorCount}}
+            </p>
+        </div>
+    </div>
+</footer>

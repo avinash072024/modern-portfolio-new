@@ -1,0 +1,138 @@
+<section class="contact-section py-5 mt-5">
+    <div class="glow-bg"></div>
+
+    <div class="container mt-5">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+            <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3">Get In
+                Touch</span>
+            <h2 class="display-5 fw-bold">Let's Build Something <span class="text-primary">Great</span></h2>
+            <p class="text-secondary mx-auto" style="max-width: 600px;">
+                Have a project in mind or want to collaborate? Feel free to reach out. I'm always open to discussing new
+                ideas, creative solutions, and exciting opportunities.
+            </p>
+        </div>
+
+        <div class="row g-0 bento-wrapper shadow-lg rounded-5 overflow-hidden border" data-aos="zoom-in">
+
+            <div class="col-lg-5 contact-info p-4 p-md-5 text-white position-relative">
+                <div class="z-1 position-relative">
+                    <h3 class="fw-bold mb-4">Contact Information</h3>
+                    <p class="text-white mb-4">Have a question or a project in mind? Drop me a message and I'll get
+                        back to you within 24 hours.</p>
+
+                    <div
+                        class="contact-method d-flex align-items-center mb-4 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                        <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-envelope-at-fill"></i></div>
+                        <div class="flex-grow-1">
+                            <small class="d-block text-white-50">Email Me</small>
+                            <a [href]="`mailto:${myInformation?.email}`"
+                                class="text-white fw-medium text-decoration-none d-block text-break">{{myInformation?.email
+                                || '-'}}</a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="contact-method d-flex align-items-center mb-4 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                        <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-telephone-fill"></i></div>
+                        <div class="flex-grow-1">
+                            <small class="d-block text-white-50">Contact Me</small>
+                            <a [href]="`tel:${myInformation?.phone}`"
+                                class="text-white fw-medium text-decoration-none">{{myInformation?.phone || '-'}}</a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="contact-method d-flex align-items-center p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+                        <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div class="flex-grow-1">
+                            <small class="d-block text-white-50">Location</small>
+                            <span class="fw-medium">{{myInformation?.address || '-'}}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 bg-body-tertiary p-4 p-md-5">
+                <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="needs-validation" novalidate>
+                    <div class="row g-4">
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="firstName" name="firstName"
+                                    placeholder="First name" required ngModel #firstName="ngModel"
+                                    [class.is-invalid]="firstName.invalid && firstName.touched">
+                                <label for="firstName">First name</label>
+                                <div class="invalid-feedback">Please enter first name.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="lastName" name="lastName"
+                                    placeholder="Last name" required ngModel #lastName="ngModel"
+                                    [class.is-invalid]="lastName.invalid && lastName.touched">
+                                <label for="lastName">Last name</label>
+                                <div class="invalid-feedback">Please enter last name.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
+                                    required email ngModel #email="ngModel"
+                                    [class.is-invalid]="email.invalid && email.touched">
+                                <label for="email">Email address</label>
+                                <div class="invalid-feedback">Enter a valid email.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="contact" name="contact"
+                                    placeholder="Contact" required ngModel #contact="ngModel"
+                                    [class.is-invalid]="contact.invalid && contact.touched">
+                                <label for="contact">Contact</label>
+                                <div class="invalid-feedback">Please enter contact number.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="form-floating">
+                                <textarea class="form-control" id="message" name="message" placeholder="Message"
+                                    style="height: 180px" required ngModel #msg="ngModel"
+                                    [class.is-invalid]="msg.invalid && msg.touched"></textarea>
+                                <label for="message">How can I help you?</label>
+                                <div class="invalid-feedback">Message cannot be empty.</div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 text-center">
+                            <button type="submit"
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-sm d-inline-flex align-items-center gap-2"
+                                [disabled]="contactForm.invalid || isSending()">
+                                <ng-container *ngIf="!isSending(); else loader">
+                                    Send Message <i class="bi bi-send-fill"></i>
+                                </ng-container>
+                                <ng-template #loader>
+                                    <span class="spinner-border spinner-border-sm"></span> Sending...
+                                </ng-template>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div *ngIf="isSuccess()"
+                        class="alert alert-success mt-4 rounded-4 border-0 shadow-sm d-flex align-items-center gap-3 animate__animated animate__fadeIn">
+                        <i class="bi bi-check-circle-fill fs-4"></i>
+                        <div>
+                            <span class="fw-bold d-block">Message Sent!</span>
+                            <small>Thank you for reaching out, I'll contact you soon.</small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</section>

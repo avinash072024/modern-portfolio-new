@@ -1,0 +1,86 @@
+<div class="offline-wrapper">
+
+  <!-- Ambient background blobs -->
+  <div class="ambient-blob blob-1"></div>
+  <div class="ambient-blob blob-2"></div>
+  <div class="ambient-blob blob-3"></div>
+
+  <!-- Floating particles -->
+  <div class="particles">
+    <span class="particle" *ngFor="let p of particles; let i = index" [style.left]="p.left" [style.top]="p.top"
+      [style.animation-delay]="p.delay" [style.animation-duration]="p.duration"></span>
+  </div>
+
+  <!-- Main card -->
+  <div class="offline-card" data-aos="fade-up">
+
+    <!-- Signal icon with pulse rings -->
+    <div class="icon-container mb-4">
+      <div class="pulse-ring ring-1"></div>
+      <div class="pulse-ring ring-2"></div>
+      <div class="pulse-ring ring-3"></div>
+      <div class="icon-core">
+        <i class="bi bi-wifi-off"></i>
+      </div>
+    </div>
+
+    <!-- Text content -->
+    <div class="text-content">
+      <h1 class="offline-title">No Internet Connection</h1>
+      <p class="offline-subtitle">
+        Looks like you've lost your connection.<br class="d-none d-sm-inline">
+        Check your Wi-Fi or mobile data and try again.
+      </p>
+    </div>
+
+    <!-- Status indicators -->
+    <div class="status-row">
+      <div class="status-chip" [class.status-ok]="dnsOk" [class.status-fail]="!dnsOk">
+        <i class="bi" [class.bi-check-circle-fill]="dnsOk" [class.bi-x-circle-fill]="!dnsOk"></i>
+        <span>DNS</span>
+      </div>
+      <div class="status-chip" [class.status-ok]="gatewayOk" [class.status-fail]="!gatewayOk">
+        <i class="bi" [class.bi-check-circle-fill]="gatewayOk" [class.bi-x-circle-fill]="!gatewayOk"></i>
+        <span>Gateway</span>
+      </div>
+      <div class="status-chip" [class.status-ok]="serverOk" [class.status-fail]="!serverOk">
+        <i class="bi" [class.bi-check-circle-fill]="serverOk" [class.bi-x-circle-fill]="!serverOk"></i>
+        <span>Server</span>
+      </div>
+    </div>
+
+    <!-- Retry button + countdown -->
+    <div class="action-area">
+      <button class="retry-btn" (click)="retry()" [disabled]="isRetrying" id="retry-button">
+        <span class="btn-content" *ngIf="!isRetrying">
+          <i class="bi bi-arrow-clockwise me-2"></i> Try Again
+        </span>
+        <span class="btn-content" *ngIf="isRetrying">
+          <span class="spinner-ring"></span> Reconnecting…
+        </span>
+      </button>
+
+      <p class="auto-retry-text" *ngIf="countdown > 0 && !isRetrying">
+        Auto-retry in <span class="countdown-badge">{{ countdown }}s</span>
+      </p>
+    </div>
+
+    <!-- Tips section -->
+    <div class="tips-grid mt-2">
+      <div class="tip-card" *ngFor="let tip of tips; let i = index" [style.animation-delay]="0.1 * i + 's'">
+        <div class="tip-icon">
+          <i class="bi" [class]="tip.icon"></i>
+        </div>
+        <p class="tip-text">{{ tip.text }}</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer hint -->
+  <!-- <p class="footer-hint">
+    <i class="bi bi-shield-check me-1 text-primary"></i>
+    Your data is safe &amp; nothing was lost.
+  </p> -->
+
+</div>

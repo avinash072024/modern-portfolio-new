@@ -1,0 +1,246 @@
+<section class="py-5 bg-body-tertiary overflow-hidden">
+    <div class="container text-center mb-5" data-aos="fade-up">
+        <h6 class="text-primary fw-bold text-uppercase">Testimonials</h6>
+        <h2 class="display-6 fw-bold">What Clients Say</h2>
+    </div>
+
+    <div class="container">
+        <div class="testimonial-track">
+            @for (t of testimonials; track t?._id; let i = $index) {
+            <div class="testimonial-slide">
+                <div class="card border-0 shadow-sm rounded-5 p-4 m-3 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar me-3">
+                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                        </div>
+                        <div class="text-start">
+                            <h6 class="mb-0 fw-bold">{{ t?.name }}</h6>
+                            <small class="text-muted">{{ t?.designation }}, {{ t?.organization }}</small>
+                        </div>
+                    </div>
+                    <p class="italic mb-0"> {{ t?.message }} </p>
+                    <div class="mt-3 text-start">
+                        <i *ngFor="let filled of getStars(t?.rating || 0)" class="bi me-1 fs-5"
+                            [ngClass]="filled ? 'bi-star-fill text-primary' : 'bi-star text-secondary'">
+                        </i>
+                    </div>
+                </div>
+            </div>
+            }
+            @for (t of testimonials; track t?._id; let i = $index) {
+            <div class="testimonial-slide">
+                <div class="card border-0 shadow-sm rounded-5 p-4 m-3 h-100">
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="avatar me-3">
+                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                        </div>
+                        <div class="text-start">
+                            <h6 class="mb-0 fw-bold">{{ t?.name }}</h6>
+                            <small class="text-muted">{{ t?.designation }}, {{ t?.organization }}</small>
+                        </div>
+                    </div>
+                    <p class="italic mb-0"> {{ t?.message }} </p>
+                    <div class="mt-3 text-start">
+                        <i *ngFor="let filled of getStars(t?.rating || 0)" class="bi me-1 fs-5"
+                            [ngClass]="filled ? 'bi-star-fill text-primary' : 'bi-star text-secondary'">
+                        </i>
+                    </div>
+                </div>
+            </div>
+            }
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row mt-5 pt-5">
+            <div class="col-12 text-center">
+                <button type="button" class="btn btn-outline-primary px-4 rounded-pill" data-bs-toggle="modal"
+                    data-bs-target="#feedbackModal">
+                    Send feedback
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="d-none modal fade feedback-modal" id="feedbackModal1" data-bs-backdrop="static" data-bs-keyboard="false"
+    tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content rounded-5 border-0 shadow-sm">
+            <div class="modal-header border-0 pb-2">
+                <div>
+                    <h1 class="modal-title fs-4 fw-bold" id="feedbackModalLabel">Share your feedback</h1>
+                    <p class="mb-0 small feedback-subtitle">Your response helps improve experience and trust.</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="feedbackForm.reset({ rating: null })"></button>
+            </div>
+
+            <form [formGroup]="feedbackForm" (ngSubmit)="onFeedbackSubmit()" novalidate autocomplete="off"
+                class="feedback-form">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="feedbackName" class="form-label">Name</label>
+                        <input id="feedbackName" type="text" class="form-control" formControlName="name"
+                            [class.is-invalid]="isControlInvalid('name')" placeholder="Enter your name" />
+                        <div class="invalid-feedback">Please enter your name.</div>
+                    </div>
+
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-6">
+                            <label for="feedbackCompany" class="form-label">Organization</label>
+                            <input id="feedbackCompany" type="text" class="form-control" formControlName="organization"
+                                [class.is-invalid]="isControlInvalid('organization')"
+                                placeholder="Enter your organization name" />
+                            <div class="invalid-feedback">Please enter organization name.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="feedbackPosition" class="form-label">Designation</label>
+                            <input id="feedbackPosition" type="text" class="form-control" formControlName="designation"
+                                [class.is-invalid]="isControlInvalid('designation')"
+                                placeholder="Enter your designation" />
+                            <div class="invalid-feedback">Please enter your designation.</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="feedbackRating" class="form-label">Rating</label>
+                        <select id="feedbackRating" class="form-select" formControlName="rating"
+                            [class.is-invalid]="isControlInvalid('rating')">
+                            <option [ngValue]="null">--Select Rating--</option>
+                            <option [ngValue]="5">5 - Excellent</option>
+                            <option [ngValue]="4">4 - Very good</option>
+                            <option [ngValue]="3">3 - Good</option>
+                            <option [ngValue]="2">2 - Fair</option>
+                            <option [ngValue]="1">1 - Poor</option>
+                        </select>
+                        <div class="invalid-feedback">Please select a rating.</div>
+                    </div>
+
+                    <div class="mb-1">
+                        <label for="feedbackMessage" class="form-label">Message</label>
+                        <textarea id="feedbackMessage" class="form-control" formControlName="message" rows="4"
+                            [class.is-invalid]="isControlInvalid('message')" placeholder="Describe"></textarea>
+                        <div class="invalid-feedback">Please write your feedback.</div>
+                    </div>
+
+                    @if (submitError()) {
+                    <div class="alert alert-danger mt-3 mb-0">{{ submitError() }}</div>
+                    }
+                </div>
+
+                <div class="modal-footer border-0 pt-0">
+                    <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal"
+                        (click)="feedbackForm.reset({ rating: null })">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary px-4" [disabled]="isSubmitting()">
+                        @if (!isSubmitting()) {
+                        <span>Submit feedback</span>
+                        } @else {
+                        <span class="spinner-border spinner-border-sm me-2"></span>
+                        <span>Submitting...</span>
+                        }
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content rounded-5 shadow" [formGroup]="feedbackForm" (ngSubmit)="onFeedbackSubmit()"
+            novalidate autocomplete="off">
+            <div class="modal-header">
+                <div style="width: 85%;">
+                    <h1 class="modal-title fs-4 fw-bold" id="feedbackModalLabel">Share your feedback</h1>
+                    <p class="mb-0 small feedback-subtitle">Your response helps improve experience and trust.</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="feedbackForm.reset({ rating: null })"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="feedbackName" class="form-label">Name</label>
+                    <input id="feedbackName" type="text" class="form-control" formControlName="name"
+                        [class.is-invalid]="isControlInvalid('name')" placeholder="Enter your name" />
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="feedbackCompany" class="form-label">Organization</label>
+                        <input id="feedbackCompany" type="text" class="form-control" formControlName="organization"
+                            [class.is-invalid]="isControlInvalid('organization')"
+                            placeholder="Enter your organization" />
+                        <div class="invalid-feedback">Please enter organization name.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="feedbackPosition" class="form-label">Designation</label>
+                        <input id="feedbackPosition" type="text" class="form-control" formControlName="designation"
+                            [class.is-invalid]="isControlInvalid('designation')" placeholder="Enter your designation" />
+                        <div class="invalid-feedback">Please enter your designation.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="feedbackRating" class="form-label">Rating</label>
+                    <select id="feedbackRating" class="form-select" formControlName="rating"
+                        [class.is-invalid]="isControlInvalid('rating')">
+                        <option [ngValue]="null">-- Select Rating --</option>
+                        <option [ngValue]="5">5 - Excellent</option>
+                        <option [ngValue]="4">4 - Very good</option>
+                        <option [ngValue]="3">3 - Good</option>
+                        <option [ngValue]="2">2 - Fair</option>
+                        <option [ngValue]="1">1 - Poor</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a rating.</div>
+                </div>
+
+                <div class="mb-1">
+                    <label for="feedbackMessage" class="form-label">Message</label>
+                    <textarea id="feedbackMessage" class="form-control" formControlName="message" rows="4"
+                        [class.is-invalid]="isControlInvalid('message')" placeholder="Describe"></textarea>
+                    <div class="invalid-feedback">Please write your feedback.</div>
+                </div>
+
+                @if (submitError()) {
+                <div class="alert alert-danger mt-3 mb-0">{{ submitError() }}</div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal"
+                    (click)="feedbackForm.reset({ rating: null })">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary px-4" [disabled]="isSubmitting()">
+                    @if (!isSubmitting()) {
+                    <span>Submit feedback</span>
+                    } @else {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    <span>Submitting...</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (showToast()) {
+<div class="position-fixed bottom-0 end-0 p-3 feedback-toast-wrapper" role="status" aria-live="polite">
+    <div class="toast show border-0 shadow-lg">
+        <div class="toast-header bg-primary text-white border-0">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close btn-close-white ms-2 mb-1" aria-label="Close"
+                (click)="closeToast()"></button>
+        </div>
+        <div class="toast-body py-3">
+            {{ toastMessage() }}
+        </div>
+    </div>
+</div>
+}

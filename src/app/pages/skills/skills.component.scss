@@ -1,0 +1,99 @@
+.skills-section {
+    background-color: var(--bs-body-bg);
+    min-height: 100vh;
+
+    .bg-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.05) 0%, transparent 70%);
+        transform: translate(-50%, -20%);
+        pointer-events: none;
+    }
+
+    .ls-2 {
+        letter-spacing: 2px;
+    }
+
+    .skill-tile {
+        background: rgba(var(--bs-body-bg-rgb), 0.5);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(var(--bs-emphasis-color-rgb), 0.05);
+        padding: 1.25rem;
+        border-radius: 20px;
+        height: 100%;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+            transform: translateY(-5px);
+            border-color: rgba(var(--primary-rgb), 0.3);
+            background: rgba(var(--bs-body-bg-rgb), 0.8);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1) !important;
+            border: 2px solid rgba(var(--primary-rgb), 0.9);
+
+            .progress-fill {
+                box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.5);
+            }
+        }
+    }
+
+    .skill-icon-wrapper {
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        // background: rgba(var(--bs-emphasis-color-rgb), 0.03);
+        border-radius: 12px;
+    }
+
+    .skill-name {
+        font-size: 1rem;
+        color: var(--bs-emphasis-color);
+    }
+
+    /* Progress Styling */
+    .progress-track {
+        height: 6px;
+        background: rgba(var(--bs-emphasis-color-rgb), 0.08);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        // background: var(--primary-color); // Follows the selected skin
+        border-radius: 10px;
+        transition: width 1s ease-in-out;
+    }
+
+    // Modern pill badge override
+    .bg-primary-subtle {
+        background-color: rgba(var(--primary-rgb), 0.1) !important;
+    }
+}
+
+/* Mobile Adjustments */
+@media (max-width: 576px) {
+    .skill-tile {
+        padding: 1rem;
+
+        .skill-icon-wrapper {
+            width: 60px;
+            height: 60px;
+            font-size: 2rem;
+        }
+    }
+}
+
+/* Dark Mode Fine-tuning */
+[data-bs-theme="dark"] .skill-tile {
+    background: rgba(255, 255, 255, 0.03);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.07);
+    }
+}

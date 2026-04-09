@@ -1,0 +1,129 @@
+<section class="hero-section d-flex align-items-center">
+    <div class="blob-bg"></div>
+
+    <div class="container mt-5 mt-md-0">
+        <div class="row align-items-center gy-5">
+
+            <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
+                <h6 class="text-primary fw-bold text-uppercase mb-3 tracking-widest">
+                    Welcome to my world
+                </h6>
+                <p class="h1">
+                    Hello,
+                </p>
+                <h1 class="display-3 fw-bold mb-3">
+                    I'm <span class="text-gradient">{{myInformation?.firstName || 'Avinash' | titlecase}} {{myInformation?.lastName || 'Marbhal' | titlecase}}</span>
+                </h1>
+                <p class="h1 mb-4 h-60px">
+                    a <span class="typed-text">{{ displayText() }}</span><span class="cursor">|</span>
+                </p>
+                <p class="lead mb-5 text-secondary pe-lg-5">
+                    I build high-performance, responsive web applications with a focus on
+                    clean code and exceptional user experiences.
+                </p>
+
+                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
+                    <a routerLink="/projects" class="btn btn-primary btn-lg px-4 py-3 shadow-lg rounded-pill">
+                        View Portfolio <i class="bi bi-arrow-right ms-2"></i>
+                    </a>
+                    <button (click)="downloadResume()" class="btn btn-outline-primary btn-lg px-4 py-3 shadow-lg rounded-pill">
+                        Download CV <i class="bi bi-download ms-2"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-delay="200">
+                <div class="image-wrapper">
+                    <div class="main-image-shape mb-4 mb-md-0">
+                        <img src="assets/images/yihwxx74geyo1xe1xejz.avif"
+                            alt="Avinash Marbhal — profile photo" class="img-fluid profile-img" loading="lazy" decoding="async">
+                    </div>
+
+                    <div class="floating-card experience-card d-none d-sm-flex" data-aos="fade-up" data-aos-delay="400">
+                        <span class="fw-bold fs-4 text-primary">4+</span>
+                        <span class="small text-muted">Years Exp.</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-md-6" data-aos="fade-up">
+                <h2 class="display-5 fw-bold mb-4">Crafting Digital <span class="text-primary">Experiences</span></h2>
+                <p class="text-secondary">With over 4 years of experience, I specialize in building robust frontend
+                    architectures. I love turning complex problems into simple, beautiful, and intuitive designs.</p>
+
+                <div class="row g-3 mt-4">
+                    <div class="col-6">
+                        <div class="p-3 border-start border-primary border-4 bg-body-secondary rounded-4">
+                            <h3 class="fw-bold mb-0">10</h3>
+                            <small class="text-muted">Projects Completed</small>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-3 border-start border-primary border-4 bg-body-secondary rounded-4">
+                            <h3 class="fw-bold mb-0">4+</h3>
+                            <small class="text-muted">Experience</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-6" data-aos="fade-left">
+                <div class="ps-md-5">
+                    <ul class="list-unstyled">
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
+                            <span>High Performance Angular Applications</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
+                            <span>Responsive & Mobile-First Design</span>
+                        </li>
+                        <li class="mb-3 d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
+                            <span>Theme-able UI Components</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<app-testimonials />
+
+<app-cta [title]="'Ready to start a project?'" [subtitle]="`I'm currently available for freelance work.`" [buttonLink]="'/contact'" [buttonText]="`Let's Chat`" />
+
+<!-- Resume Download Modal (static backdrop, manual close) -->
+<div class="modal fade custom-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow-lg border-0">
+            <div class="modal-header border-0 p-4 pb-3">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-wrap d-flex align-items-center justify-content-center">
+                        <i class="bi bi-file-earmark-arrow-down-fill fs-3 text-white"></i>
+                    </div>
+                    <div>
+                        <h5 class="modal-title mb-0" id="staticBackdropLabel">Resume downloaded</h5>
+                        <small class="text-opacity-75 rounded-pill">Your CV has been saved to your device.</small>
+                    </div>
+                </div>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body p-4 pt-2">
+                <p class="mb-3 text-secondary">Thanks for downloading my resume. If the download didn't start, <a href="assets/resume/Avinash-Marbhal-Resume-Angular-Updated.pdf" target="_blank" rel="noopener">click here</a>.</p>
+                <div class="d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill me-2" data-bs-dismiss="modal">Close</button>
+                    <a href="assets/resume/Avinash-Marbhal-Resume-Angular-Updated.pdf" target="_blank" class="btn btn-primary rounded-pill">Open file</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,95 @@
+.footer-section {
+    // background-color: var(--bs-body-bg);
+    position: relative;
+    overflow: hidden;
+
+    .footer-brand {
+        font-size: 1.75rem;
+        text-decoration: none;
+        color: var(--bs-emphasis-color);
+        letter-spacing: -0.5px;
+    }
+
+    // Social Buttons
+    .social-item {
+        width: 42px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        background: rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(var(--primary-rgb), 0.05);
+
+        &:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.3);
+        }
+    }
+
+    // Navigation Links
+    .footer-links {
+        li {
+            margin-bottom: 0.75rem;
+
+            a {
+                text-decoration: none;
+                color: var(--bs-secondary-color);
+                transition: all 0.3s ease;
+                display: inline-block;
+
+                &:hover {
+                    color: var(--primary-color);
+                    transform: translateX(8px);
+                }
+            }
+        }
+    }
+
+    // Focus Area Badges
+    .footer-tags .badge {
+        background: transparent;
+        border-color: var(--bs-border-color) !important;
+        transition: all 0.3s ease;
+
+        &:hover {
+            border-color: var(--primary-color) !important;
+            color: var(--primary-color) !important;
+        }
+    }
+
+    .tracking-wider {
+        letter-spacing: 0.1rem;
+        font-size: 0.85rem;
+        color: var(--bs-emphasis-color);
+    }
+}
+
+// Dark & Light Mode refinements
+[data-bs-theme="dark"] .footer-section {
+    background-color: color-mix(in srgb, var(--bs-body-bg), black 15%);
+}
+
+@media (max-width: 767.98px) {
+    .footer-section {
+        text-align: center;
+
+        .social-grid {
+            justify-content: center;
+        }
+
+        .footer-links a:hover {
+            transform: translateY(-3px);
+        }
+
+        .contact-box {
+            margin: 0 auto;
+            // max-width: 280px;
+        }
+    }
+}

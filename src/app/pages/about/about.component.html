@@ -1,0 +1,90 @@
+<section class="about-page py-5 mt-5">
+    <div class="glow-bg"></div>
+    <div class="container mt-5">
+
+        <div class="text-center mb-5" data-aos="fade-up">
+            <!-- <h6 class="text-primary fw-bold text-uppercase tracking-widest">My Journey</h6> -->
+            <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3">My
+                Journey</span>
+            <h2 class="display-5 fw-bold">Professional <span class="text-primary">Profile</span></h2>
+            <div class="header-line mx-auto"></div>
+        </div>
+
+        <div class="row g-5">
+            <div class="col-lg-7" data-aos="fade-right">
+                <h3 class="fw-bold mb-4">A Story of <span class="text-primary">Passion</span> & <span
+                        class="text-primary">Code</span></h3>
+                <p class="text-secondary lead mb-4">
+                    I am a specialized Frontend Developer based in India, dedicated to building clean,
+                    functional, and user-centered digital experiences.
+                </p>
+                <p class="text-secondary mb-5">
+                    My journey started 4 years ago when I first discovered the power of CSS. Since then,
+                    I’ve evolved into an Angular specialist, focusing on performance optimization and
+                    modern architecture like Signals and Standalone components.
+                </p>
+
+                <div class="row g-4">
+                    @if (education?.length > 0 || experiences?.length > 0) {
+                    <div class="col-md-6">
+                        <h6 class="mb-3">Education</h6>
+                        <div class="education-timeline ps-3 border-start border-primary border-2">
+                            @for (exp of education; track $index; let i = $index) {
+                            <div class="edu-item position-relative mb-4 ps-4">
+                                <div class="dot bg-primary"></div>
+                                <span class="text-primary fw-bold small">{{ exp.duration }}</span>
+                                <h5 class="fw-bold mt-1 mb-0">{{ exp.title }}</h5>
+                                <p class="text-muted small">{{ exp.institution }}</p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    }
+                    @if (education?.length > 0 || experiences?.length > 0) {
+                    <div class="col-md-6">
+                        <h6 class="mb-3">Experience</h6>
+                        <div class="education-timeline ps-3 border-start border-primary border-2">
+                            @for (edu of experiences; track $index; let i = $index) {
+                            <div class="edu-item position-relative mb-4 ps-4">
+                                <div class="dot bg-primary"></div>
+                                <span class="text-primary fw-bold small">{{ edu.duration }}</span>
+                                <h5 class="fw-bold mt-1 mb-0">{{ edu.title }}</h5>
+                                <p class="text-muted small">{{ edu.company }}</p>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+
+            <div class="col-lg-5" data-aos="fade-left">
+                <h3 class="fw-bold mb-0 text-center text-lg-start">Technical <span class="text-primary">Stack</span>
+                </h3>
+                <div class="row g-3 my-4">
+                    @for (tech of techStack; track tech.name; let i = $index) {
+                    <div class="col-6 col-sm-4">
+                        <div class="tech-card p-3 rounded-4 text-center border bg-body-tertiary">
+                            <i class="bi {{ tech.icon }} fs-2 text-primary mb-2 d-block"></i>
+                            <h6 class="fw-bold mb-1">{{ tech.name }}</h6>
+                            <div class="progress mt-2" style="height: 4px;">
+                                <div class="progress-bar bg-primary" [style.width]="tech.level"></div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col-12 text-center text-md-end ">
+                        <a routerLink="/skills" class="more-stack text-decoration-none text-primary">More Stack <i
+                                class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<app-cta [title]="'Do you want to hire me?'" [subtitle]="`I'm currently available for full-time roles.`"
+    [buttonLink]="'/contact'" [buttonText]="`Let's Chat`" />
