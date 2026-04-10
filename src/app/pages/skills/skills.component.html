@@ -12,7 +12,7 @@
         </div>
 
         @for (category of categories; track category.title) {
-        <div class="category-block mb-5 pb-5" data-aos="fade-up">
+        <div class="category-block mb-5 pb-5 d-none" data-aos="fade-up">
             <h3 class="h5 fw-bold text-uppercase ls-2 mb-4 d-flex align-items-center gap-3">
                 {{category.title}}
                 <!-- <span class="flex-grow-1 border-bottom opacity-10"></span> -->
@@ -43,6 +43,61 @@
                 }
             </div>
         </div>
+        }
+
+        @if (isLoading()) {
+            @for (cat of [1, 2]; track cat) {
+            <div class="category-block mb-5 pb-5" data-aos="fade-up">
+                <div class="skeleton-title mb-4"></div>
+                <div class="row g-3">
+                    @for (item of [1, 2, 3, 4]; track item) {
+                    <div class="col-md-4 col-lg-3">
+                        <div class="skill-tile shadow-sm skeleton-tile">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="skeleton-icon"></div>
+                                <div class="skeleton-line w-50"></div>
+                            </div>
+                            <div class="skeleton-line w-25 mb-2"></div>
+                            <div class="skeleton-progress"></div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
+        } @else {
+            @for (category of categories; track category.title) {
+            <div class="category-block mb-5 pb-5" data-aos="fade-up">
+                <h3 class="h5 fw-bold text-uppercase ls-2 mb-4 d-flex align-items-center gap-3">
+                    {{category.title}}
+                </h3>
+
+                <div class="row g-3">
+                    @for (skill of category.skills; track skill.name) {
+                    <div class="col-md-4 col-lg-3">
+                        <div class="skill-tile shadow-sm">
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <div class="skill-icon-wrapper bg-body-secondary" [style.color]="skill.color">
+                                    <i [class]="skill.icon"></i>
+                                </div>
+                                <span class="fw-semibold skill-name">{{skill.name}}</span>
+                            </div>
+
+                            <div class="skill-progress-container">
+                                <div class="d-flex justify-content-between small mb-1 opacity-75">
+                                    <span>Expertise</span>
+                                    <span>{{skill.level}}%</span>
+                                </div>
+                                <div class="progress-track">
+                                    <div class="progress-fill" [style.width.%]="skill.level" [style.background]="skill.color"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+            }
         }
     </div>
 </section>

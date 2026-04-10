@@ -82,3 +82,55 @@
         color: #b0b0b0 !important;
     }
 }
+
+// skeleton loader styles
+@keyframes shimmer {
+    0% {
+        background-position: -450px 0;
+    }
+
+    100% {
+        background-position: 450px 0;
+    }
+}
+
+.about-page {
+    // ... your existing code ...
+
+    .skeleton-line {
+        background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+        background-image: linear-gradient(90deg,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
+        background-size: 900px 100%;
+        animation: shimmer 2s infinite linear;
+        border-radius: 4px;
+        height: 12px;
+
+        &.sm {
+            width: 40%;
+            height: 10px;
+        }
+
+        &.md {
+            width: 70%;
+        }
+
+        &.lg {
+            width: 90%;
+            height: 16px;
+        }
+    }
+}
+
+// Dark mode support for skeleton
+[data-bs-theme="dark"] .about-page {
+    .skeleton-line {
+        background: rgba(255, 255, 255, 0.05);
+        background-image: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.05) 0px,
+                rgba(255, 255, 255, 0.1) 40px,
+                rgba(255, 255, 255, 0.05) 80px);
+    }
+}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { SkillCategory } from '../../interfaces/skills';
 import { Constants } from '../../models/constants';
 import { SkillsService } from '../../services/skills/skills.service';
@@ -12,6 +12,7 @@ import { SkillsService } from '../../services/skills/skills.service';
 export class SkillsComponent implements OnInit {
   categories: any[] = [];
   skillsService = inject(SkillsService);
+  isLoading = signal(true); // 1. Added loading signal
 
   ngOnInit(): void {
     // this.categories = Constants.TECH_STACK;
@@ -19,18 +20,10 @@ export class SkillsComponent implements OnInit {
   }
 
   getSkills(): void {
+    this.isLoading.set(true);
     this.skillsService.getSkills().subscribe({
       next: (res: any) => {
         if(res?.success){
-          // Group skills by category based on Constants.TECH_STACK order
-          // const categoryOrder = [
-          //   'Frontend Development',
-          //   'Backend & Database',
-          //   'Tools & Design',
-          //   'Version Control & DevOps',
-          //   'Payment Gateways'
-          // ];
-          
           const groupedSkills = res.skills.reduce((acc: any[], skill: any) => {
             const index = acc.findIndex((c: any) => c.title === skill.category);
             if (index > -1) {
@@ -40,21 +33,13 @@ export class SkillsComponent implements OnInit {
             }
             return acc;
           }, []);
-
-          // Sort categories by predefined order
-          // groupedSkills.sort((a: any, b: any) => {
-          //   const indexA = categoryOrder.indexOf(a.title);
-          //   const indexB = categoryOrder.indexOf(b.title);
-          //   return (indexA === -1 ? 99 : indexA) - (indexB === -1 ? 99 : indexB);
-          // });
-
           this.categories = groupedSkills;
-        } else {
-          // alert(res?.message);
         }
+        this.isLoading.set(false);
       },
       error: (err: any) => {
         // alert(err?.message);
+        this.isLoading.set(false);
       }
     });
   }

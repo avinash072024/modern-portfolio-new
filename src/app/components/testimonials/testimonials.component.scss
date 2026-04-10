@@ -230,3 +230,66 @@
         }
     }
 }
+
+
+// skeleton loader styles
+// Skeleton Shimmer Animation
+@keyframes shimmer {
+    0% {
+        background-position: -450px 0;
+    }
+
+    100% {
+        background-position: 450px 0;
+    }
+}
+
+.skeleton-card {
+    pointer-events: none;
+    border: 1px solid rgba(var(--primary-rgb), 0.16);
+    border-top: 4px solid var(--primary-color);
+
+    .skeleton-avatar,
+    .skeleton-line {
+        background: var(--bs-tertiary-bg);
+        background-image: linear-gradient(90deg,
+                var(--bs-tertiary-bg) 0px,
+                color-mix(in srgb, var(--bs-secondary-bg), white 5%) 40px,
+                var(--bs-tertiary-bg) 80px);
+        background-size: 900px 100%;
+        animation: shimmer 2s infinite linear;
+        border-radius: 4px;
+    }
+
+    .skeleton-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+    }
+
+    .skeleton-line {
+        height: 12px;
+        width: 100%;
+
+        &.short {
+            width: 60%;
+        }
+
+        &.extra-short {
+            width: 30%;
+        }
+    }
+}
+
+// Disable track animation while loading
+.testimonial-track.no-animation {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+}
+
+// Ensure proper width for skeleton slides
+.testimonial-slide {
+    width: 350px;
+    flex-shrink: 0;
+}

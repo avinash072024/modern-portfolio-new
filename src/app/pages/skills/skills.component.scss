@@ -97,3 +97,76 @@
         background: rgba(255, 255, 255, 0.07);
     }
 }
+
+// skeleton loader styles
+// 1. Shimmer Animation
+@keyframes shimmer {
+    0% {
+        background-position: -450px 0;
+    }
+
+    100% {
+        background-position: 450px 0;
+    }
+}
+
+.skills-section {
+    // ... your existing styles ...
+
+    .skeleton-tile {
+        pointer-events: none;
+
+        .skeleton-icon,
+        .skeleton-line,
+        .skeleton-progress,
+        .skeleton-title {
+            background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+            background-image: linear-gradient(90deg,
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
+            background-size: 900px 100%;
+            animation: shimmer 2s infinite linear;
+            border-radius: 4px;
+        }
+
+        .skeleton-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 12px;
+        }
+
+        .skeleton-line {
+            height: 12px;
+        }
+
+        .skeleton-progress {
+            height: 6px;
+            width: 100%;
+            border-radius: 10px;
+        }
+    }
+
+    .skeleton-title {
+        height: 24px;
+        width: 200px;
+        border-radius: 4px;
+    }
+}
+
+// Dark Mode Specific adjustment for Skeleton
+[data-bs-theme="dark"] .skills-section {
+    .skeleton-tile {
+
+        .skeleton-icon,
+        .skeleton-line,
+        .skeleton-progress,
+        .skeleton-title {
+            background: rgba(255, 255, 255, 0.05);
+            background-image: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.05) 0px,
+                    rgba(255, 255, 255, 0.1) 40px,
+                    rgba(255, 255, 255, 0.05) 80px);
+        }
+    }
+}

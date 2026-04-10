@@ -310,3 +310,80 @@
         border-radius: 20px;
     }
 }
+
+// skeleton loader styles
+// 1. Shimmer Animation
+@keyframes shimmer {
+    0% {
+        background-position: -450px 0;
+    }
+
+    100% {
+        background-position: 450px 0;
+    }
+}
+
+.projects-section {
+    // ... your existing styles ...
+
+    .skeleton-card {
+        pointer-events: none;
+
+        .skeleton-line,
+        .skeleton-pill,
+        .skeleton-btn {
+            background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+            background-image: linear-gradient(90deg,
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
+            background-size: 900px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+
+        .skeleton-pill {
+            height: 24px;
+            width: 80px;
+            border-radius: 50px;
+
+            &.small {
+                width: 60px;
+            }
+        }
+
+        .skeleton-line {
+            height: 14px;
+            border-radius: 4px;
+
+            &.title {
+                height: 28px;
+                width: 85%;
+            }
+
+            &.text {
+                height: 12px;
+                margin-bottom: 8px;
+            }
+        }
+
+        .skeleton-btn {
+            height: 38px;
+            width: 110px;
+            border-radius: 50px;
+        }
+    }
+}
+
+// Ensure the skeleton looks consistent in Dark Mode
+[data-bs-theme="dark"] .projects-section .skeleton-card {
+
+    .skeleton-line,
+    .skeleton-pill,
+    .skeleton-btn {
+        background: rgba(255, 255, 255, 0.05);
+        background-image: linear-gradient(90deg,
+                rgba(255, 255, 255, 0.05) 0px,
+                rgba(255, 255, 255, 0.1) 40px,
+                rgba(255, 255, 255, 0.05) 80px);
+    }
+}

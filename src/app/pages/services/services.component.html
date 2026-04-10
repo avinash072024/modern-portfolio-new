@@ -11,7 +11,7 @@
             </p>
         </div>
 
-        <div class="row g-4 mt-2">
+        <div class="row g-4 mt-2 d-none">
             @for (service of services; track service?._id; let i = $index) {
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="i * 100">
                 <div class="service-card glass-card h-100 p-4">
@@ -29,6 +29,46 @@
                     </ul>
                 </div>
             </div>
+            }
+        </div>
+
+        <div class="row g-4 mt-2">
+            @if (isLoading()) {
+            @for (i of [1, 2, 3]; track i) {
+            <div class="col-lg-4 col-md-6">
+                <div class="service-card glass-card h-100 p-4 skeleton-card">
+                    <div class="icon-box-skeleton mb-4"></div>
+                    <div class="skeleton-line title mb-3"></div>
+                    <div class="skeleton-line text mb-2"></div>
+                    <div class="skeleton-line text mb-4 w-75"></div>
+
+                    <div class="skeleton-list">
+                        <div class="skeleton-line small mb-2"></div>
+                        <div class="skeleton-line small mb-2"></div>
+                        <div class="skeleton-line small w-50"></div>
+                    </div>
+                </div>
+            </div>
+            }
+            } @else {
+            @for (service of services; track service?._id; let i = $index) {
+            <div class="col-lg-4 col-md-6" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+                <div class="service-card glass-card h-100 p-4">
+                    <div class="icon-box mb-4">
+                        <i [class]="service?.icon" class="text-primary display-5"></i>
+                    </div>
+                    <h3 class="fw-bold h4 mb-3">{{service?.title}}</h3>
+                    <p class="text-secondary mb-4">
+                        {{service?.description}}
+                    </p>
+                    <ul class="list-unstyled service-list mb-0">
+                        @for (feature of service?.features; track feature) {
+                        <li><i class="bi bi-check-circle-fill text-primary"></i> {{ feature }}</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            }
             }
         </div>
     </div>

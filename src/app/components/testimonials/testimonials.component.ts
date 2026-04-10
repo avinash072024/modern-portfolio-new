@@ -27,10 +27,10 @@ interface BootstrapWindow extends Window {
 })
 export class TestimonialsComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-
+  
   // testimonials: Testimonial[] = TESTIMONIALS;
   testimonials: Testimonial[] = [];
-
+  
   feedbackForm = this.formBuilder.group({
     name: ['', Validators.required],
     organization: ['', Validators.required],
@@ -38,12 +38,13 @@ export class TestimonialsComponent implements OnInit {
     rating: [null as number | null, Validators.required],
     message: ['', Validators.required]
   });
-
-  isSubmitting = signal(false);
+  
+  isSubmitting = signal<boolean>(false);
   isSubmitted = signal(false);
-  submitError = signal('');
-  showToast = signal(false);
-  toastMessage = signal('Feedback submitted successfully.');
+  submitError = signal<string>('');
+  showToast = signal<boolean>(false);
+  toastMessage = signal<string>('Feedback submitted successfully.');
+  isLoading = signal<boolean>(true);
 
   private toastTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -54,16 +55,17 @@ export class TestimonialsComponent implements OnInit {
   }
 
   getFeedbacks(): void {
+    this.isLoading.set(true); // Start loading
     this.feedbackService.getAllFeedback().subscribe({
       next: (res: any) => {
         if (res?.success) {
           let data = res?.feedback || [];
-          this.testimonials = data.filter((item: any) => item.verified === true);
-          console.log('this.testimonials:', this.testimonials)
+          this.testimonials = data.filter((item: any) => item.verified === true) || [];
         }
+        this.isLoading.set(false); // Stop loading
       },
       error: (err: any) => {
-
+        this.isLoading.set(false); // Stop loading even on error
       }
     })
   }
@@ -104,6 +106,12 @@ export class TestimonialsComponent implements OnInit {
         this.submitError.set(error?.error?.message ?? 'Unable to submit feedback. Please try again.');
       }
     });
+  }
+
+  resetFeedbackForm(): void {
+    this.feedbackForm.reset({ rating: null });
+    this.isSubmitted.set(false);
+    this.submitError.set('');
   }
 
   isControlInvalid(controlName: 'name' | 'organization' | 'designation' | 'rating' | 'message'): boolean {

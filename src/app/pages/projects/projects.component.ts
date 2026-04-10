@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { Project } from '../../interfaces/projects';
 import { Constants } from '../../models/constants';
 import { CtaComponent } from '../../components/cta/cta.component';
@@ -20,22 +20,24 @@ export class ProjectsComponent implements OnInit {
   projects: Project[] = [];
 
   projectService = inject(ProjectsService);
+  isLoading = signal(true); // 1. Add loading signal
 
   ngOnInit(): void {
     this.getProjects();
   }
 
   getProjects(): void {
+    this.isLoading.set(true); // Ensure this is here
     this.projectService.getProjects().subscribe({
       next: (res: any) => {
         if(res?.success) {
           this.projects = res?.projects;
-        } else {
-          // alert(res?.message);
         }
+        this.isLoading.set(false); // 2. Set to false after response
       },
       error: (err: any) => {
-        // alert(err?.message)
+        // alert(err?.message);
+        this.isLoading.set(false); // 3. Set to false on error
       }
     })
   }

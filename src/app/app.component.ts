@@ -43,19 +43,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.networkService.onlineStatus$.subscribe(status => {
       this.isOnline = status;
-
-    //   if(!this.isOnline){
-    //   this.router.navigate(['/offline']);
-    // } else {
-    //   this.router.navigate(['/home']);
-    // }
     });
-
-    // if(!this.isOnline){
-    //   this.router.navigate(['/offline']);
-    // } else {
-    //   this.router.navigate(['/home']);
-    // }
 
     AOS.init({
       duration: 1000,

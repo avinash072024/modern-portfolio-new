@@ -79,7 +79,12 @@
                 Made with <i class="bi bi-heart-fill text-primary mx-1"></i> and Angular.
             </p>
             <p class="mb-0 text-secondary small">
-                Visitors: {{visitorCount}}
+                <!-- Visitors: {{visitorCount}} -->
+                @if (isLoading()) {
+                <span class="skeleton-text">Visitors: Loading...</span>
+                } @else {
+                <span>Visitors: {{visitorCount}}</span>
+                }
             </p>
         </div>
     </div>

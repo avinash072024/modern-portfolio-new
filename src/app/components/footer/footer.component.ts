@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { Constants } from '../../models/constants';
 import { AboutMe } from '../../interfaces/about-me';
@@ -21,6 +21,7 @@ export class FooterComponent implements OnInit {
   appName2: string = Constants.APP_NAME2;
   contactService = inject(ContactService);
   visitorService = inject(VisitorService);
+  isLoading = signal(true); // 1. Added loading signal
 
   visitorCount: number = 0;
 
@@ -29,6 +30,7 @@ export class FooterComponent implements OnInit {
   }
 
   getInitialData(): void {
+    this.isLoading.set(true);
     forkJoin({
       contact: this.contactService.getContact(),
       visitor: this.visitorService.getVisitor()
@@ -43,10 +45,12 @@ export class FooterComponent implements OnInit {
         if (res.visitor?.success && res.visitor?.Visitors) {
           this.visitorCount = res.visitor?.count;
         }
+        this.isLoading.set(false);
       },
       error: (err: any) => {
         // console.error('One or more requests failed', err);
         // Note: forkJoin will trigger the error block if ANY of the requests fail.
+        this.isLoading.set(false);
       }
     });
   }
