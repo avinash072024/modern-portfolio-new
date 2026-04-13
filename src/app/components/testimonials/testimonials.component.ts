@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Testimonial } from '../../interfaces/testimonial';
 import { TESTIMONIALS } from '../../models/testimonials.data';
 import { FeedbackService } from '../../services/feedback/feedback.service';
+import { ValidationService } from '../../validations/validation.service';
 
 interface BootstrapModalInstance {
   hide(): void;
@@ -48,7 +49,10 @@ export class TestimonialsComponent implements OnInit {
 
   private toastTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  constructor(private readonly feedbackService: FeedbackService) { }
+  constructor(
+    private readonly feedbackService: FeedbackService,
+    public readonly validationService: ValidationService
+  ) { }
 
   ngOnInit(): void {
     this.getFeedbacks();
