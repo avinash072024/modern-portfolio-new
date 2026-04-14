@@ -54,14 +54,14 @@
             </div>
 
             <div class="col-lg-7 bg-body-tertiary p-4 p-md-5">
-                <form #contactForm="ngForm" (ngSubmit)="onSubmit(contactForm)" class="needs-validation" novalidate>
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="needs-validation" novalidate>
                     <div class="row g-4">
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="firstName" name="firstName"
-                                    placeholder="First name" required ngModel #firstName="ngModel"
-                                    [class.is-invalid]="firstName.invalid && firstName.touched">
+                                <input type="text" class="form-control" id="firstName" formControlName="firstName"
+                                    placeholder="First name"
+                                    [class.is-invalid]="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched" autocomplete="off">
                                 <label for="firstName">First name</label>
                                 <div class="invalid-feedback">Please enter first name.</div>
                             </div>
@@ -69,9 +69,9 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="lastName" name="lastName"
-                                    placeholder="Last name" required ngModel #lastName="ngModel"
-                                    [class.is-invalid]="lastName.invalid && lastName.touched">
+                                <input type="text" class="form-control" id="lastName" formControlName="lastName"
+                                    placeholder="Last name"
+                                    [class.is-invalid]="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched" autocomplete="off">
                                 <label for="lastName">Last name</label>
                                 <div class="invalid-feedback">Please enter last name.</div>
                             </div>
@@ -79,9 +79,8 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="email" class="form-control" id="email" name="email" placeholder="Email"
-                                    required email ngModel #email="ngModel"
-                                    [class.is-invalid]="email.invalid && email.touched">
+                                <input type="email" class="form-control" id="email" formControlName="email" placeholder="Email"
+                                    [class.is-invalid]="contactForm.get('email')?.invalid && contactForm.get('email')?.touched" autocomplete="off">
                                 <label for="email">Email address</label>
                                 <div class="invalid-feedback">Enter a valid email.</div>
                             </div>
@@ -89,19 +88,17 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="contact" name="contact"
-                                    placeholder="Contact" required ngModel #contact="ngModel"
-                                    [class.is-invalid]="contact.invalid && contact.touched">
+                                <input type="text" class="form-control" id="contact" formControlName="contact"
+                                    placeholder="Contact" autocomplete="off">
                                 <label for="contact">Contact</label>
-                                <div class="invalid-feedback">Please enter contact number.</div>
                             </div>
                         </div>
 
                         <div class="col-12">
                             <div class="form-floating">
-                                <textarea class="form-control" id="message" name="message" placeholder="Message"
-                                    style="height: 180px" required ngModel #msg="ngModel"
-                                    [class.is-invalid]="msg.invalid && msg.touched"></textarea>
+                                <textarea class="form-control" id="message" formControlName="message" placeholder="Message"
+                                    style="height: 180px"
+                                    [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" autocomplete="off"></textarea>
                                 <label for="message">How can I help you?</label>
                                 <div class="invalid-feedback">Message cannot be empty.</div>
                             </div>
@@ -109,8 +106,8 @@
 
                         <div class="col-12 text-center">
                             <button type="submit"
-                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-sm d-inline-flex align-items-center gap-2"
-                                [disabled]="contactForm.invalid || isSending()">
+                                class="btn btn-primary btn-lg rounded-pill px-5 py-3 shadow-sm d-inline-flex align-items-center gap-2">
+                                <!-- [disabled]="contactForm.invalid || isSending()"> -->
                                 <ng-container *ngIf="!isSending(); else loader">
                                     Send Message <i class="bi bi-send-fill"></i>
                                 </ng-container>
