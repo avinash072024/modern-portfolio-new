@@ -4,7 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Testimonial } from '../../interfaces/testimonial';
 import { TESTIMONIALS } from '../../models/testimonials.data';
 import { FeedbackService } from '../../services/feedback/feedback.service';
-import { ValidationService } from '../../validations/validation.service';
+import { ValidationService } from '../../services/validations/validation.service';
 
 interface BootstrapModalInstance {
   hide(): void;
@@ -28,10 +28,10 @@ interface BootstrapWindow extends Window {
 })
 export class TestimonialsComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
-  
+
   // testimonials: Testimonial[] = TESTIMONIALS;
   testimonials: Testimonial[] = [];
-  
+
   feedbackForm = this.formBuilder.group({
     name: ['', Validators.required],
     organization: ['', Validators.required],
@@ -39,7 +39,7 @@ export class TestimonialsComponent implements OnInit {
     rating: [null as number | null, Validators.required],
     message: ['', Validators.required]
   });
-  
+
   isSubmitting = signal<boolean>(false);
   isSubmitted = signal(false);
   submitError = signal<string>('');
@@ -165,5 +165,31 @@ export class TestimonialsComponent implements OnInit {
       this.showToast.set(false);
       this.toastTimeoutId = null;
     }, 4000);
+  }
+
+  onInputChange(event: any, field: string) {
+    let value = event.target.value;
+
+    switch (field) {
+      case 'name':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'organization':
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'designation':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'message':
+        value = this.validationService.capitalizeSentence(value);
+        break;
+    }
+
+    event.target.value = value;
   }
 }

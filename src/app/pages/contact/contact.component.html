@@ -61,7 +61,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="firstName" formControlName="firstName"
                                     placeholder="First name"
-                                    [class.is-invalid]="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched" autocomplete="off">
+                                    [class.is-invalid]="contactForm.get('firstName')?.invalid && contactForm.get('firstName')?.touched" (input)="onInputChange($event, 'firstName')" autocomplete="off">
                                 <label for="firstName">First name</label>
                                 <div class="invalid-feedback">Please enter first name.</div>
                             </div>
@@ -71,7 +71,7 @@
                             <div class="form-floating">
                                 <input type="text" class="form-control" id="lastName" formControlName="lastName"
                                     placeholder="Last name"
-                                    [class.is-invalid]="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched" autocomplete="off">
+                                    [class.is-invalid]="contactForm.get('lastName')?.invalid && contactForm.get('lastName')?.touched" (input)="onInputChange($event, 'lastName')" autocomplete="off">
                                 <label for="lastName">Last name</label>
                                 <div class="invalid-feedback">Please enter last name.</div>
                             </div>
@@ -88,8 +88,8 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="contact" formControlName="contact"
-                                    placeholder="Contact" autocomplete="off">
+                                <input type="text" class="form-control" inputmode="numeric" id="contact" formControlName="contact"
+                                    placeholder="Contact" (input)="onInputChange($event, 'contact')" autocomplete="off">
                                 <label for="contact">Contact</label>
                             </div>
                         </div>
@@ -98,7 +98,7 @@
                             <div class="form-floating">
                                 <textarea class="form-control" id="message" formControlName="message" placeholder="Message"
                                     style="height: 180px"
-                                    [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" autocomplete="off"></textarea>
+                                    [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched" (input)="onInputChange($event, 'message')" autocomplete="off"></textarea>
                                 <label for="message">How can I help you?</label>
                                 <div class="invalid-feedback">Message cannot be empty.</div>
                             </div>

@@ -210,8 +210,7 @@
                     <label for="feedbackName" class="form-label">Name</label>
                     <input id="feedbackName" type="text" class="form-control" formControlName="name"
                         [class.is-invalid]="isControlInvalid('name')" placeholder="Enter your name"
-                        (keypress)="validationService.onlyCharKey($event)"
-                        (input)="validationService.capitalizeFirstLetter($event)" />
+                        (input)="onInputChange($event, 'name')" />
                     <div class="invalid-feedback">Please enter your name.</div>
                 </div>
 
@@ -220,15 +219,14 @@
                         <label for="feedbackCompany" class="form-label">Organization</label>
                         <input id="feedbackCompany" type="text" class="form-control" formControlName="organization"
                             [class.is-invalid]="isControlInvalid('organization')"
-                            placeholder="Enter your organization" (input)="validationService.capitalizeLetter($event)" />
+                            placeholder="Enter your organization" (input)="onInputChange($event, 'organization')" />
                         <div class="invalid-feedback">Please enter organization name.</div>
                     </div>
                     <div class="col-md-6">
                         <label for="feedbackPosition" class="form-label">Designation</label>
                         <input id="feedbackPosition" type="text" class="form-control" formControlName="designation"
                             [class.is-invalid]="isControlInvalid('designation')" placeholder="Enter your designation"
-                            (keypress)="validationService.onlyCharKey($event)"
-                            (input)="validationService.capitalizeFirstLetter($event)" />
+                            (input)="onInputChange($event, 'designation')" />
                         <div class="invalid-feedback">Please enter your designation.</div>
                     </div>
                 </div>
@@ -250,7 +248,7 @@
                 <div class="mb-1">
                     <label for="feedbackMessage" class="form-label">Message</label>
                     <textarea id="feedbackMessage" class="form-control" formControlName="message" rows="4"
-                        [class.is-invalid]="isControlInvalid('message')" placeholder="Describe" (input)="validationService.capitalizeLetter($event)"></textarea>
+                        [class.is-invalid]="isControlInvalid('message')" placeholder="Describe" (input)="onInputChange($event, 'message')"></textarea>
                     <div class="invalid-feedback">Please write your feedback.</div>
                 </div>
 

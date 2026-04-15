@@ -5,6 +5,7 @@ import { AboutMe } from '../../interfaces/about-me';
 import { Constants } from '../../models/constants';
 import { ContactService } from '../../services/contact/contact.service';
 import { EmailService } from '../../services/email/email.service';
+import { ValidationService } from '../../services/validations/validation.service';
 
 @Component({
   selector: 'app-contact',
@@ -23,6 +24,7 @@ export class ContactComponent implements OnInit {
   myInformation: any;
   contactService = inject(ContactService);
   emailService = inject(EmailService);
+  validationService = inject(ValidationService);
 
   ngOnInit(): void {
     this.initForm();
@@ -84,5 +86,31 @@ export class ContactComponent implements OnInit {
         // alert(err.error.message || 'Failed to load contact details');
       }
     });
+  }
+
+  onInputChange(event: any, field: string) {
+    let value = event.target.value;
+
+    switch (field) {
+      case 'firstName':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+        
+      case 'lastName':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'contact':
+        value = this.validationService.onlyNumbers(value);
+        break;
+
+      case 'message':
+        value = this.validationService.capitalizeSentence(value);
+        break;
+    }
+
+    event.target.value = value;
   }
 }
