@@ -54,7 +54,9 @@
                 <div class="card border-0 shadow-sm rounded-5 p-4 m-3 h-100">
                     <div class="d-flex align-items-center mb-3">
                         <div class="avatar me-3">
-                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                            <!-- <i class="bi bi-person-circle fs-1 text-primary"></i> -->
+                            <img [src]="`https://ui-avatars.com/api/?name=${t?.name}&background=random&color=ffffff&rounded=true`" width="40" height="40"
+                                [alt]="`${t?.name} Avatar`">
                         </div>
                         <div class="text-start">
                             <h6 class="mb-0 fw-bold">{{ t?.name }}</h6>
@@ -75,7 +77,9 @@
                 <div class="card border-0 shadow-sm rounded-5 p-4 m-3 h-100">
                     <div class="d-flex align-items-center mb-3">
                         <div class="avatar me-3">
-                            <i class="bi bi-person-circle fs-1 text-primary"></i>
+                            <!-- <i class="bi bi-person-circle fs-1 text-primary"></i> -->
+                            <img [src]="`https://ui-avatars.com/api/?name=${t?.name}&background=random&color=ffffff&rounded=true`" width="40" height="40"
+                                [alt]="`${t?.name} Avatar`">
                         </div>
                         <div class="text-start">
                             <h6 class="mb-0 fw-bold">{{ t?.name }}</h6>
@@ -97,99 +101,14 @@
     <div class="container">
         <div class="row mt-5 pt-5">
             <div class="col-12 text-center">
-                <button type="button" class="btn btn-outline-primary px-4 rounded-pill" data-bs-toggle="modal"
+                <button type="button" class="btn btn-primary px-4 rounded-pill" data-bs-toggle="modal"
                     data-bs-target="#feedbackModal">
-                    Send feedback
+                    Share Your feedback <i class="fa-solid fa-share"></i>
                 </button>
             </div>
         </div>
     </div>
 </section>
-
-<div class="d-none modal fade feedback-modal" id="feedbackModal1" data-bs-backdrop="static" data-bs-keyboard="false"
-    tabindex="-1" aria-labelledby="feedbackModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content rounded-5 border-0 shadow-sm">
-            <div class="modal-header border-0 pb-2">
-                <div>
-                    <h1 class="modal-title fs-4 fw-bold" id="feedbackModalLabel">Share your feedback</h1>
-                    <p class="mb-0 small feedback-subtitle">Your response helps improve experience and trust.</p>
-                </div>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
-                    (click)="feedbackForm.reset({ rating: null })"></button>
-            </div>
-
-            <form [formGroup]="feedbackForm" (ngSubmit)="onFeedbackSubmit()" novalidate autocomplete="off"
-                class="feedback-form">
-                <div class="modal-body">
-                    <div class="mb-3">
-                        <label for="feedbackName" class="form-label">Name</label>
-                        <input id="feedbackName" type="text" class="form-control" formControlName="name"
-                            [class.is-invalid]="isControlInvalid('name')" placeholder="Enter your name" />
-                        <div class="invalid-feedback">Please enter your name.</div>
-                    </div>
-
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label for="feedbackCompany" class="form-label">Organization</label>
-                            <input id="feedbackCompany" type="text" class="form-control" formControlName="organization"
-                                [class.is-invalid]="isControlInvalid('organization')"
-                                placeholder="Enter your organization name" />
-                            <div class="invalid-feedback">Please enter organization name.</div>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="feedbackPosition" class="form-label">Designation</label>
-                            <input id="feedbackPosition" type="text" class="form-control" formControlName="designation"
-                                [class.is-invalid]="isControlInvalid('designation')"
-                                placeholder="Enter your designation" />
-                            <div class="invalid-feedback">Please enter your designation.</div>
-                        </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="feedbackRating" class="form-label">Rating</label>
-                        <select id="feedbackRating" class="form-select" formControlName="rating"
-                            [class.is-invalid]="isControlInvalid('rating')">
-                            <option [ngValue]="null">--Select Rating--</option>
-                            <option [ngValue]="5">5 - Excellent</option>
-                            <option [ngValue]="4">4 - Very good</option>
-                            <option [ngValue]="3">3 - Good</option>
-                            <option [ngValue]="2">2 - Fair</option>
-                            <option [ngValue]="1">1 - Poor</option>
-                        </select>
-                        <div class="invalid-feedback">Please select a rating.</div>
-                    </div>
-
-                    <div class="mb-1">
-                        <label for="feedbackMessage" class="form-label">Message</label>
-                        <textarea id="feedbackMessage" class="form-control" formControlName="message" rows="4"
-                            [class.is-invalid]="isControlInvalid('message')" placeholder="Describe"></textarea>
-                        <div class="invalid-feedback">Please write your feedback.</div>
-                    </div>
-
-                    @if (submitError()) {
-                    <div class="alert alert-danger mt-3 mb-0">{{ submitError() }}</div>
-                    }
-                </div>
-
-                <div class="modal-footer border-0 pt-0">
-                    <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal"
-                        (click)="feedbackForm.reset({ rating: null })">
-                        Close
-                    </button>
-                    <button type="submit" class="btn btn-primary px-4" [disabled]="isSubmitting()">
-                        @if (!isSubmitting()) {
-                        <span>Submit feedback</span>
-                        } @else {
-                        <span class="spinner-border spinner-border-sm me-2"></span>
-                        <span>Submitting...</span>
-                        }
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <!-- Modal -->
 <div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
