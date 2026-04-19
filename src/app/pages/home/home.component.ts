@@ -1,12 +1,11 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import * as AOS from 'aos';
 import { TestimonialsComponent } from '../../components/testimonials/testimonials.component';
 import { CtaComponent } from '../../components/cta/cta.component';
 import { RouterLink } from '@angular/router';
-import { AboutMe } from '../../interfaces/about-me';
-import { Constants } from '../../models/constants';
 import { ContactService } from '../../services/contact/contact.service';
+import { ProjectsService } from '../../services/projects/projects.service';
+import { forkJoin } from 'rxjs';
 declare var $: any;
 
 @Component({
@@ -22,19 +21,19 @@ export class HomeComponent implements OnInit {
   private roleIndex = 0;
   private charIndex = 0;
   private isDeleting = false;
-  // myInformation: AboutMe = Constants.ABOUT_ME;
   myInformation: any;
+  projectsCount: number = 0;
   contactService = inject(ContactService);
+  projectService = inject(ProjectsService);
 
   ngOnInit() {
-    // AOS.init({ duration: 1000, once: true });
     this.type();
-    this.getContactDetails();
+    this.loadDashboardData();
   }
 
   type() {
     const currentRole = this.roles[this.roleIndex];
-    
+
     if (this.isDeleting) {
       this.displayText.set(currentRole.substring(0, this.charIndex - 1));
       this.charIndex--;
@@ -75,16 +74,29 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  getContactDetails(): void {
-    this.contactService.getContact().subscribe({
-      next: (res: any) => {
-        if (res?.success && res?.contact) {
-          this.myInformation = res.contact;
+  loadDashboardData(): void {
+    forkJoin({
+      contactRes: this.contactService.getContact(),
+      projectRes: this.projectService.getProjects()
+    }).subscribe({
+      next: ({ contactRes, projectRes }: any) => {
+
+        // Contact Data
+        if (contactRes?.success && contactRes?.contact) {
+          this.myInformation = contactRes.contact;
         }
+
+        // Project Data
+        if (projectRes?.success && projectRes?.projects) {
+          this.projectsCount = projectRes?.count || 0;
+        }
+
       },
       error: (err: any) => {
-        // alert(err.error.message || 'Failed to load contact details');
+        // Handle common error
+        console.error(err?.error?.message || 'Failed to load dashboard data');
       }
     });
   }
+
 }
