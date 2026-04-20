@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { ContactService } from '../../services/contact/contact.service';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { forkJoin } from 'rxjs';
+import { ExperienceService } from '../../services/experience/experience.service';
 declare var $: any;
 
 @Component({
@@ -23,8 +24,10 @@ export class HomeComponent implements OnInit {
   private isDeleting = false;
   myInformation: any;
   projectsCount: number = 0;
+  totalExperience: number = 0;
   contactService = inject(ContactService);
   projectService = inject(ProjectsService);
+  experienceService = inject(ExperienceService);
 
   ngOnInit() {
     this.type();
@@ -77,9 +80,10 @@ export class HomeComponent implements OnInit {
   loadDashboardData(): void {
     forkJoin({
       contactRes: this.contactService.getContact(),
-      projectRes: this.projectService.getProjects()
+      projectRes: this.projectService.getProjects(),
+      experienceRes: this.experienceService.getExperience()
     }).subscribe({
-      next: ({ contactRes, projectRes }: any) => {
+      next: ({ contactRes, projectRes, experienceRes }: any) => {
 
         // Contact Data
         if (contactRes?.success && contactRes?.contact) {
@@ -89,6 +93,11 @@ export class HomeComponent implements OnInit {
         // Project Data
         if (projectRes?.success && projectRes?.projects) {
           this.projectsCount = projectRes?.count || 0;
+        }
+
+        // Experience Data
+        if (experienceRes?.success && experienceRes?.experiences) {
+          this.totalExperience = experienceRes?.totalExperience || 0;
         }
 
       },
