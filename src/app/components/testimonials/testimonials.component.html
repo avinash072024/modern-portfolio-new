@@ -1,0 +1,210 @@
+<section class="testimonials-section py-5 overflow-hidden" aria-label="Client testimonials">
+    <div class="section-glow" aria-hidden="true"></div>
+
+    <div class="container position-relative">
+        <header class="testimonials-header text-center mb-5" data-aos="fade-up">
+            <span class="badge rounded-pill testimonials-badge text-uppercase px-3 py-2 mb-3">
+                Testimonials
+            </span>
+            <h2 class="display-5 fw-bold mb-3">
+                What <span class="text-primary">Clients Say</span>
+            </h2>
+            <p class="testimonials-subtitle text-secondary mx-auto mb-0">
+                Real feedback from people — building trust through shared experiences.
+            </p>
+        </header>
+    </div>
+
+    @if (isLoading()) {
+    <div class="testimonials-marquee testimonials-marquee--loading" aria-busy="true" aria-label="Loading testimonials">
+        <div class="testimonial-track no-animation skeleton-track">
+            @for (item of [0, 1, 2, 3]; track item) {
+            <div class="testimonial-slide skeleton-slide skeleton-slide-{{item + 1}}">
+                <article class="testimonial-card skeleton-card">
+                    <div class="testimonial-card__quote skeleton-line short" aria-hidden="true"></div>
+                    <div class="testimonial-card__body">
+                        <div class="skeleton-line mb-2"></div>
+                        <div class="skeleton-line mb-2"></div>
+                        <div class="skeleton-line w-75 mb-4"></div>
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="skeleton-avatar"></div>
+                            <div class="flex-grow-1">
+                                <div class="skeleton-line short mb-2"></div>
+                                <div class="skeleton-line extra-short"></div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            }
+        </div>
+    </div>
+    } @else if (testimonials.length > 0) {
+    <div class="testimonials-marquee" [style.--slide-count]="testimonials.length">
+        <div class="testimonials-fade testimonials-fade--left" aria-hidden="true"></div>
+        <div class="testimonials-fade testimonials-fade--right" aria-hidden="true"></div>
+
+        <div class="testimonial-track" [class.no-animation]="testimonials.length < 2"
+            [class.testimonial-track--centered]="testimonials.length === 1">
+            @for (item of marqueeItems; track item.key) {
+            <div class="testimonial-slide">
+                <article class="testimonial-card">
+                    <div class="testimonial-card__glow" aria-hidden="true"></div>
+                    <!-- <i class="bi bi-quote testimonial-card__quote" aria-hidden="true"></i> -->
+
+                    <div class="testimonial-card__body">
+                        <p class="testimonial-card__message mb-0">{{ item.testimonial.message }}</p>
+
+                        <div class="testimonial-card__footer">
+                            <div class="testimonial-author">
+                                <img class="testimonial-author__avatar" [src]="getAvatarUrl(item.testimonial.name)"
+                                    width="48" height="48" [alt]="item.testimonial.name + ' avatar'" loading="lazy" />
+                                <div class="testimonial-author__info">
+                                    <h6 class="testimonial-author__name mb-0">{{ item.testimonial.name }}</h6>
+                                    <small class="testimonial-author__role">
+                                        {{ item.testimonial.designation }}, {{ item.testimonial.organization }}
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="testimonial-rating"
+                                [attr.aria-label]="item.testimonial.rating + ' out of 5 stars'">
+                                @for (filled of getStars(item.testimonial.rating || 0); track $index) {
+                                <i class="bi testimonial-rating__star"
+                                    [class.bi-star-fill]="filled"
+                                    [class.bi-star]="!filled"
+                                    [class.is-filled]="filled"
+                                    aria-hidden="true"></i>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            }
+        </div>
+    </div>
+    } @else {
+    <div class="container">
+        <div class="testimonials-empty text-center" data-aos="fade-up">
+            <div class="testimonials-empty__icon" aria-hidden="true">
+                <i class="bi bi-chat-heart"></i>
+            </div>
+            <p class="testimonials-empty__text mb-0">
+                No testimonials yet. Be the first to share your experience!
+            </p>
+        </div>
+    </div>
+    }
+
+    <div class="container testimonials-cta-wrap">
+        <div class="text-center mt-5 pt-3" data-aos="fade-up">
+            <button type="button" class="btn-feedback" data-bs-toggle="modal" data-bs-target="#feedbackModal">
+                <span class="btn-feedback__label">Share Your Feedback</span>
+                <span class="btn-feedback__icon" aria-hidden="true">
+                    <i class="bi bi-send-fill"></i>
+                </span>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal fade" id="feedbackModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+    aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <form class="modal-content rounded-5 shadow" [formGroup]="feedbackForm" (ngSubmit)="onFeedbackSubmit()"
+            novalidate autocomplete="off">
+            <div class="modal-header">
+                <div class="modal-header__content">
+                    <h1 class="modal-title fs-4 fw-bold" id="feedbackModalLabel">Share your feedback</h1>
+                    <p class="mb-0 small feedback-subtitle">Your response helps improve experience and trust.</p>
+                </div>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                    (click)="resetFeedbackForm()"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <label for="feedbackName" class="form-label">Name</label>
+                    <input id="feedbackName" type="text" class="form-control" formControlName="name"
+                        [class.is-invalid]="isControlInvalid('name')" placeholder="Enter your name"
+                        (input)="onInputChange($event, 'name')" />
+                    <div class="invalid-feedback">Please enter your name.</div>
+                </div>
+
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="feedbackCompany" class="form-label">Organization</label>
+                        <input id="feedbackCompany" type="text" class="form-control" formControlName="organization"
+                            [class.is-invalid]="isControlInvalid('organization')"
+                            placeholder="Enter your organization" (input)="onInputChange($event, 'organization')" />
+                        <div class="invalid-feedback">Please enter organization name.</div>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="feedbackPosition" class="form-label">Designation</label>
+                        <input id="feedbackPosition" type="text" class="form-control" formControlName="designation"
+                            [class.is-invalid]="isControlInvalid('designation')" placeholder="Enter your designation"
+                            (input)="onInputChange($event, 'designation')" />
+                        <div class="invalid-feedback">Please enter your designation.</div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="feedbackRating" class="form-label">Rating</label>
+                    <select id="feedbackRating" class="form-select" formControlName="rating"
+                        [class.is-invalid]="isControlInvalid('rating')">
+                        <option [ngValue]="null">-- Select Rating --</option>
+                        <option [ngValue]="5">5 - Excellent</option>
+                        <option [ngValue]="4">4 - Very good</option>
+                        <option [ngValue]="3">3 - Good</option>
+                        <option [ngValue]="2">2 - Fair</option>
+                        <option [ngValue]="1">1 - Poor</option>
+                    </select>
+                    <div class="invalid-feedback">Please select a rating.</div>
+                </div>
+
+                <div class="mb-1">
+                    <label for="feedbackMessage" class="form-label">Message</label>
+                    <textarea id="feedbackMessage" class="form-control" formControlName="message" rows="4"
+                        [class.is-invalid]="isControlInvalid('message')" placeholder="Describe your experience"
+                        (input)="onInputChange($event, 'message')"></textarea>
+                    <div class="invalid-feedback">Please write your feedback.</div>
+                </div>
+
+                @if (submitError()) {
+                <div class="alert alert-danger mt-3 mb-0">{{ submitError() }}</div>
+                }
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light border px-4" data-bs-dismiss="modal"
+                    (click)="resetFeedbackForm()">
+                    Close
+                </button>
+                <button type="submit" class="btn btn-primary px-4" [disabled]="isSubmitting()">
+                    @if (!isSubmitting()) {
+                    <span>Submit feedback</span>
+                    } @else {
+                    <span class="spinner-border spinner-border-sm me-2"></span>
+                    <span>Submitting...</span>
+                    }
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@if (showToast()) {
+<div class="position-fixed bottom-0 end-0 p-3 feedback-toast-wrapper" role="status" aria-live="polite">
+    <div class="toast show border-0 shadow-lg">
+        <div class="toast-header bg-primary text-white border-0">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <strong class="me-auto">Success</strong>
+            <button type="button" class="btn-close btn-close-white ms-2 mb-1" aria-label="Close"
+                (click)="closeToast()"></button>
+        </div>
+        <div class="toast-body py-3">
+            {{ toastMessage() }}
+        </div>
+    </div>
+</div>
+}

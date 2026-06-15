@@ -1,0 +1,30 @@
+<section class="cta-section" aria-label="Call to action">
+    <div class="container py-5 my-4 my-lg-5" data-aos="fade-up">
+        <div class="cta-banner">
+            <div class="cta-orb cta-orb--1" aria-hidden="true"></div>
+            <div class="cta-orb cta-orb--2" aria-hidden="true"></div>
+            <div class="cta-orb cta-orb--3" aria-hidden="true"></div>
+            <div class="cta-grid" aria-hidden="true"></div>
+            <div class="cta-shine" aria-hidden="true"></div>
+
+            <div class="cta-inner">
+                <div class="cta-content text-center text-md-start">
+                    <div class="cta-icon-wrap d-md-none" aria-hidden="true">
+                        <i class="bi bi-stars"></i>
+                    </div>
+                    <h2 class="cta-title">{{ title }}</h2>
+                    <p class="cta-subtitle mb-0">{{ subtitle }}</p>
+                </div>
+
+                <div class="cta-action">
+                    <a [routerLink]="buttonLink" class="btn-cta">
+                        <span class="btn-cta__label">{{ buttonText }}</span>
+                        <span class="btn-cta__icon" aria-hidden="true">
+                            <i class="bi bi-arrow-right"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
