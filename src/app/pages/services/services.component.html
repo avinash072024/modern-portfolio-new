@@ -1,75 +1,72 @@
-<section class="services-section py-5 mt-5 overflow-hidden">
+<section class="services-section pt-5 mt-5 overflow-hidden">
     <div class="glow-bg"></div>
     <div class="section-glow" aria-hidden="true"></div>
 
-    <div class="container pt-5">
+    <div class="container mt-5">
         <div class="text-center mb-5" data-aos="fade-up">
-            <span class="badge rounded-pill bg-primary-subtle text-primary px-3 py-2 mb-3">MY SPECIALIZED NICHES</span>
-            <h2 class="display-4 fw-bold">Solutions I <span class="text-primary">Provide.</span></h2>
-            <p class="text-secondary mx-auto" style="max-width: 600px;">
+            <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3">MY SPECIALIZED NICHES</span>
+            <h2 class="display-4 fw-bold mb-3">Solutions I <span class="text-primary">Provide</span></h2>
+            <p class="text-secondary mx-auto fs-5" style="max-width: 650px;">
                 Blending technical excellence with creative design to build digital products that perform as good as
                 they look.
             </p>
         </div>
 
-        <div class="row g-4 mt-2 d-none">
-            @for (service of services; track service?._id; let i = $index) {
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="i * 100">
-                <div class="service-card glass-card h-100 p-4">
-                    <div class="icon-box mb-4">
-                        <i [class]="service?.icon" class="text-primary display-5"></i>
-                    </div>
-                    <h3 class="fw-bold h4 mb-3">{{service?.title}}</h3>
-                    <p class="text-secondary mb-4">
-                        {{service?.description}}
-                    </p>
-                    <ul class="list-unstyled service-list mb-0">
-                        @for (feature of service?.features; track feature) {
-                        <li><i class="bi bi-check-circle-fill text-primary"></i> {{ feature }}</li>
-                        }
-                    </ul>
-                </div>
-            </div>
-            }
-        </div>
-
         <div class="row g-4 mt-2">
             @if (isLoading()) {
-            @for (i of [1, 2, 3]; track i) {
-            <div class="col-lg-4 col-md-6">
-                <div class="service-card glass-card h-100 p-4 skeleton-card">
-                    <div class="icon-box-skeleton mb-4"></div>
-                    <div class="skeleton-line title mb-3"></div>
-                    <div class="skeleton-line text mb-2"></div>
-                    <div class="skeleton-line text mb-4 w-75"></div>
+                @for (i of [1, 2, 3]; track i) {
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-card glass-card skeleton-card h-100 p-4">
+                        <div class="service-card-inner">
+                            <div class="card-header-wrapper d-flex justify-content-between align-items-start mb-4">
+                                <div class="skeleton-icon"></div>
+                                <div class="skeleton-number"></div>
+                            </div>
+                            <div class="skeleton-line title mb-3"></div>
+                            <div class="skeleton-separator mb-3"></div>
+                            <div class="skeleton-line text mb-2"></div>
+                            <div class="skeleton-line text mb-4 w-75"></div>
 
-                    <div class="skeleton-list">
-                        <div class="skeleton-line small mb-2"></div>
-                        <div class="skeleton-line small mb-2"></div>
-                        <div class="skeleton-line small w-50"></div>
+                            <div class="skeleton-list">
+                                <div class="skeleton-list-item mb-2"></div>
+                                <div class="skeleton-list-item mb-2"></div>
+                                <div class="skeleton-list-item w-50"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            }
+                }
             } @else {
-            @for (service of services; track service?._id; let i = $index) {
-            <div class="col-lg-4 col-md-6" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
-                <div class="service-card glass-card h-100 p-4">
-                    <div class="icon-box mb-4">
-                        <i [class]="service?.icon" class="text-primary display-5"></i>
+                @for (service of services; track service?._id; let i = $index) {
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+                    <div class="service-card glass-card h-100 p-4">
+                        <div class="service-card-inner">
+                            <div class="card-header-wrapper d-flex justify-content-between align-items-start mb-4">
+                                <div class="icon-box-wrapper">
+                                    <div class="icon-glow"></div>
+                                    <i [class]="service?.icon" class="text-primary display-5"></i>
+                                </div>
+                                <span class="service-number">0{{ i + 1 }}</span>
+                            </div>
+                            <h3 class="fw-bold h4 mb-3 service-title">{{service?.title}}</h3>
+                            <div class="title-separator mb-3"></div>
+                            <p class="text-secondary mb-4 service-description">
+                                {{service?.description}}
+                            </p>
+                            <ul class="list-unstyled service-list mb-0">
+                                @for (feature of service?.features; track feature) {
+                                <li class="d-flex align-items-start gap-2 mb-3">
+                                    <span class="list-dot-wrapper">
+                                        <i class="bi bi-check-lg list-check-icon text-primary"></i>
+                                    </span>
+                                    <span class="feature-text text-secondary">{{ feature }}</span>
+                                </li>
+                                }
+                            </ul>
+                        </div>
                     </div>
-                    <h3 class="fw-bold h4 mb-3">{{service?.title}}</h3>
-                    <p class="text-secondary mb-4">
-                        {{service?.description}}
-                    </p>
-                    <ul class="list-unstyled service-list mb-0">
-                        @for (feature of service?.features; track feature) {
-                        <li><i class="bi bi-check-circle-fill text-primary"></i> {{ feature }}</li>
-                        }
-                    </ul>
                 </div>
-            </div>
-            }
+                }
             }
         </div>
     </div>

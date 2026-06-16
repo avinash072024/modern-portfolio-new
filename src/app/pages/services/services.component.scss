@@ -1,14 +1,15 @@
 .services-section {
-    background-color: var(--bs-body-bg);
-    min-height: 100vh;
-    position: initial;
+    // min-height: 100vh;
+    // position: relative;
+    // background-color: var(--bs-body-bg);
 
     .glass-card {
-        background: rgba(var(--bs-body-bg-rgb), 0.6);
-        backdrop-filter: blur(12px) saturate(180%);
-        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.1);
-        border-radius: 30px;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        background: rgba(var(--bs-emphasis-color-rgb), 0.02);
+        backdrop-filter: blur(20px) saturate(180%);
+        -webkit-backdrop-filter: blur(20px) saturate(180%);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.06);
+        border-radius: 24px;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         position: relative;
         overflow: hidden;
 
@@ -17,97 +18,225 @@
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.1) 0%, transparent 100%);
+            right: 0;
+            bottom: 0;
+            border-radius: 24px;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.04) 0%, transparent 100%);
             opacity: 0;
-            transition: opacity 0.4s;
+            transition: opacity 0.4s ease;
+            z-index: 0;
         }
 
+        .service-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header layout */
+        .card-header-wrapper {
+            position: relative;
+        }
+
+        /* Icon wrapper with glow */
+        .icon-box-wrapper {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(var(--bs-emphasis-color-rgb), 0.04);
+            border-radius: 18px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            .icon-glow {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 18px;
+                background-color: var(--primary-color);
+                filter: blur(12px);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                z-index: -1;
+            }
+
+            i {
+                font-size: 1.8rem;
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+        }
+
+        /* Large card number indicator */
+        .service-number {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: rgba(var(--bs-emphasis-color-rgb), 0.15);
+            font-family: 'Inter', sans-serif;
+            transition: color 0.4s ease;
+        }
+
+        /* Title & Separator */
+        .service-title {
+            color: var(--bs-emphasis-color);
+            letter-spacing: -0.3px;
+        }
+
+        .title-separator {
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 2px;
+            transition: width 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .service-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* Feature list items */
+        .service-list {
+            .list-dot-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 20px;
+                height: 20px;
+                background: rgba(var(--primary-rgb), 0.1);
+                border-radius: 50%;
+                flex-shrink: 0;
+                margin-top: 2px;
+                transition: all 0.3s ease;
+            }
+
+            .list-check-icon {
+                font-size: 0.75rem;
+                font-weight: bold;
+                transition: transform 0.3s ease;
+            }
+
+            .feature-text {
+                font-size: 0.92rem;
+                line-height: 1.4;
+            }
+
+            li:hover {
+                .list-dot-wrapper {
+                    background: var(--primary-color);
+                    .list-check-icon {
+                        color: #fff !important;
+                        transform: scale(1.1);
+                    }
+                }
+            }
+        }
+
+        /* Hover interaction */
         &:hover {
-            transform: translateY(-10px);
-            border-color: rgba(var(--primary-rgb), 0.5);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transform: translateY(-8px);
+            border-color: rgba(var(--primary-rgb), 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 
+                        0 0 25px rgba(var(--primary-rgb), 0.12);
 
             &::before {
                 opacity: 1;
             }
 
-            .icon-box i {
-                transform: scale(1.1) rotate(-5deg);
+            .icon-box-wrapper {
+                background: rgba(255, 255, 255, 0.9);
+                transform: scale(1.08) rotate(3deg);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+
+                .icon-glow {
+                    opacity: 0.3;
+                }
+
+                i {
+                    transform: scale(1.1);
+                }
+            }
+
+            .service-number {
+                color: rgba(var(--primary-rgb), 0.6);
+            }
+
+            .title-separator {
+                width: 80px;
             }
         }
-    }
-
-    .icon-box i {
-        display: inline-block;
-        transition: transform 0.4s ease;
-    }
-
-    .service-list li {
-        font-size: 0.95rem;
-        margin-bottom: 12px;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        color: var(--bs-secondary-color);
     }
 
     // Modern pill badge override
     .bg-primary-subtle {
         background-color: rgba(var(--primary-rgb), 0.1) !important;
+        border: 1px solid rgba(var(--primary-rgb), 0.15);
     }
 }
 
 // Dark Mode Specific Enhancements
-[data-bs-theme="dark"] .services-section {
-    .glass-card {
-        background: rgba(20, 20, 20, 0.4);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-}
-
-@media screen and (max-width: 768px) {
+[data-bs-theme="dark"] {
     .services-section {
-        position: relative;
+        .glass-card {
+            background: rgba(255, 255, 255, 0.015);
+            border-color: rgba(255, 255, 255, 0.05);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.03);
+                border-color: rgba(var(--primary-rgb), 0.4);
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 
+                            0 0 30px rgba(var(--primary-rgb), 0.18);
+
+                .icon-box-wrapper {
+                    background: #1e2124;
+                }
+            }
+        }
     }
 }
 
-// skeleton loader styles
-// Reuse or define the shimmer keyframes
+// Shimmer Animation for Skeletons
 @keyframes shimmer {
     0% {
         background-position: -450px 0;
     }
-
     100% {
         background-position: 450px 0;
     }
 }
 
+// Skeleton loading styles
 .services-section {
-    // ... your existing styles ...
-
     .skeleton-card {
         pointer-events: none;
 
-        // Base skeleton style
+        .skeleton-icon,
+        .skeleton-number,
         .skeleton-line,
-        .icon-box-skeleton {
-            background: rgba(var(--bs-emphasis-color-rgb), 0.08);
+        .skeleton-separator,
+        .skeleton-list-item {
+            background: rgba(var(--bs-emphasis-color-rgb), 0.06);
             background-image: linear-gradient(90deg,
-                    rgba(var(--bs-emphasis-color-rgb), 0.08) 0px,
-                    rgba(var(--bs-emphasis-color-rgb), 0.15) 40px,
-                    rgba(var(--bs-emphasis-color-rgb), 0.08) 80px);
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                    rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
             background-size: 900px 100%;
             animation: shimmer 2s infinite linear;
-            border-radius: 6px;
+            border-radius: 4px;
         }
 
-        .icon-box-skeleton {
+        .skeleton-icon {
             width: 60px;
             height: 60px;
-            border-radius: 15px;
+            border-radius: 18px;
+        }
+
+        .skeleton-number {
+            width: 30px;
+            height: 24px;
+            border-radius: 4px;
         }
 
         .skeleton-line {
@@ -116,34 +245,51 @@
             &.title {
                 height: 24px;
                 width: 70%;
+                border-radius: 6px;
             }
 
             &.text {
                 width: 100%;
             }
+        }
 
-            &.small {
-                height: 10px;
-                width: 60%;
-            }
+        .skeleton-separator {
+            width: 40px;
+            height: 3px;
+            border-radius: 2px;
         }
 
         .skeleton-list {
             margin-top: 1rem;
             padding-left: 0;
+
+            .skeleton-list-item {
+                height: 12px;
+                width: 100%;
+                margin-bottom: 12px;
+                border-radius: 4px;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
         }
     }
 }
 
-// Dark Mode Tweak for Skeleton
-[data-bs-theme="dark"] .services-section .skeleton-card {
-
-    .skeleton-line,
-    .icon-box-skeleton {
-        background: rgba(255, 255, 255, 0.05);
-        background-image: linear-gradient(90deg,
-                rgba(255, 255, 255, 0.05) 0px,
-                rgba(255, 255, 255, 0.1) 40px,
-                rgba(255, 255, 255, 0.05) 80px);
+// Dark Mode Specific adjustments for Skeleton
+[data-bs-theme="dark"] .services-section {
+    .skeleton-card {
+        .skeleton-icon,
+        .skeleton-number,
+        .skeleton-line,
+        .skeleton-separator,
+        .skeleton-list-item {
+            background: rgba(255, 255, 255, 0.04);
+            background-image: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.04) 0px,
+                    rgba(255, 255, 255, 0.09) 40px,
+                    rgba(255, 255, 255, 0.04) 80px);
+        }
     }
 }

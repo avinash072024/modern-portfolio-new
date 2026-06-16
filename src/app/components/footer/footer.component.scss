@@ -1,120 +1,507 @@
+// .footer-section {
+//     position: relative;
+//     --border-opacity-color: rgba(var(--primary-rgb, 13, 110, 253), 0.15);
+
+//     .relative-front {
+//         position: relative;
+//         z-index: 2;
+//     }
+
+//     // Interactive ambient background glows
+//     .footer-glow-1 {
+//         top: -10%;
+//         left: -5%;
+//         width: 300px;
+//         height: 300px;
+//         background: radial-gradient(circle, rgba(var(--primary-rgb, 13, 110, 253), 0.12) 0%, transparent 70%);
+//         filter: blur(40px);
+//     }
+
+//     .footer-glow-2 {
+//         bottom: -10%;
+//         right: -5%;
+//         width: 250px;
+//         height: 250px;
+//         background: radial-gradient(circle, rgba(var(--primary-rgb, 13, 110, 253), 0.08) 0%, transparent 70%);
+//         filter: blur(40px);
+//     }
+
+//     .footer-brand {
+//         font-size: 1.85rem;
+//         color: var(--bs-heading-color, var(--bs-emphasis-color));
+//         letter-spacing: -0.75px;
+//         font-weight: 800;
+
+//         .brand-dot {
+//             color: var(--primary-color, #0d6efd);
+//         }
+//     }
+
+//     .footer-heading {
+//         letter-spacing: 0.12rem;
+//         font-size: 0.8rem;
+//         color: var(--bs-heading-color, var(--bs-emphasis-color));
+//         position: relative;
+//     }
+
+//     // Modern Social System
+//     .social-item {
+//         width: 44px;
+//         height: 44px;
+//         display: flex;
+//         align-items: center;
+//         justify-content: center;
+//         border-radius: 12px;
+//         background: color-mix(in srgb, var(--bs-body-bg) 80%, var(--primary-color, #0d6efd) 20%);
+//         color: var(--primary-color, #0d6efd);
+//         transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+//         border: 1px solid var(--border-opacity-color);
+
+//         &:hover {
+//             background: var(--primary-color, #0d6efd);
+//             color: #fff;
+//             transform: translateY(-6px);
+//             box-shadow: 0 12px 20px rgba(var(--primary-rgb, 13, 110, 253), 0.25);
+//         }
+//     }
+
+//     // Clean Animated Navigation Link System
+//     .footer-links li {
+//         margin-bottom: 0.85rem;
+
+//         a {
+//             text-decoration: none;
+//             color: var(--bs-secondary-color);
+//             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+//             display: inline-flex;
+//             align-items: center;
+
+//             .link-arrow {
+//                 font-size: 0.65rem;
+//                 margin-right: 0px;
+//                 opacity: 0;
+//                 width: 0px;
+//                 transition: all 0.3s ease;
+//                 color: var(--primary-color, #0d6efd);
+//             }
+
+//             &:hover {
+//                 color: var(--bs-heading-color, var(--bs-emphasis-color));
+
+//                 .link-arrow {
+//                     opacity: 1;
+//                     width: 12px;
+//                     margin-right: 6px;
+//                 }
+//             }
+//         }
+//     }
+
+//     // Interactive Focus Area Badges
+//     .footer-tags .badge.border-style {
+//         background: color-mix(in srgb, var(--bs-body-bg) 95%, #fff 5%);
+//         border: 1px solid var(--bs-border-color) !important;
+//         color: var(--bs-secondary-color);
+//         font-weight: 500;
+//         border-radius: 10px;
+//         transition: all 0.25s ease;
+
+//         &:hover {
+//             border-color: var(--primary-color, #0d6efd) !important;
+//             color: var(--primary-color, #0d6efd) !important;
+//             background: rgba(var(--primary-rgb, 13, 110, 253), 0.05);
+//             transform: scale(1.03);
+//         }
+//     }
+
+//     // Modern Contact Action Box
+//     .contact-box {
+//         border-color: var(--bs-border-color) !important;
+//         backdrop-filter: blur(8px);
+
+//         .btn-action {
+//             font-weight: 600;
+//             border-radius: 12px;
+//             font-size: 0.95rem;
+//             transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+//             border: 1px solid transparent;
+
+//             &.btn-email {
+//                 background: var(--primary-color, #0d6efd);
+//                 color: #fff;
+
+//                 &:hover {
+//                     background: color-mix(in srgb, var(--primary-color, #0d6efd) 85%, #000 15%);
+//                     transform: translateY(-2px);
+//                     box-shadow: 0 6px 15px rgba(var(--primary-rgb, 13, 110, 253), 0.2);
+//                 }
+//             }
+
+//             &.btn-phone {
+//                 background: transparent;
+//                 border-color: var(--bs-border-color);
+//                 color: var(--bs-body-color);
+
+//                 &:hover {
+//                     background: rgba(var(--bs-heading-color, #fff), 0.05);
+//                     border-color: var(--bs-heading-color);
+//                     transform: translateY(-2px);
+//                 }
+//             }
+//         }
+//     }
+
+//     // Visual Accents
+//     .heart-pulse {
+//         // color: #ff3366;
+//         animation: heartBeat 1.4s infinite;
+//     }
+
+//     .visitor-counter {
+//         background: rgba(var(--primary-rgb, 13, 110, 253), 0.06);
+//         padding: 4px 12px;
+//         border-radius: 30px;
+//         border: 1px solid var(--border-opacity-color);
+
+//         .pulse-indicator {
+//             width: 6px;
+//             height: 6px;
+//             // background-color: #2ec4b6;
+//             border-radius: 50%;
+//             display: inline-block;
+//             box-shadow: 0 0 0 rgba(46, 196, 182, 0.4);
+//             animation: pulseGlow 2s infinite;
+//         }
+//     }
+// }
+
+// // Seamless Theme Refinement Fallbacks
+// [data-bs-theme="dark"] .footer-section {
+//     background-color: color-mix(in srgb, var(--bs-body-tertiary-bg), #000 25%) !important;
+
+//     .contact-box {
+//         background-color: color-mix(in srgb, var(--bs-body-bg), #000 10%) !important;
+//     }
+// }
+
+// // Media Query Logic Fixes for Clean Mobile Alignment
+// @media (max-width: 767.98px) {
+//     .footer-section {
+//         text-align: center;
+
+//         .social-grid,
+//         .footer-tags,
+//         .visitor-counter {
+//             justify-content: center;
+//         }
+
+//         .footer-links li a {
+//             justify-content: center;
+
+//             &:hover {
+//                 transform: translateY(-2px);
+//             }
+
+//             .link-arrow {
+//                 display: none; // Avoid layout shifting on smaller mobile blocks
+//             }
+//         }
+//     }
+// }
+
+// // Premium Skeleton Animations
+// .skeleton-text {
+//     display: inline-block;
+//     min-width: 45px;
+//     height: 14px;
+//     background: linear-gradient(90deg,
+//             rgba(var(--primary-rgb, 13, 110, 253), 0.08) 25%,
+//             rgba(var(--primary-rgb, 13, 110, 253), 0.22) 50%,
+//             rgba(var(--primary-rgb, 13, 110, 253), 0.08) 75);
+//     background-size: 200% 100%;
+//     animation: shimmer 1.6s ease-in-out infinite;
+//     border-radius: 4px;
+//     vertical-align: middle;
+// }
+
+// @keyframes shimmer {
+//     0% {
+//         background-position: 200% 0;
+//     }
+
+//     100% {
+//         background-position: -200% 0;
+//     }
+// }
+
+// @keyframes heartBeat {
+
+//     0%,
+//     100% {
+//         transform: scale(1);
+//     }
+
+//     30% {
+//         transform: scale(1.18);
+//     }
+
+//     60% {
+//         transform: scale(0.92);
+//     }
+// }
+
+// @keyframes pulseGlow {
+//     0% {
+//         transform: scale(0.95);
+//         box-shadow: 0 0 0 0 rgba(46, 196, 182, 0.7);
+//     }
+
+//     70% {
+//         transform: scale(1);
+//         box-shadow: 0 0 0 6px rgba(46, 196, 182, 0);
+//     }
+
+//     100% {
+//         transform: scale(0.95);
+//         box-shadow: 0 0 0 0 rgba(46, 196, 182, 0);
+//     }
+// }
+
+
 .footer-section {
-    // background-color: var(--bs-body-bg);
+    background-color: var(--bs-body-bg);
     position: relative;
     overflow: hidden;
 
-    .footer-brand {
-        font-size: 1.75rem;
-        text-decoration: none;
-        color: var(--bs-emphasis-color);
-        letter-spacing: -0.5px;
+    // Subtle decorative glowing background blur spots
+    .footer-glow {
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0) 70%);
+        filter: blur(40px);
+        z-index: 0;
+        pointer-events: none;
     }
 
-    // Social Buttons
+    .glow-1 {
+        top: -50px;
+        left: -50px;
+    }
+
+    .glow-2 {
+        bottom: -50px;
+        right: -50px;
+    }
+
+    .footer-brand {
+        // font-size: 1.85rem;
+        // text-decoration: none;
+        // color: var(--bs-emphasis-color);
+        // letter-spacing: -0.8px;
+        // transition: color 0.3s ease;
+        font-size: 1.85rem;
+        color: var(--bs-heading-color, var(--bs-emphasis-color));
+        letter-spacing: -0.75px;
+        font-weight: 700;
+    }
+
+    .footer-heading {
+        letter-spacing: 0.12rem;
+        font-size: 0.8rem;
+        color: var(--bs-emphasis-color);
+        opacity: 0.85;
+    }
+
+    // Social Media Buttons Upgrade
     .social-item {
-        width: 42px;
-        height: 42px;
+        width: 44px;
+        height: 44px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 10px;
-        background: rgba(var(--primary-rgb), 0.1);
-        color: var(--primary-color);
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bs-body-bg), var(--primary-color) 6%);
+        color: var(--bs-secondary-color);
         text-decoration: none;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        border: 1px solid rgba(var(--primary-rgb), 0.05);
+        border: 1px solid rgba(var(--primary-rgb), 0.12);
+
+        i {
+            font-size: 1.15rem;
+        }
 
         &:hover {
             background: var(--primary-color);
             color: #fff;
-            transform: translateY(-5px) rotate(10deg);
-            box-shadow: 0 10px 20px rgba(var(--primary-rgb), 0.3);
+            transform: translateY(-6px) scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 20px rgba(var(--primary-rgb), 0.25);
         }
     }
 
-    // Navigation Links
-    .footer-links {
-        li {
-            margin-bottom: 0.75rem;
+    // Sleek Underline Transition Links
+    .footer-links li {
+        margin-bottom: 0.85rem;
 
-            a {
-                text-decoration: none;
-                color: var(--bs-secondary-color);
-                transition: all 0.3s ease;
-                display: inline-block;
+        a {
+            text-decoration: none;
+            color: var(--bs-secondary-color);
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+            padding-bottom: 2px;
 
-                &:hover {
-                    color: var(--primary-color);
-                    transform: translateX(8px);
+            &::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: var(--primary-color);
+                transform-origin: bottom right;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover {
+                color: var(--bs-emphasis-color);
+
+                &::after {
+                    transform: scaleX(1);
+                    transform-origin: bottom left;
                 }
             }
         }
     }
 
-    // Focus Area Badges
-    .footer-tags .badge {
-        background: transparent;
-        border-color: var(--bs-border-color) !important;
-        transition: all 0.3s ease;
+    // Interactive Focus Area Badges
+    .badge-custom {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        color: var(--bs-secondary-color);
+        background: color-mix(in srgb, var(--bs-body-bg), var(--bs-secondary-color) 4%);
+        border: 1px solid var(--bs-border-color);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: default;
+        user-select: none;
 
         &:hover {
-            border-color: var(--primary-color) !important;
-            color: var(--primary-color) !important;
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(var(--primary-rgb), 0.04);
+            transform: translateY(-2px);
         }
     }
 
-    .tracking-wider {
-        letter-spacing: 0.1rem;
-        font-size: 0.85rem;
-        color: var(--bs-emphasis-color);
+    // Dynamic CTA Box & Buttons
+    .contact-card {
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.04) !important;
+        }
+    }
+
+    .btn-cta {
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
+
+    // Pulse animation for footer heart
+    .heart-pulse {
+        display: inline-block;
+        animation: pulse 2s infinite;
     }
 }
 
-// Dark & Light Mode refinements
-[data-bs-theme="dark"] .footer-section {
-    background-color: color-mix(in srgb, var(--bs-body-bg), black 15%);
+// Themes Layer (Ensures strict skin & theme continuity)
+[data-bs-theme="dark"] {
+    .footer-section {
+        background-color: color-mix(in srgb, var(--bs-body-bg), black 12%);
+
+        .contact-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg), white 2%) !important;
+        }
+
+        .badge-custom {
+            background: color-mix(in srgb, var(--bs-body-bg), white 3%);
+        }
+    }
 }
 
+// Responsive Breakpoints
 @media (max-width: 767.98px) {
     .footer-section {
         text-align: center;
 
-        .social-grid {
+        .social-grid,
+        .footer-tags {
             justify-content: center;
         }
 
-        .footer-links a:hover {
-            transform: translateY(-3px);
+        .footer-links a::after {
+            display: none; // Disables underline effect for cleaner touch device interactions
         }
 
-        .contact-box {
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-card {
             margin: 0 auto;
-            // max-width: 280px;
+            max-width: 340px;
         }
     }
 }
 
-// Skeleton Loading Animation
+// Animations 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+// Enhanced Skeleton Shimmer Loading
 .skeleton-text {
     display: inline-block;
-    background: linear-gradient(
-        90deg,
-        rgba(var(--primary-rgb), 0.08) 25%,
-        rgba(var(--primary-rgb), 0.18) 50%,
-        rgba(var(--primary-rgb), 0.08) 75%
-    );
+    width: 45px;
+    height: 14px;
+    background: linear-gradient(90deg,
+            rgba(var(--primary-rgb), 0.08) 25%,
+            rgba(var(--primary-rgb), 0.22) 50%,
+            rgba(var(--primary-rgb), 0.08) 75);
     background-size: 200% 100%;
-    animation: shimmer 1.5s ease-in-out infinite;
-    border-radius: 6px;
-    color: transparent !important;
-    user-select: none;
-    pointer-events: none;
+    animation: shimmer 1.6s infinite linear;
+    border-radius: 4px;
+    vertical-align: middle;
 }
 
 @keyframes shimmer {
     0% {
         background-position: 200% 0;
     }
+
     100% {
         background-position: -200% 0;
     }

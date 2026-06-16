@@ -1,64 +1,74 @@
-<footer class="footer-section bg-body-tertiary mt-0 border-top border-opacity-10">
-    <div class="container pt-5">
+<!-- <footer class="footer-section bg-body-tertiary mt-0 border-top border-opacity-10 position-relative overflow-hidden">
+    <div class="footer-glow-1 position-absolute rounded-circle opacity-10 pointer-events-none"></div>
+    <div class="footer-glow-2 position-absolute rounded-circle opacity-10 pointer-events-none"></div>
+
+    <div class="container pt-5 relative-front">
         <div class="row gy-5">
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up">
-                <a class="footer-brand fw-bold mb-3 d-inline-block" routerLink="/">
-                    {{myInformation?.firstName || 'Avinash' | titlecase}}<span class="text-primary">
-                        {{myInformation?.lastName || 'Marbhal' | titlecase}}.</span>
+                <a class="footer-brand fw-extrabold mb-3 d-inline-block text-decoration-none" routerLink="/">
+                    {{myInformation?.firstName || 'Avinash' | titlecase}}
+
+                    <span class="text-primary">{{(myInformation?.lastName || 'Marbhal') |
+                        titlecase}}.</span>
                 </a>
-                <p class="text-secondary mb-4 pe-lg-5">
+                <p class="text-secondary mb-4 pe-lg-4 lh-lg">
                     Specializing in building high-performance, modern web applications.
                     Let's collaborate to turn your vision into a digital reality.
                 </p>
                 <div class="social-grid d-flex gap-3">
-                    <a [href]="myInformation?.facebook" target="_blank" class="social-item"><i
-                            class="bi bi-facebook"></i></a>
-                    <a [href]="myInformation?.linkedin" target="_blank" class="social-item"><i
-                            class="bi bi-linkedin"></i></a>
+                    <a [href]="myInformation?.facebook" target="_blank" class="social-item" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a [href]="myInformation?.linkedin" target="_blank" class="social-item" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
                     <a [href]="`https://api.whatsapp.com/send?phone=${myInformation?.whatsapp}`" target="_blank"
-                        class="social-item"><i class="bi bi-whatsapp"></i></a>
-                    <a [href]="myInformation?.instagram" target="_blank" class="social-item"><i
-                            class="bi bi-instagram"></i></a>
+                        class="social-item" aria-label="WhatsApp">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                    <a [href]="myInformation?.instagram" target="_blank" class="social-item" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
                 </div>
             </div>
 
             <div class="col-6 col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Explore</h6>
-                <ul class="list-unstyled footer-links">
-                    <li><a routerLink="/">Home</a></li>
-                    <li><a routerLink="/about">About</a></li>
-                    <li><a routerLink="/projects">Portfolio</a></li>
-                    <li><a routerLink="/contact">Contact</a></li>
-                    <!-- <li><a routerLink="/services">Services</a></li> -->
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Explore</h6>
+                <ul class="list-unstyled footer-links m-0 p-0">
+                    <li><a routerLink="/"><i class="bi bi-chevron-right link-arrow"></i>Home</a></li>
+                    <li><a routerLink="/about"><i class="bi bi-chevron-right link-arrow"></i>About</a></li>
+                    <li><a routerLink="/projects"><i class="bi bi-chevron-right link-arrow"></i>Portfolio</a></li>
+                    <li><a routerLink="/contact"><i class="bi bi-chevron-right link-arrow"></i>Contact</a></li>
+                    <li><a routerLink="/services"><i class="bi bi-chevron-right link-arrow"></i>Services</a></li>
                 </ul>
             </div>
 
             <div class="col-6 col-lg-2 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Focus Areas</h6>
-                <ul class="list-unstyled footer-tags">
-                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Angular
-                            19</span></li>
-                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">UI/UX
-                            Design</span></li>
-                    <li><span class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Bootstrap
-                            5.3</span></li>
-                    <li><span
-                            class="badge rounded-pill border text-secondary fw-normal px-3 py-2 mb-2 me-2">Performance</span>
-                    </li>
-                </ul>
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Focus Areas</h6>
+                <div class="footer-tags d-flex flex-wrap gap-2">
+                    <span class="badge border-style px-3 py-2">Angular 14+</span>
+                    <span class="badge border-style px-3 py-2">UI/UX Design</span>
+                    <span class="badge border-style px-3 py-2">Bootstrap 5.3</span>
+                    <span class="badge border-style px-3 py-2">Performance</span>
+                    <span class="badge border-style px-3 py-2">Themeable UI</span>
+                </div>
             </div>
 
             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <h6 class="fw-bold text-uppercase tracking-wider mb-4">Direct Link</h6>
-                <div class="contact-box p-3 rounded-4 border bg-body-tertiary">
-                    <p class="text-secondary mb-3">Have a question?</p>
-                    <a [href]="`mailto:${myInformation?.email}`" class="btn btn-primary rounded-pill px-3 mb-3 me-3">
-                        <i class="bi bi-envelope-at-fill"></i> Email Me
-                    </a>
-                    <a [href]="`tel:${myInformation?.phone}`" class="btn btn-primary rounded-pill px-3 mb-3">
-                        <i class="bi bi-telephone-fill"></i> Call Now
-                    </a>
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Direct Link</h6>
+                <div class="contact-box p-4 rounded-4 border bg-body shadow-sm">
+                    <p class="text-secondary mb-3 fw-medium">Have a project idea in your mind?</p>
+                    <div class="d-flex flex-row gap-2">
+                        <a [href]="`mailto:${myInformation?.email}`"
+                            class="btn btn-action btn-email w-100 d-flex align-items-center justify-content-center gap-2 py-25">
+                            <i class="bi bi-envelope-at-fill"></i> Email Me
+                        </a>
+                        <a [href]="`tel:${myInformation?.phone}`"
+                            class="btn btn-action btn-phone w-100 d-flex align-items-center justify-content-center gap-2 py-25">
+                            <i class="bi bi-telephone-fill"></i> Call Now
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -67,25 +77,129 @@
         <div
             class="footer-bottom mt-5 py-4 border-top border-opacity-10 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
             <p class="mb-0 text-secondary small">
-                <i class="bi bi-c-circle"></i> {{currentYear}} <span
-                    class="fw-bold text-emphasis">{{(myInformation?.firstName || 'Avinash') | titlecase}}
-                    {{myInformation?.lastName ||
-                    'Marbhal' | titlecase}}</span>.
+                <i class="bi bi-c-circle me-1"></i>{{currentYear}}
+                <span class="fw-bold text-emphasis">
+                    {{(myInformation?.firstName || 'Avinash') | titlecase}} {{(myInformation?.lastName || 'Marbhal') |
+                    titlecase}}.
+                </span>
             </p>
-            <!-- <p class="mb-0 text-secondary small">
-                Made with <i class="bi bi-heart-fill text-primary mx-1"></i> and Angular. | Visitors: {{visitorCount}}
-            </p> -->
-            <p class="mb-0 text-secondary small">
-                Made with <i class="bi bi-heart-fill text-primary mx-1"></i> and Angular.
+
+            <p class="mb-0 text-secondary small d-flex align-items-center gap-1">
+                Made with <i class="bi bi-heart-fill heart-pulse text-primary mx-1"></i> and Angular.
             </p>
-            <p class="mb-0 text-secondary small">
-                <!-- Visitors: {{visitorCount}} -->
+
+            <div class="mb-0 text-secondary small visitor-counter d-flex align-items-center gap-1">
+                <span class="pulse-indicator bg-primary me-1"></span>
                 @if (isLoading()) {
-                Visitors: <span class="skeleton-text">Loading...</span>
+                <span>Visitors: <span class="skeleton-text"></span></span>
                 } @else {
-                Visitors: {{visitorCount}}
+                <span>Visitors: <span class="fw-bold text-emphasis">{{visitorCount}}</span></span>
                 }
+            </div>
+        </div>
+    </div>
+</footer> -->
+
+<footer class="footer-section position-relative border-top border-opacity-10 mt-0 pt-5 pb-4 bg-body-tertiary overflow-hidden">
+    <div class="footer-glow glow-1"></div>
+    <div class="footer-glow glow-2"></div>
+
+    <div class="container position-relative z-1">
+        <div class="row gy-5 justify-content-between">
+
+            <div class="col-lg-4 col-md-10" data-aos="fade-up">
+                <!-- <a class="footer-brand fw-extrabold mb-3 d-inline-block tracking-tight" routerLink="/">
+                    {{ myInformation?.firstName || 'Avinash' | titlecase }}<span class="text-primary">.{{ myInformation?.lastName || 'Marbhal' | titlecase }}</span>
+                </a> -->
+                <a class="footer-brand fw-extrabold mb-3 d-inline-block text-decoration-none" routerLink="/">
+                    {{myInformation?.firstName || 'Avinash' | titlecase}}
+
+                    <span class="text-primary">{{(myInformation?.lastName || 'Marbhal') |
+                        titlecase}}.</span>
+                </a>
+                <p class="text-secondary mb-4 pe-lg-4 fs-6">
+                    Specializing in building high-performance, modern web applications.
+                    Let's collaborate to turn your vision into a digital reality.
+                </p>
+                <div class="social-grid d-flex gap-3">
+                    <a [href]="myInformation?.facebook" target="_blank" class="social-item" aria-label="Facebook">
+                        <i class="bi bi-facebook"></i>
+                    </a>
+                    <a [href]="myInformation?.linkedin" target="_blank" class="social-item" aria-label="LinkedIn">
+                        <i class="bi bi-linkedin"></i>
+                    </a>
+                    <a [href]="`https://api.whatsapp.com/send?phone=${myInformation?.whatsapp}`" target="_blank"
+                        class="social-item" aria-label="WhatsApp">
+                        <i class="bi bi-whatsapp"></i>
+                    </a>
+                    <a [href]="myInformation?.instagram" target="_blank" class="social-item" aria-label="Instagram">
+                        <i class="bi bi-instagram"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-2 col-md-4 ps-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Explore</h6>
+                <ul class="list-unstyled footer-links mb-0">
+                    <li><a routerLink="/">Home</a></li>
+                    <li><a routerLink="/about">About</a></li>
+                    <li><a routerLink="/projects">Portfolio</a></li>
+                    <li><a routerLink="/contact">Contact</a></li>
+                    <!-- <li><a routerLink="/services">Services</a></li> -->
+                </ul>
+            </div>
+
+            <div class="col-6 col-lg-2 col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Focus Areas</h6>
+                <div class="footer-tags d-flex flex-wrap gap-2">
+                    <span class="badge-custom">Angular 19</span>
+                    <!-- <span class="badge-custom">UI/UX Design</span> -->
+                    <span class="badge-custom">Bootstrap 5.3</span>
+                    <span class="badge-custom">Performance</span>
+                    <span class="badge-custom">Themeable UI</span>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <h6 class="footer-heading fw-bold text-uppercase tracking-wider mb-4">Direct Link</h6>
+                <div class="contact-card p-4 rounded-4 border border-opacity-10 bg-body-tertiary shadow-sm">
+                    <p class="text-secondary small fw-medium mb-3">Have a project idea in your mind?</p>
+                    <div class="d-flex flex-row justify-content-center gap-2">
+                        <a [href]="`mailto:${myInformation?.email}`"
+                            class="btn btn-primary rounded-pill px-3 py-2 btn-cta">
+                            <i class="bi bi-envelope-at-fill me-2"></i> Email Me
+                        </a>
+                        <a [href]="`tel:${myInformation?.phone}`"
+                            class="btn btn-outline-primary rounded-pill px-3 py-2 btn-cta">
+                            <i class="bi bi-telephone-fill me-2"></i> Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div
+            class="footer-bottom mt-5 pt-4 border-top border-opacity-10 d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+            <p class="mb-0 text-secondary small">
+                <i class="bi bi-c-circle me-1"></i> {{currentYear}}
+                <span class="fw-bold text-emphasis">
+                    {{(myInformation?.firstName || 'Avinash') | titlecase}} {{(myInformation?.lastName || 'Marbhal') |
+                    titlecase}}
+                </span>. All rights reserved.
             </p>
+            <div class="d-flex flex-column flex-md-row align-items-center gap-3 text-secondary small">
+                <span>Made with <i class="bi bi-heart-fill text-primary mx-1 heart-pulse"></i> and Angular.</span>
+                <span class="visitor-counter px-3 py-1 rounded-pill bg-body-secondary border border-opacity-25">
+                    @if (isLoading()) {
+                    <i class="bi bi-people-fill text-primary me-1"></i> Visitors: <span
+                        class="skeleton-text ms-1"></span>
+                    } @else {
+                    <i class="bi bi-people-fill text-primary me-1"></i> Visitors: <strong
+                        class="text-emphasis">{{visitorCount}}</strong>
+                    }
+                </span>
+            </div>
         </div>
     </div>
 </footer>

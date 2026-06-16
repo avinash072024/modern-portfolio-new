@@ -1,22 +1,31 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, OnInit, signal, computed } from '@angular/core';
 import { SkillCategory } from '../../interfaces/skills';
 import { Constants } from '../../models/constants';
 import { SkillsService } from '../../services/skills/skills.service';
 import { CtaComponent } from '../../components/cta/cta.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-skills',
-  imports: [CtaComponent],
+  imports: [CtaComponent, CommonModule],
   templateUrl: './skills.component.html',
   styleUrl: './skills.component.scss'
 })
 export class SkillsComponent implements OnInit {
   categories: any[] = [];
   skillsService = inject(SkillsService);
-  isLoading = signal(true); // 1. Added loading signal
+  isLoading = signal(true);
+  activeCategory = signal<string>('All');
+
+  filteredCategories = computed(() => {
+    const active = this.activeCategory();
+    if (active === 'All') {
+      return this.categories;
+    }
+    return this.categories.filter(cat => cat.title === active);
+  });
 
   ngOnInit(): void {
-    // this.categories = Constants.TECH_STACK;
     this.getSkills();
   }
 
@@ -39,10 +48,13 @@ export class SkillsComponent implements OnInit {
         this.isLoading.set(false);
       },
       error: (err: any) => {
-        // alert(err?.message);
         this.isLoading.set(false);
       }
     });
   }
-  
+
+  setActiveCategory(category: string): void {
+    this.activeCategory.set(category);
+  }
 }
+

@@ -1,119 +1,288 @@
 .skills-section {
-    background-color: var(--bs-body-bg);
-    min-height: 100vh;
-
-    .bg-glow {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 800px;
-        height: 800px;
-        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.05) 0%, transparent 70%);
-        transform: translate(-50%, -20%);
-        pointer-events: none;
-    }
+    // background-color: var(--bs-body-bg);
+    // min-height: 100vh;
+    // position: relative;
+    // overflow: hidden;
 
     .ls-2 {
         letter-spacing: 2px;
     }
 
-    .skill-tile {
-        background: rgba(var(--bs-body-bg-rgb), 0.5);
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(var(--bs-emphasis-color-rgb), 0.05);
-        padding: 1.25rem;
-        border-radius: 20px;
-        height: 100%;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Category Filter Tabs */
+    .category-tabs {
+        border-bottom: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.08);
+        padding-bottom: 1.5rem;
 
-        &:hover {
-            transform: translateY(-5px);
-            border-color: rgba(var(--primary-rgb), 0.3);
-            background: rgba(var(--bs-body-bg-rgb), 0.8);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.1) !important;
-            border: 2px solid rgba(var(--primary-rgb), 0.9);
+        .btn-filter {
+            background: rgba(var(--bs-emphasis-color-rgb), 0.03);
+            border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.08);
+            color: var(--bs-body-color);
+            padding: 0.6rem 1.25rem;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px);
 
-            .progress-fill {
-                box-shadow: 0 0 12px rgba(var(--primary-rgb), 0.5);
+            i {
+                font-size: 1rem;
+                transition: transform 0.3s ease;
+            }
+
+            &:hover {
+                background: rgba(var(--primary-rgb), 0.08);
+                border-color: rgba(var(--primary-rgb), 0.4);
+                color: var(--primary-color);
+                transform: translateY(-2px);
+
+                i {
+                    transform: scale(1.1);
+                }
+            }
+
+            &.active {
+                background: var(--primary-color);
+                border-color: var(--primary-color);
+                color: #ffffff !important;
+                box-shadow: 0 8px 20px rgba(var(--primary-rgb), 0.3);
+
+                &:hover {
+                    color: #ffffff;
+                }
             }
         }
     }
 
-    .skill-icon-wrapper {
-        width: 50px;
-        height: 50px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        // background: rgba(var(--bs-emphasis-color-rgb), 0.03);
-        border-radius: 12px;
+    /* Category Blocks */
+    .category-block {
+        .category-title {
+            .title-text {
+                position: relative;
+                color: var(--bs-emphasis-color);
+                z-index: 1;
+            }
+
+            .title-line {
+                flex-grow: 1;
+                height: 1px;
+                background: linear-gradient(90deg, rgba(var(--primary-rgb), 0.2) 0%, transparent 100%);
+            }
+        }
     }
 
-    .skill-name {
-        font-size: 1rem;
-        color: var(--bs-emphasis-color);
-    }
-
-    /* Progress Styling */
-    .progress-track {
-        height: 6px;
-        background: rgba(var(--bs-emphasis-color-rgb), 0.08);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .progress-fill {
+    /* Modern Glassmorphic Skill Cards */
+    .skill-card {
+        background: rgba(var(--bs-emphasis-color-rgb), 0.02);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.06);
+        border-radius: 20px;
+        padding: 1.5rem;
         height: 100%;
-        // background: var(--primary-color); // Follows the selected skin
-        border-radius: 10px;
-        transition: width 1s ease-in-out;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        overflow: hidden;
+
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(var(--primary-rgb), 0.05) 0%, transparent 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .skill-card-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .skill-icon-wrapper {
+            width: 54px;
+            height: 54px;
+            min-width: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            background: rgba(var(--bs-emphasis-color-rgb), 0.04);
+            border-radius: 16px;
+            position: relative;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+            .icon-glow {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 16px;
+                filter: blur(12px);
+                opacity: 0;
+                transition: opacity 0.4s ease;
+                z-index: -1;
+            }
+
+            i {
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            }
+        }
+
+        .skill-info {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+
+            .skill-name {
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: var(--bs-emphasis-color);
+                margin: 0;
+                letter-spacing: -0.3px;
+            }
+
+            .skill-percentage {
+                font-size: 0.9rem;
+                font-weight: 600;
+                margin-top: 0.15rem;
+                opacity: 0.85;
+            }
+        }
+
+        /* Progress Bar Styling */
+        .skill-progress-wrapper {
+            margin-top: auto;
+        }
+
+        .progress-bar-container {
+            height: 8px;
+            background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+            border-radius: 10px;
+            position: relative;
+            overflow: visible;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 10px;
+            position: relative;
+            transition: width 1.2s cubic-bezier(0.1, 0.8, 0.2, 1);
+
+            .progress-glow {
+                position: absolute;
+                top: -3px;
+                right: -3px;
+                width: 14px;
+                height: 14px;
+                border-radius: 50%;
+                filter: blur(4px);
+                opacity: 0.7;
+                transition: all 0.3s ease;
+            }
+        }
+
+        /* Hover States */
+        &:hover {
+            transform: translateY(-6px);
+            border-color: rgba(var(--primary-rgb), 0.25);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08), 
+                        0 0 25px rgba(var(--primary-rgb), 0.12);
+
+            &::before {
+                opacity: 1;
+            }
+
+            .skill-icon-wrapper {
+                background: rgba(255, 255, 255, 0.9);
+                transform: scale(1.08) rotate(3deg);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+
+                .icon-glow {
+                    opacity: 0.3;
+                }
+
+                i {
+                    transform: scale(1.1);
+                }
+            }
+
+            .progress-bar-fill {
+                box-shadow: 0 0 15px rgba(var(--primary-rgb), 0.6);
+            }
+        }
     }
 
     // Modern pill badge override
     .bg-primary-subtle {
         background-color: rgba(var(--primary-rgb), 0.1) !important;
+        border: 1px solid rgba(var(--primary-rgb), 0.15);
     }
 }
 
-/* Mobile Adjustments */
-@media (max-width: 576px) {
-    .skill-tile {
-        padding: 1rem;
+/* Dark Theme Fine-tuning */
+[data-bs-theme="dark"] {
+    .skills-section {
+        .category-tabs {
+            border-bottom-color: rgba(255, 255, 255, 0.06);
+            
+            .btn-filter {
+                background: rgba(255, 255, 255, 0.02);
+                border-color: rgba(255, 255, 255, 0.05);
+                color: #dee2e6;
 
-        .skill-icon-wrapper {
-            width: 60px;
-            height: 60px;
-            font-size: 2rem;
+                &:hover {
+                    background: rgba(var(--primary-rgb), 0.12);
+                    border-color: rgba(var(--primary-rgb), 0.5);
+                    color: var(--primary-color);
+                }
+            }
+        }
+
+        .skill-card {
+            background: rgba(255, 255, 255, 0.015);
+            border-color: rgba(255, 255, 255, 0.05);
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.03);
+                border-color: rgba(var(--primary-rgb), 0.4);
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.3), 
+                            0 0 30px rgba(var(--primary-rgb), 0.18);
+
+                .skill-icon-wrapper {
+                    background: #1e2124;
+                }
+            }
         }
     }
 }
 
-/* Dark Mode Fine-tuning */
-[data-bs-theme="dark"] .skill-tile {
-    background: rgba(255, 255, 255, 0.03);
-
-    &:hover {
-        background: rgba(255, 255, 255, 0.07);
-    }
-}
-
-// skeleton loader styles
-// 1. Shimmer Animation
+/* Shimmer Animation for Skeletons */
 @keyframes shimmer {
     0% {
         background-position: -450px 0;
     }
-
     100% {
         background-position: 450px 0;
     }
 }
 
 .skills-section {
-    // ... your existing styles ...
-
-    .skeleton-tile {
+    .skeleton-card {
         pointer-events: none;
 
         .skeleton-icon,
@@ -131,17 +300,18 @@
         }
 
         .skeleton-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 12px;
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
         }
 
         .skeleton-line {
             height: 12px;
+            border-radius: 4px;
         }
 
         .skeleton-progress {
-            height: 6px;
+            height: 8px;
             width: 100%;
             border-radius: 10px;
         }
@@ -149,24 +319,30 @@
 
     .skeleton-title {
         height: 24px;
-        width: 200px;
-        border-radius: 4px;
+        width: 180px;
+        border-radius: 6px;
+        background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+        background-image: linear-gradient(90deg,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
+        background-size: 900px 100%;
+        animation: shimmer 2s infinite linear;
     }
 }
 
-// Dark Mode Specific adjustment for Skeleton
+/* Dark Mode Specific adjustments for Skeleton */
 [data-bs-theme="dark"] .skills-section {
-    .skeleton-tile {
-
+    .skeleton-card, .skeleton-title {
         .skeleton-icon,
         .skeleton-line,
         .skeleton-progress,
         .skeleton-title {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             background-image: linear-gradient(90deg,
-                    rgba(255, 255, 255, 0.05) 0px,
-                    rgba(255, 255, 255, 0.1) 40px,
-                    rgba(255, 255, 255, 0.05) 80px);
+                    rgba(255, 255, 255, 0.04) 0px,
+                    rgba(255, 255, 255, 0.09) 40px,
+                    rgba(255, 255, 255, 0.04) 80px);
         }
     }
 }
