@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Testimonial } from '../../interfaces/testimonial';
-import { TESTIMONIALS } from '../../models/testimonials.data';
 import { FeedbackService } from '../../services/feedback/feedback.service';
 import { ValidationService } from '../../services/validations/validation.service';
 
