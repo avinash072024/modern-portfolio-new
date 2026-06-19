@@ -7,6 +7,9 @@ import { ContactService } from '../../services/contact/contact.service';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { forkJoin } from 'rxjs';
 import { ExperienceService } from '../../services/experience/experience.service';
+import { HttpClient } from '@angular/common/http';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { ResumesService } from '../../services/resume/resumes.service';
 declare var $: any;
 
 @Component({
@@ -17,7 +20,7 @@ declare var $: any;
 })
 export class HomeComponent implements OnInit {
   // Typing Effect Logic  
-  readonly roles = ['a Frontend Developer', 'a Website Designer', 'an Angular Specialist'];
+  readonly roles = ['a Frontend Developer', 'a Website Developer', 'an Angular Specialist'];
   displayText = signal('');
   private roleIndex = 0;
   private charIndex = 0;
@@ -27,8 +30,14 @@ export class HomeComponent implements OnInit {
   totalExperience: number = 0;
   contactService = inject(ContactService);
   projectService = inject(ProjectsService);
+  resumesService = inject(ResumesService);
   experienceService = inject(ExperienceService);
   private platformId = inject(PLATFORM_ID);
+  resumeAvailable!: boolean;
+
+  dynamicResumeUrl: SafeUrl | null = null;
+
+  constructor(private http: HttpClient, private sanitizer: DomSanitizer) { }
 
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -62,24 +71,6 @@ export class HomeComponent implements OnInit {
     setTimeout(() => this.type(), typeSpeed);
   }
 
-  downloadResume(): void {
-    const link = document.createElement('a');
-    link.setAttribute('target', '_blank');
-    link.setAttribute('href', 'assets/resume/Avinash-Marbhal-Resume-Angular-Updated.pdf'); // Path to your file
-    link.setAttribute('download', 'Avinash-Marbhal-Resume-Angular.pdf'); // Desired filename
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    const modalEl = document.getElementById('staticBackdrop');
-    // Use Bootstrap's JS modal if available, otherwise fallback to jQuery if present
-    if ((window as any).bootstrap && modalEl) {
-      const bsModal = new (window as any).bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
-      bsModal.show();
-    } else if (typeof $ !== 'undefined' && $('#staticBackdrop').modal) {
-      $('#staticBackdrop').modal('show');
-    }
-  }
-
   loadDashboardData(): void {
     forkJoin({
       contactRes: this.contactService.getContact(),
@@ -105,7 +96,6 @@ export class HomeComponent implements OnInit {
 
       },
       error: (err: any) => {
-        // Handle common error
         console.error(err?.error?.message || 'Failed to load dashboard data');
       }
     });

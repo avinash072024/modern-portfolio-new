@@ -1,38 +1,31 @@
 <section class="about-page py-5 mt-5 overflow-hidden">
     <div class="glow-bg"></div>
     <div class="section-glow" aria-hidden="true"></div>
-
+    
     <div class="container mt-5 position-relative z-1">
         <!-- Header Section -->
         <div class="text-center mb-5" data-aos="fade-up">
-            <span
-                class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3 shadow-sm border border-primary border-opacity-10">My
-                Journey</span>
+            <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3 shadow-sm border border-primary border-opacity-10">My Journey</span>
             <h2 class="display-4 fw-bold mb-3">Professional <span class="text-primary">Profile</span></h2>
             <p class="text-secondary mx-auto fs-5" style="max-width: 650px;">
-                A specialized Frontend Developer dedicated to building clean, functional, and user-centered digital
-                experiences.
+                A specialized Frontend Developer dedicated to building clean, functional, and user-centered digital experiences.
             </p>
         </div>
 
         <div class="row g-5 align-items-start">
             <!-- Left Column: Bio & Timeline -->
             <div class="col-lg-7" data-aos="fade-right">
-
+                
                 <div class="bio-card p-4 p-md-5 rounded-4 mb-5 border-0 shadow-sm position-relative overflow-hidden">
-                    <div class="card-glow position-absolute top-0 end-0 rounded-circle"
-                        style="width: 150px; height: 150px; background: radial-gradient(circle, rgba(var(--primary-rgb),0.15) 0%, transparent 70%); transform: translate(30%, -30%);">
-                    </div>
-
-                    <h3 class="fw-bold mb-4 position-relative z-1">A Story of <span class="text-primary">Passion</span>
-                        & <span class="text-primary">Code</span></h3>
+                    <div class="card-glow position-absolute top-0 end-0 rounded-circle" style="width: 150px; height: 150px; background: radial-gradient(circle, rgba(var(--primary-rgb),0.15) 0%, transparent 70%); transform: translate(30%, -30%);"></div>
+                    
+                    <h3 class="fw-bold mb-4 position-relative z-1">A Story of <span class="text-primary">Passion</span> & <span class="text-primary">Code</span></h3>
                     <p class="text-secondary lead mb-4 position-relative z-1">
                         I am a specialized Frontend Developer based in India, dedicated to building clean,
                         functional, and user-centered digital experiences.
                     </p>
                     <p class="text-secondary mb-0 position-relative z-1 lead2">
-                        My journey started <strong class="text-primary">{{totalExperience}} years ago</strong> when I
-                        first discovered the power of CSS. Since then,
+                        My journey started <strong class="text-primary">{{totalExperience}} years ago</strong> when I first discovered the power of CSS. Since then,
                         I’ve evolved into an Angular specialist, focusing on performance optimization and
                         modern architecture like Signals and Standalone components.
                     </p>
@@ -41,86 +34,68 @@
                 <div class="timeline-container">
                     <div class="row g-4">
                         @if (isLoading()) {
-                        <div class="col-md-6">
-                            <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i
-                                    class="bi bi-mortarboard-fill text-primary"></i> Education</h5>
-                            <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
-                                @for (skeleton of [1,2,3]; track skeleton) {
-                                <div class="edu-item position-relative mb-4">
-                                    <div class="dot"></div>
-                                    <div class="skeleton-line sm mb-2"></div>
-                                    <div class="skeleton-line lg mb-2"></div>
-                                    <div class="skeleton-line md"></div>
+                            <div class="col-md-6">
+                                <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i class="bi bi-mortarboard-fill text-primary"></i> Education</h5>
+                                <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
+                                    @for (skeleton of [1,2,3]; track skeleton) {
+                                    <div class="edu-item position-relative mb-4">
+                                        <div class="dot"></div>
+                                        <div class="skeleton-line sm mb-2"></div>
+                                        <div class="skeleton-line lg mb-2"></div>
+                                        <div class="skeleton-line md"></div>
+                                    </div>
+                                    }
                                 </div>
-                                }
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i
-                                    class="bi bi-briefcase-fill text-primary"></i> Experience</h5>
-                            <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
-                                @for (skeleton of [1,2,3]; track skeleton) {
-                                <div class="edu-item position-relative mb-4">
-                                    <div class="dot"></div>
-                                    <div class="skeleton-line sm mb-2"></div>
-                                    <div class="skeleton-line lg mb-2"></div>
-                                    <div class="skeleton-line md"></div>
+                            <div class="col-md-6">
+                                <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i class="bi bi-briefcase-fill text-primary"></i> Experience</h5>
+                                <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
+                                    @for (skeleton of [1,2,3]; track skeleton) {
+                                    <div class="edu-item position-relative mb-4">
+                                        <div class="dot"></div>
+                                        <div class="skeleton-line sm mb-2"></div>
+                                        <div class="skeleton-line lg mb-2"></div>
+                                        <div class="skeleton-line md"></div>
+                                    </div>
+                                    }
                                 </div>
-                                }
                             </div>
-                        </div>
                         }
                         @else {
-                        @if (education?.length > 0) {
-                        <div class="col-md-6">
-                            <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i
-                                    class="bi bi-mortarboard text-primary fs-4"></i> Education</h5>
-                            <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
-                                @for (exp of education; track $index) {
-                                <div class="edu-item position-relative mb-4">
-                                    <div class="dot"></div>
-                                    <div class="timeline-card p-3 rounded-4 shadow-sm">
-                                        <span class="badge bg-primary-subtle text-primary mb-2 fw-bold">{{ exp.duration
-                                            || exp.year }}</span>
-                                        <h6 class="fw-bold mb-1 fs-5">{{ exp.title || exp.degree }}</h6>
-                                        <p class="text-secondary small mb-0 d-flex align-items-center gap-1"><i
-                                                class="bi bi-building"></i> {{ exp.institution || exp.school }}</p>
+                            @if (education?.length > 0) {
+                            <div class="col-md-6">
+                                <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i class="bi bi-mortarboard text-primary fs-4"></i> Education</h5>
+                                <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
+                                    @for (exp of education; track $index) {
+                                    <div class="edu-item position-relative mb-4">
+                                        <div class="dot"></div>
+                                        <div class="timeline-card p-3 rounded-4 shadow-sm">
+                                            <span class="badge bg-primary-subtle text-primary mb-2 fw-bold">{{ exp.duration || exp.year }}</span>
+                                            <h6 class="fw-bold mb-1 fs-5">{{ exp.title || exp.degree }}</h6>
+                                            <p class="text-secondary small mb-0 d-flex align-items-center gap-1"><i class="bi bi-building"></i> {{ exp.institution || exp.school }}</p>
+                                        </div>
                                     </div>
-                                </div>
-                                }
-                            </div>
-                        </div>
-                        }
-                        @if (experiences?.length > 0) {
-                        <div class="col-md-6">
-                            <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i
-                                    class="bi bi-briefcase text-primary fs-4"></i> Experience</h5>
-                            <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
-                                @for (edu of experiences.slice(0,2); track $index) {
-                                <div class="edu-item position-relative mb-4">
-                                    <div class="dot"></div>
-                                    <div class="timeline-card p-3 rounded-4 shadow-sm">
-                                        <span class="badge bg-primary-subtle text-primary mb-2 fw-bold">{{ edu.duration
-                                            || edu.year }}</span>
-                                        <h6 class="fw-bold mb-1 fs-5">{{ edu.title || edu.designation }}</h6>
-                                        <p class="text-secondary small mb-0 d-flex align-items-center gap-1"><i
-                                                class="bi bi-building"></i> {{ edu.company }}</p>
-                                    </div>
-                                </div>
-                                }
-                                <div class="edu-item position-relative mb-4">
-                                    <div class="dot"></div>
-                                    <div class="timeline-card p-3 rounded-4 shadow-sm">
-                                        <span class="badge bg-primary-subtle text-primary mb-2 fw-bold">2024 -
-                                            Present</span>
-                                        <h6 class="fw-bold mb-1 fs-5">Lead Software Developer (Angular)</h6>
-                                        <p class="text-secondary small mb-0 d-flex align-items-center gap-1"><i
-                                                class="bi bi-building"></i> Tracxn Technologies Ltd.</p>
-                                    </div>
+                                    }
                                 </div>
                             </div>
-                        </div>
-                        }
+                            }
+                            @if (experiences?.length > 0) {
+                            <div class="col-md-6">
+                                <h5 class="mb-4 d-flex align-items-center gap-2 fw-bold"><i class="bi bi-briefcase text-primary fs-4"></i> Experience</h5>
+                                <div class="education-timeline ps-3 border-start border-primary border-2 border-opacity-25">
+                                    @for (edu of experiences; track $index) {
+                                    <div class="edu-item position-relative mb-4">
+                                        <div class="dot"></div>
+                                        <div class="timeline-card p-3 rounded-4 shadow-sm">
+                                            <span class="badge bg-primary-subtle text-primary mb-2 fw-bold">{{ edu.duration || edu.year }}</span>
+                                            <h6 class="fw-bold mb-1 fs-5">{{ edu.title || edu.designation }}</h6>
+                                            <p class="text-secondary small mb-0 d-flex align-items-center gap-1"><i class="bi bi-building"></i> {{ edu.company }}</p>
+                                        </div>
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                            }
                         }
                     </div>
                 </div>
@@ -133,29 +108,25 @@
                         Technical <span class="text-primary">Stack</span>
                         <i class="bi bi-braces text-primary fs-3 ms-auto d-none d-lg-block"></i>
                     </h3>
-
+                    
                     <div class="row g-3 my-4">
                         @for (tech of techStack; track tech.name; let i = $index) {
                         <div class="col-6 col-sm-4 col-lg-6 col-xl-4">
                             <div class="tech-card p-3 rounded-4 text-center">
-                                <div
-                                    class="icon-wrapper mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle">
+                                <div class="icon-wrapper mx-auto mb-3 d-flex align-items-center justify-content-center rounded-circle">
                                     <i class="bi {{ tech.icon }} fs-3 text-primary"></i>
                                 </div>
                                 <h6 class="fw-bold mb-2">{{ tech.name }}</h6>
                                 <div class="progress rounded-pill" style="height: 6px;">
-                                    <div class="progress-bar rounded-pill" [style.width]="tech.level" role="progressbar"
-                                        [attr.aria-valuenow]="tech.level.replace('%', '')" aria-valuemin="0"
-                                        aria-valuemax="100"></div>
+                                    <div class="progress-bar rounded-pill" [style.width]="tech.level" role="progressbar" [attr.aria-valuenow]="tech.level.replace('%', '')" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                         </div>
                         }
                     </div>
-
+                    
                     <div class="text-center text-lg-end mt-4 pt-3 border-top border-opacity-10">
-                        <a routerLink="/skills"
-                            class="btn btn-outline-primary rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 btn-more-stack">
+                        <a routerLink="/skills" class="btn btn-outline-primary rounded-pill px-4 py-2 d-inline-flex align-items-center gap-2 btn-more-stack">
                             Explore All Skills <i class="bi bi-arrow-right"></i>
                         </a>
                     </div>

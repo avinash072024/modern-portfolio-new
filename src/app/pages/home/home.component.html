@@ -1,133 +1,258 @@
-<section class="hero-section d-flex align-items-center">
-    <div class="blob-bg"></div>
+<!-- ═══════════════════════════════════════════ HERO SECTION ═══════════════════════════════════════════ -->
+<section class="hero-section">
 
-    <div class="container mt-5 mt-md-0">
-        <div class="row align-items-center gy-5">
+  <!-- Animated background elements -->
+  <div class="hero-bg-orb orb-1"></div>
+  <div class="hero-bg-orb orb-2"></div>
+  <div class="hero-bg-orb orb-3"></div>
+  <div class="hero-grid-lines"></div>
 
-            <div class="col-lg-7 text-center text-lg-start" data-aos="fade-right">
-                <h6 class="text-primary fw-bold text-uppercase mb-3 tracking-widest">
-                    Welcome to my world
-                </h6>
-                <p class="h1">
-                    Hello,
-                </p>
-                <h1 class="display-3 fw-bold mb-3">
-                    I'm <span class="text-gradient">{{myInformation?.firstName || 'Avinash' | titlecase}} {{myInformation?.lastName || 'Marbhal' | titlecase}}</span>
-                </h1>
-                <p class="h1 mb-4 h-60px">
-                    <!-- a <span class="typed-text">{{ displayText() }}</span><span class="cursor">|</span> -->
-                    <span class="typed-text">{{ displayText() }}</span><span class="cursor">|</span>
-                </p>
-                <p class="lead mb-5 text-secondary pe-lg-5">
-                    I build high-performance, responsive web applications with a focus on
-                    clean code and exceptional user experiences.
-                </p>
+  <div class="container hero-container mt-5">
+    <div class="row align-items-center gy-5">
 
-                <div class="d-flex flex-wrap justify-content-center justify-content-lg-start gap-3">
-                    <a routerLink="/projects" class="btn btn-primary btn-lg px-4 py-3 shadow-lg rounded-pill">
-                        View Portfolio <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                    <!-- <button (click)="downloadResume()" class="btn btn-outline-primary btn-lg px-4 py-3 shadow-lg rounded-pill">
-                        Download CV <i class="bi bi-download ms-2"></i>
-                    </button> -->
-                    <a routerLink="/contact" class="btn btn-outline-primary btn-lg px-5 py-3 shadow-lg rounded-pill">
-                        Hire Me <i class="bi bi-arrow-right ms-2"></i>
-                    </a>
-                </div>
+      <!-- ── Text Column ── -->
+      <div class="col-lg-7 hero-text-col" data-aos="fade-right">
+
+        <!-- Greeting chip -->
+        <div class="hero-chip" data-aos="fade-down" data-aos-delay="100">
+          <span class="chip-dot"></span>
+          <!-- <span>Available for work</span> -->
+          <span>Welcome to my world</span>
+        </div>
+
+        <p class="hero-hello mb-2">Hello, I'm</p>
+
+        <h1 class="hero-name d-flex justify-content-center justify-content-md-center justify-content-lg-start">
+          <span class="name-gradient">{{myInformation?.firstName || 'Avinash' | titlecase}}</span>
+          <!-- <br> -->
+          <!-- <span class="name-outline">{{myInformation?.lastName || 'Marbhal' | titlecase}}</span> -->
+          <span class="ms-3 name-gradient">{{myInformation?.lastName || 'Marbhal' | titlecase}}</span>
+        </h1>
+
+        <!-- Typing role -->
+        <div class="hero-role-wrapper d-flex justify-content-center justify-content-md-center justify-content-lg-start">
+          <!-- <span class="role-prefix">a </span> -->
+          <span class="typed-text">{{ displayText() }}</span><span class="cursor">|</span>
+        </div>
+
+        <p class="hero-desc">
+          I build high-performance, responsive web applications with a focus on
+          clean code and exceptional user experiences.
+        </p>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+          <a routerLink="/projects" class="btn-hero-primary">
+            View Portfolio
+            <i class="bi bi-arrow-up-right ms-2"></i>
+          </a>
+          <!-- <button (click)="downloadResume()" class="btn-hero-secondary">
+            Download CV
+            <i class="bi bi-download ms-2"></i>
+          </button> -->
+          <a routerLink="/contact" class="text-decoration-none btn-hero-secondary">
+            Hire Me
+            <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+
+        <!-- Social / quick links row -->
+        <div class="hero-social-row" data-aos="fade-up" data-aos-delay="100">
+          <span class="social-label">Find me on</span>
+          <div class="social-divider"></div>
+          <!-- @if (myInformation?.github) {
+            <a [href]="myInformation.github" target="_blank" rel="noopener" class="social-icon-btn" title="GitHub">
+              <i class="bi bi-github"></i>
+            </a>
+          } @else {
+            <a href="https://github.com/" target="_blank" rel="noopener" class="social-icon-btn" title="GitHub">
+              <i class="bi bi-github"></i>
+            </a>
+          } -->
+          @if (myInformation?.linkedin) {
+            <a [href]="myInformation.linkedin" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          } @else {
+            <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+              <i class="bi bi-linkedin"></i>
+            </a>
+          }
+          @if(myInformation?.email) {
+            <a [href]="`mailto:${myInformation?.email}`" target="_blank" rel="noopener" class="social-icon-btn" title="Email">
+              <i class="bi bi-envelope-fill"></i>
+            </a>
+          } @else {
+            <a routerLink="/contact" class="social-icon-btn" title="Email">
+              <i class="bi bi-envelope-fill"></i>
+            </a>
+          }
+          @if (myInformation?.instagram) {
+            <a [href]="myInformation.instagram" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+          } @else {
+            <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
+              <i class="bi bi-instagram"></i>
+            </a>
+          }
+        </div>
+      </div>
+
+      <!-- ── Image Column ── -->
+      <div class="col-lg-5 hero-image-col" data-aos="zoom-in" data-aos-delay="200">
+        <div class="image-orbit-wrapper">
+
+          <!-- Spinning orbit ring -->
+          <div class="orbit-ring"></div>
+          <div class="orbit-ring orbit-ring-2"></div>
+
+          <!-- Profile image -->
+          <div class="profile-frame">
+            <img src="assets/images/yihwxx74geyo1xe1xejz.avif"
+                 alt="Avinash Marbhal — profile photo"
+                 class="profile-photo" loading="lazy" decoding="async">
+            <div class="profile-glow"></div>
+          </div>
+
+          <!-- Floating cards -->
+          <!-- <div class="float-card card-exp" data-aos="fade-right" data-aos-delay="500">
+            <div class="float-icon">
+              <i class="bi bi-briefcase-fill"></i>
             </div>
-
-            <div class="col-lg-5 text-center" data-aos="zoom-in" data-aos-delay="200">
-                <div class="image-wrapper">
-                    <div class="main-image-shape mb-4 mb-md-0">
-                        <img src="assets/images/yihwxx74geyo1xe1xejz.avif"
-                            alt="Avinash Marbhal — profile photo" class="img-fluid profile-img" loading="lazy" decoding="async">
-                    </div>
-
-                    <div class="floating-card experience-card d-none d-sm-flex" data-aos="fade-up" data-aos-delay="400">
-                        <span class="fw-bold fs-4 text-primary">{{totalExperience}}+</span>
-                        <span class="small text-muted">Years Exp.</span>
-                    </div>
-                </div>
+            <div class="float-info">
+              <span class="float-num">{{totalExperience}}+</span>
+              <span class="float-label">Years Exp.</span>
             </div>
+          </div>
+
+          <div class="float-card card-proj" data-aos="fade-left" data-aos-delay="600">
+            <div class="float-icon">
+              <i class="bi bi-layers-fill"></i>
+            </div>
+            <div class="float-info">
+              <span class="float-num">{{ projectsCount }}</span>
+              <span class="float-label">Projects Done</span>
+            </div>
+          </div> -->
+
+          <!-- Tech badge chips orbiting -->
+          <!-- <div class="tech-chip chip-angular">Angular</div>
+          <div class="tech-chip chip-ts">TypeScript</div>
+          <div class="tech-chip chip-node">Node.js</div> -->
 
         </div>
+      </div>
+
     </div>
+
+    <!-- Scroll indicator -->
+    <div class="scroll-indicator">
+      <div class="scroll-mouse">
+        <div class="scroll-wheel"></div>
+      </div>
+      <span>Scroll down</span>
+    </div>
+  </div>
 </section>
 
-<section class="py-5">
-    <div class="container">
-        <div class="row g-4 align-items-center">
-            <div class="col-md-6" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-4">Crafting Digital <span class="text-primary">Experiences</span></h2>
-                <p class="text-secondary">With over {{totalExperience}} years of experience, I specialize in building robust frontend
-                    architectures. I love turning complex problems into simple, beautiful, and intuitive designs.</p>
 
-                <div class="row g-3 mt-4">
-                    <div class="col-6">
-                        <div class="p-3 border-start border-primary border-4 bg-body-secondary rounded-4">
-                            <h3 class="fw-bold mb-0">{{ projectsCount }}</h3>
-                            <small class="text-muted">Projects Completed</small>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <div class="p-3 border-start border-primary border-4 bg-body-secondary rounded-4">
-                            <h3 class="fw-bold mb-0">{{totalExperience}}+</h3>
-                            <small class="text-muted">Experience</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- ═══════════════════════════════════════════ ABOUT SECTION ═══════════════════════════════════════════ -->
+<section class="about-section">
+  <div class="section-glow"></div>
+  <div class="container">
 
-            <div class="col-md-6" data-aos="fade-left">
-                <div class="ps-md-5">
-                    <ul class="list-unstyled">
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
-                            <span>High Performance Angular Applications</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
-                            <span>Responsive & Mobile-First Design</span>
-                        </li>
-                        <li class="mb-3 d-flex align-items-center">
-                            <i class="bi bi-check-circle-fill text-primary me-3 fs-4"></i>
-                            <span>Theme-able UI Components</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <!-- Section heading -->
+    <div class="section-heading text-center" data-aos="fade-up">
+      <span class="section-tag">About Me</span>
+      <h2 class="section-title">Crafting Digital <span class="text-gradient-primary">Experiences</span></h2>
+      <p class="section-subtitle">With passion, precision, and a pixel-perfect eye for detail.</p>
+    </div>
+
+    <div class="row align-items-center gy-5 mt-2">
+
+      <!-- Left: description + highlights -->
+      <div class="col-lg-6" data-aos="fade-right">
+        <p class="about-para">
+          With over <strong>{{totalExperience}} years</strong> of hands-on experience, I specialise in building
+          robust, scalable frontend architectures. I love turning complex problems into elegant,
+          intuitive designs that delight users.
+        </p>
+        <p class="about-para">
+          My toolkit spans <strong>Angular</strong>, <strong>TypeScript</strong>, REST APIs, and modern
+          CSS — always keeping performance and accessibility at the forefront.
+        </p>
+
+        <!-- Skill tags -->
+        <div class="skill-tags">
+          <span class="skill-tag">Angular</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">RxJS</span>
+          <span class="skill-tag">SCSS / CSS</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">REST APIs</span>
+          <span class="skill-tag">Bootstrap</span>
+          <span class="skill-tag">Git</span>
         </div>
+      </div>
+
+      <!-- Right: checklist + stats cards -->
+      <div class="col-lg-6" data-aos="fade-left">
+
+        <!-- Feature list -->
+        <ul class="feature-list">
+          <li>
+            <span class="feature-icon"><i class="bi bi-lightning-charge-fill"></i></span>
+            <div>
+              <strong>High-Performance Angular Apps</strong>
+              <p>Optimised with lazy loading, OnPush, and smart caching strategies.</p>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon"><i class="bi bi-phone-fill"></i></span>
+            <div>
+              <strong>Responsive & Mobile-First Design</strong>
+              <p>Fluid layouts that look stunning on every device and screen size.</p>
+            </div>
+          </li>
+          <li>
+            <span class="feature-icon"><i class="bi bi-palette2"></i></span>
+            <div>
+              <strong>Theme-able UI Components</strong>
+              <p>Dark/light modes with dynamic skin colours — just like this portfolio.</p>
+            </div>
+          </li>
+        </ul>
+
+        <!-- Stats row -->
+        <div class="stats-row">
+          <div class="stat-card" data-aos="zoom-in" data-aos-delay="100">
+            <span class="stat-num">{{ projectsCount }}</span>
+            <span class="stat-label">Projects</span>
+          </div>
+          <div class="stat-card" data-aos="zoom-in" data-aos-delay="200">
+            <span class="stat-num">{{totalExperience}}+</span>
+            <span class="stat-label">Years Exp.</span>
+          </div>
+          <div class="stat-card" data-aos="zoom-in" data-aos-delay="300">
+            <span class="stat-num">100%</span>
+            <span class="stat-label">Dedication</span>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </div>
 </section>
 
+
+<!-- ═══════════════════════════════════════════ TESTIMONIALS ═══════════════════════════════════════════ -->
 <app-testimonials />
 
-<app-cta [title]="'Ready to start a project?'" [subtitle]="`I'm currently available for freelance work.`" [buttonLink]="'/contact'" [buttonText]="`Let's Chat`" />
 
-<!-- Resume Download Modal (static backdrop, manual close) -->
-<div class="modal fade custom-modal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content shadow-lg border-0">
-            <div class="modal-header border-0 p-4 pb-3">
-                <div class="d-flex align-items-center gap-3">
-                    <div class="icon-wrap d-flex align-items-center justify-content-center">
-                        <i class="bi bi-file-earmark-arrow-down-fill fs-3 text-white"></i>
-                    </div>
-                    <div>
-                        <h5 class="modal-title mb-0" id="staticBackdropLabel">Resume downloaded</h5>
-                        <small class="text-opacity-75 rounded-pill">Your CV has been saved to your device.</small>
-                    </div>
-                </div>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-
-            <div class="modal-body p-4 pt-2">
-                <p class="mb-3 text-secondary">Thanks for downloading my resume. If the download didn't start, <a href="assets/resume/Avinash-Marbhal-Resume-Angular-Updated.pdf" target="_blank" rel="noopener">click here</a>.</p>
-                <div class="d-flex justify-content-end">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill me-2" data-bs-dismiss="modal">Close</button>
-                    <a href="assets/resume/Avinash-Marbhal-Resume-Angular-Updated.pdf" target="_blank" class="btn btn-primary rounded-pill">Open file</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- ═══════════════════════════════════════════ CTA ═══════════════════════════════════════════ -->
+<app-cta
+  [title]="'Ready to start a project?'"
+  [subtitle]="`I'm currently available for freelance work.`"
+  [buttonLink]="'/contact'"
+  [buttonText]="`Let's Chat`" />
