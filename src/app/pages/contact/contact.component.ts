@@ -64,7 +64,7 @@ export class ContactComponent implements OnInit {
             // Clear success message after 5 seconds
             this.toastService.show(
               'success',
-              'Message Sent!',
+              'Message Sent !',
               `Thank you for reaching out, I'll contact you soon.`
             );
           }
@@ -73,6 +73,11 @@ export class ContactComponent implements OnInit {
           this.isSending.set(false);
           // Try to handle error or alert them
           // alert(err.error?.message || 'Failed to send message.');
+          this.toastService.show(
+            'error',
+            'Failed !',
+            `Failed to send message. Please try again.`
+          );
         }
       });
     } else {

@@ -4,6 +4,8 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Testimonial } from '../../interfaces/testimonial';
 import { FeedbackService } from '../../services/feedback/feedback.service';
 import { ValidationService } from '../../services/validations/validation.service';
+import { ToastService } from '../../services/toast/toast.service';
+import { ToastComponent } from "../toast/toast.component";
 
 interface BootstrapModalInstance {
   hide(): void;
@@ -21,12 +23,13 @@ interface BootstrapWindow extends Window {
 
 @Component({
   selector: 'app-testimonials',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastComponent],
   templateUrl: './testimonials.component.html',
   styleUrl: './testimonials.component.scss'
 })
 export class TestimonialsComponent implements OnInit {
   private readonly formBuilder = inject(FormBuilder);
+  toastService = inject(ToastService);
 
   // testimonials: Testimonial[] = TESTIMONIALS;
   testimonials: Testimonial[] = [];
@@ -121,11 +124,21 @@ export class TestimonialsComponent implements OnInit {
         this.feedbackForm.reset({ rating: null });
         this.isSubmitted.set(false);
         this.hideFeedbackModal();
-        this.triggerToast('Feedback submitted successfully.');
+        // this.triggerToast('Feedback submitted successfully.');
+        this.toastService.show(
+          'success',
+          'Feedback Sent !',
+          `Feedback submitted successfully.`
+        );
       },
       error: (error: { error?: { message?: string } }) => {
         this.isSubmitting.set(false);
-        this.submitError.set(error?.error?.message ?? 'Unable to submit feedback. Please try again.');
+        // this.submitError.set(error?.error?.message ?? 'Unable to submit feedback. Please try again.');
+        this.toastService.show(
+          'error',
+          'Failed !',
+          `Failed to submit feedback. Please try again.`
+        );
       }
     });
   }
