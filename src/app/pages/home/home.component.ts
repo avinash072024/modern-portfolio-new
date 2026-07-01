@@ -101,4 +101,54 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  downloadResume(): void {
+    this.resumesService.getResumes().subscribe({
+      next: (res: any) => {
+        console.log('API Response:', res);
+        if(res?.success !== true || !res?.resumes || res?.resumes.length === 0) {
+          this.resumeAvailable = false;
+          this.showModal();
+          return
+        }
+
+        let base64 = res?.resumes[0].pdfData || res;
+
+        const pureBase64 = base64.includes(',') ? base64.split(',')[1] : base64;
+
+        const byteCharacters = atob(pureBase64);
+        const byteNumbers = new Array(byteCharacters.length);
+        for (let i = 0; i < byteCharacters.length; i++) {
+          byteNumbers[i] = byteCharacters.charCodeAt(i);
+        }
+        const byteArray = new Uint8Array(byteNumbers);
+        const blob = new Blob([byteArray], { type: 'application/pdf' });
+
+        const blobUrl = window.URL.createObjectURL(blob);
+        this.dynamicResumeUrl = this.sanitizer.bypassSecurityTrustUrl(blobUrl);
+
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = res?.resumes[0].fileName || 'resume.pdf';
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        this.resumeAvailable = true;
+        this.showModal();
+      },
+      error: (err: any) => {
+        console.error('Error fetching resume from API:', err);
+      }
+    });
+  }
+
+  private showModal(): void {
+    const modalEl = document.getElementById('staticBackdrop');
+    if ((window as any).bootstrap && modalEl) {
+      const bsModal = new (window as any).bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
+      bsModal.show();
+    } else if (typeof $ !== 'undefined' && ($ as any)('#staticBackdrop').modal) {
+      ($ as any)('#staticBackdrop').modal('show');
+    }
+  }
+
 }

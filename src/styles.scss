@@ -107,16 +107,46 @@ body {
     color: var(--primary-color) !important;
 }
 
-/* Custom scrollbar matching the skin */
-::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 10px;
-}
-
 ::selection {
     background: var(--primary-color);
     color: #fff;
 }
+
+
+/* Smooth scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(var(--primary-rgb), 0.5);
+    border-radius: 10px;
+    transition: background 0.3s;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-color);
+}
+
+/* Smooth scroll behaviour */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Global transition for theme changes */
+*,
+*::before,
+*::after {
+    transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+
+/* Ensure keyframe animations aren't interrupted by the global transition */
+/* (AOS, orbit rings, and floating elements use animation, not transition, so they're safe) */
+
 
 
 

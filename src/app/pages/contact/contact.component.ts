@@ -6,11 +6,13 @@ import { Constants } from '../../models/constants';
 import { ContactService } from '../../services/contact/contact.service';
 import { EmailService } from '../../services/email/email.service';
 import { ValidationService } from '../../services/validations/validation.service';
+import { ToastService } from '../../services/toast/toast.service';
+import { ToastComponent } from "../../components/toast/toast.component";
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, ToastComponent],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -20,12 +22,11 @@ export class ContactComponent implements OnInit {
   fb = inject(FormBuilder);
 
   isSending = signal(false);
-  isSuccess = signal(false);
-  // myInformation: AboutMe = Constants.ABOUT_ME;
   myInformation: any;
   contactService = inject(ContactService);
   emailService = inject(EmailService);
   validationService = inject(ValidationService);
+  toastService = inject(ToastService);
 
   ngOnInit(): void {
     this.initForm();
@@ -58,11 +59,14 @@ export class ContactComponent implements OnInit {
         next: (res: any) => {
           this.isSending.set(false);
           if (res?.success) {
-            this.isSuccess.set(true);
             this.contactForm.reset();
 
             // Clear success message after 5 seconds
-            setTimeout(() => this.isSuccess.set(false), 5000);
+            this.toastService.show(
+              'success',
+              'Message Sent!',
+              `Thank you for reaching out, I'll contact you soon.`
+            );
           }
         },
         error: (err: any) => {
@@ -97,7 +101,7 @@ export class ContactComponent implements OnInit {
         value = this.validationService.onlyCharacters(value);
         value = this.validationService.capitalizeFirstLetter(value);
         break;
-        
+
       case 'lastName':
         value = this.validationService.onlyCharacters(value);
         value = this.validationService.capitalizeFirstLetter(value);

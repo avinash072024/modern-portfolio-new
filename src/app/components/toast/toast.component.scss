@@ -1,0 +1,165 @@
+.toast-overlay-wrapper {
+    width: 100%;
+    max-width: 440px;
+    pointer-events: none; // Allows interacting with layers underneath the wrapper
+}
+
+.hyper-toast {
+    position: relative;
+    pointer-events: auto;
+    overflow: hidden;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.16);
+
+    // High-End Glassmorphism
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+
+    // Spring Elastic Entrance Animation Physics
+    animation: toastSpringIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.175) forwards;
+
+    // Typography Defaults
+    .toast-title-text {
+        font-size: 0.95rem;
+        letter-spacing: -0.01em;
+    }
+
+    .toast-message-text {
+        font-size: 0.82rem;
+        line-height: 1.4;
+    }
+
+    // Dynamic Skin Themes & Variants using Contextual Variable Fallbacks
+    &.success {
+        background: rgba(var(--bs-success-rgb, 25, 135, 84), 0.82);
+        border: 1px solid rgba(var(--bs-success-rgb), 0.25);
+        color: #ffffff;
+
+        .toast-glow-icon {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+        }
+    }
+
+    &.error {
+        background: rgba(var(--bs-danger-rgb, 220, 53, 69), 0.82);
+        border: 1px solid rgba(var(--bs-danger-rgb), 0.25);
+        color: #ffffff;
+
+        .toast-glow-icon {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+        }
+    }
+
+    &.info {
+        // Dynamically samples your exact skin's primary color palette configuration!
+        background: rgba(var(--bs-primary-rgb, 13, 110, 253), 0.82);
+        border: 1px solid rgba(var(--bs-primary-rgb), 0.25);
+        color: #ffffff;
+
+        .toast-glow-icon {
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+        }
+    }
+}
+
+// Icon Wrapper Configuration
+.toast-glow-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+}
+
+// Minimalist Close Button Vector Override
+.btn-close-minimalist {
+    background: transparent;
+    border: none;
+    color: #ffffff;
+    opacity: 0.6;
+    font-size: 1.35rem;
+    padding: 4px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.1);
+    }
+}
+
+// Micro Countdown Line Progress Track
+.toast-linear-timer {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.35);
+    animation-name: toastTimeShrink;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+// Keyframe Animations
+@keyframes toastSpringIn {
+    from {
+        opacity: 0;
+        transform: translateY(24px) scale(0.94);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes toastTimeShrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}
+
+// Dark Mode Contrast Tweaks (if global theme context adds a data-bs-theme block)
+[data-bs-theme='dark'] {
+    .hyper-toast {
+        box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.5);
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+}
+
+// Fully Responsive Layout Breakpoint Tweaks
+@media (max-width: 576px) {
+    .toast-overlay-wrapper {
+        left: 0;
+        right: 0;
+        padding: 16px !important;
+        max-width: 100%;
+    }
+
+    .hyper-toast {
+        width: 100%;
+    }
+}
+
+// Ensure your SCSS keyframe block matches the markup transition rules
+.toast-linear-timer {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.4);
+    animation-name: toastTimeShrink;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes toastTimeShrink {
+    from {
+        width: 100%;
+    }
+
+    to {
+        width: 0%;
+    }
+}

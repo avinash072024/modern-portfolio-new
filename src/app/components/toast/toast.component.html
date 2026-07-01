@@ -1,0 +1,30 @@
+<div class="toast-overlay-wrapper position-fixed bottom-0 end-0 p-3 p-sm-4" style="z-index: 2050;">
+    @for (toast of toastService.toasts(); track toast.id) {
+    <div class="hyper-toast d-flex flex-column mb-3 rounded-4"
+        [className]="'hyper-toast d-flex flex-column mb-3 rounded-4 ' + toast.type"
+        (mouseenter)="toastService.pauseToast(toast.id)" (mouseleave)="toastService.resumeToast(toast.id)" role="alert">
+
+        <div class="d-flex align-items-center p-3">
+            <div class="toast-glow-icon me-3 d-flex align-items-center justify-content-center rounded-3">
+                @if (toast.type === 'success') { <i class="bi bi-shield-check fs-4"></i> }
+                @if (toast.type === 'error') { <i class="bi bi-exclamation-triangle-fill fs-5"></i> }
+                @if (toast.type === 'info') { <i class="bi bi-info-circle-fill fs-5"></i> }
+            </div>
+
+            <div class="flex-grow-1 text-start pe-2">
+                <h6 class="fw-bold mb-0 toast-title-text">{{ toast.title }}</h6>
+                <p class="small mb-0 opacity-75 toast-message-text mt-0.5">{{ toast.message }}</p>
+            </div>
+
+            <button type="button" class="btn-close-minimalist ms-auto d-flex align-items-center justify-content-center"
+                aria-label="Close" (click)="toastService.remove(toast.id)">
+                <i class="bi bi-x"></i>
+            </button>
+        </div>
+
+        @if (!toast.isPaused) {
+        <div class="toast-linear-timer" [style.animation-duration.ms]="toast.duration || 4000"></div>
+        }
+    </div>
+    }
+</div>
