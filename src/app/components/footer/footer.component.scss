@@ -1,0 +1,238 @@
+.footer-section {
+    background-color: var(--bs-body-bg);
+    position: relative;
+    overflow: hidden;
+
+    // Subtle decorative glowing background blur spots
+    .footer-glow {
+        position: absolute;
+        width: 250px;
+        height: 250px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(var(--primary-rgb), 0.08) 0%, rgba(var(--primary-rgb), 0) 70%);
+        filter: blur(40px);
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    .glow-1 {
+        top: -50px;
+        left: -50px;
+    }
+
+    .glow-2 {
+        bottom: -50px;
+        right: -50px;
+    }
+
+    .footer-brand {
+        font-size: 1.85rem;
+        color: var(--bs-heading-color, var(--bs-emphasis-color));
+        letter-spacing: -0.75px;
+        font-weight: 700;
+    }
+
+    .footer-heading {
+        letter-spacing: 0.12rem;
+        font-size: 0.9rem;
+        color: var(--bs-emphasis-color);
+        opacity: 0.85;
+    }
+
+    // Social Media Buttons Upgrade
+    .social-item {
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        background: color-mix(in srgb, var(--bs-body-bg), var(--primary-color) 6%);
+        color: var(--bs-secondary-color);
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        border: 1px solid rgba(var(--primary-rgb), 0.12);
+
+        i {
+            font-size: 1.15rem;
+        }
+
+        &:hover {
+            background: var(--primary-color);
+            color: #fff;
+            transform: translateY(-6px) scale(1.05);
+            border-color: var(--primary-color);
+            box-shadow: 0 12px 20px rgba(var(--primary-rgb), 0.25);
+        }
+    }
+
+    // Sleek Underline Transition Links
+    .footer-links li {
+        margin-bottom: 0.85rem;
+
+        a {
+            text-decoration: none;
+            color: var(--bs-secondary-color);
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+            padding-bottom: 2px;
+
+            &::after {
+                content: '';
+                position: absolute;
+                width: 100%;
+                transform: scaleX(0);
+                height: 2px;
+                bottom: 0;
+                left: 0;
+                background-color: var(--primary-color);
+                transform-origin: bottom right;
+                transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            &:hover {
+                color: var(--bs-emphasis-color);
+
+                &::after {
+                    transform: scaleX(1);
+                    transform-origin: bottom left;
+                }
+            }
+        }
+
+        p {
+            color: var(--bs-secondary-color);
+            // margin-bottom: 0;
+        }
+    }
+
+    // Interactive Focus Area Badges
+    .badge-custom {
+        display: inline-block;
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 0.5rem 1rem;
+        border-radius: 30px;
+        color: var(--bs-secondary-color);
+        background: color-mix(in srgb, var(--bs-body-bg), var(--bs-secondary-color) 4%);
+        border: 1px solid var(--bs-border-color);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        cursor: default;
+        user-select: none;
+
+        &:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            background: rgba(var(--primary-rgb), 0.04);
+            transform: translateY(-2px);
+        }
+    }
+
+    // Dynamic CTA Box & Buttons
+    .contact-card {
+        backdrop-filter: blur(8px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.04) !important;
+        }
+    }
+
+    .btn-cta {
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: all 0.3s ease;
+
+        &:hover {
+            transform: translateY(-1px);
+        }
+    }
+
+    // Pulse animation for footer heart
+    .heart-pulse {
+        display: inline-block;
+        animation: pulse 2s infinite;
+    }
+}
+
+// Themes Layer (Ensures strict skin & theme continuity)
+[data-bs-theme="dark"] {
+    .footer-section {
+        background-color: color-mix(in srgb, var(--bs-body-bg), black 12%);
+
+        .contact-card {
+            background-color: color-mix(in srgb, var(--bs-body-bg), white 2%) !important;
+        }
+
+        .badge-custom {
+            background: color-mix(in srgb, var(--bs-body-bg), white 3%);
+        }
+    }
+}
+
+// Responsive Breakpoints
+@media (max-width: 767.98px) {
+    .footer-section {
+        text-align: center;
+
+        .social-grid,
+        .footer-tags {
+            justify-content: center;
+        }
+
+        .footer-links a::after {
+            display: none; // Disables underline effect for cleaner touch device interactions
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .contact-card {
+            margin: 0 auto;
+            max-width: 340px;
+        }
+    }
+}
+
+// Animations 
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+// Enhanced Skeleton Shimmer Loading
+.skeleton-text {
+    display: inline-block;
+    width: 45px;
+    height: 14px;
+    background: linear-gradient(90deg,
+            rgba(var(--primary-rgb), 0.08) 25%,
+            rgba(var(--primary-rgb), 0.22) 50%,
+            rgba(var(--primary-rgb), 0.08) 75);
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite linear;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}

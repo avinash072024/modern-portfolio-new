@@ -1,0 +1,204 @@
+<section class="projects-section pt-5 mt-5 overflow-hidden">
+  <div class="glow-bg"></div>
+  <div class="section-glow" aria-hidden="true"></div>
+
+  <div class="container my-5 position-relative z-1">
+    <div class="text-center mb-5" data-aos="fade-up">
+      <span class="badge rounded-pill bg-primary-subtle text-uppercase text-primary px-3 py-2 mb-3">My Portfolio</span>
+      <h2 class="display-4 fw-bold mb-3">Featured <span class="text-primary">Work</span></h2>
+      <p class="text-secondary mx-auto fs-5" style="max-width: 650px;">
+        A collection of enterprise-level applications, creative web solutions, and passion projects.
+      </p>
+    </div>
+
+    <div class="row g-4">
+      @if (isLoading()) {
+      @for (i of [1, 2, 3]; track i) {
+      <div class="col-12 col-md-6 col-lg-4" data-aos="zoom-in">
+        <div class="project-card h-100 d-flex flex-column skeleton-card border-0">
+          <div class="card-img-container skeleton-img"></div>
+          <div class="card-content d-flex flex-column flex-grow-1 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <div class="skeleton-pill"></div>
+              <div class="skeleton-pill small"></div>
+            </div>
+            <div class="skeleton-line title mt-2 mb-3"></div>
+            <div class="skeleton-line text"></div>
+            <div class="skeleton-line text"></div>
+            <div class="skeleton-line text w-75 mb-4"></div>
+            <div class="mt-auto pt-4 d-flex justify-content-between align-items-center border-top">
+              <div class="skeleton-btn small-btn"></div>
+              <div class="skeleton-btn"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      } @else {
+      @for (project of projects; track project._id; let i = $index) {
+      <div class="col-12 col-md-6 col-lg-6 col-xl-4" data-aos="fade-up" [attr.data-aos-delay]="i * 100">
+        <div class="project-card h-100 d-flex flex-column border-1 shadow">
+          <!-- Image Container -->
+          <div class="card-img-container">
+            @if (project.image) {
+            <img [src]="project.image" [alt]="project.title" class="card-img" />
+            } @else {
+            <div class="card-img-placeholder d-flex align-items-center justify-content-center">
+              <i class="bi bi-laptop display-1 text-white opacity-50"></i>
+            </div>
+            }
+            <!-- Overlays -->
+            <div class="card-img-overlay d-flex flex-column justify-content-between p-3">
+              <div class="d-flex justify-content-between align-items-start w-100">
+                <span class="category-badge shadow-sm">{{project.category}}</span>
+                <span class="year-badge rounded-pill shadow-sm"><i
+                    class="bi bi-calendar3 me-2"></i>{{project.completedYear}}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Container -->
+          <div class="card-content d-flex flex-column flex-grow-1 px-3 py-4">
+            <h3 class="card-title fw-bold mb-2">{{project.title}}</h3>
+            <p class="card-description text-secondary text-truncate-3 mb-4">
+              {{ getLineText(project.desc) }}
+            </p>
+
+            <!-- Tech Stack -->
+            <div class="tech-tags mb-4">
+              @for (tool of project.tools.slice(0, 3); track tool) {
+              <span class="tech-tag"><i class="bi bi-hash"></i>{{tool}}</span>
+              }
+              @if (project.tools.length > 3) {
+              <span class="tech-tag more-tag" [title]="project.tools.slice(3).join(', ')">+{{project.tools.length - 3}}
+                more</span>
+              }
+            </div>
+
+            <!-- Footer / Actions -->
+            <div class="mt-auto pt-4 border-top card-actions d-flex justify-content-between align-items-center">
+              @if (project.link) {
+              <a [href]="project.link" target="_blank" class="btn-live-link d-flex align-items-center gap-2">
+                <span class="link-text">Live Preview</span>
+                <i class="bi bi-arrow-up-right-circle-fill fs-5"></i>
+              </a>
+              } @else {
+              <div></div>
+              }
+              <button class="btn btn-primary rounded-pill px-4 py-2 btn-details" (click)="openProjectModal(project)">
+                Details <i class="bi bi-arrow-right ms-1"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      }
+      }
+    </div>
+  </div>
+</section>
+
+<app-cta [title]="'Ready to start a project?'" [subtitle]="`I'm currently available for freelance work.`"
+  [buttonLink]="'/contact'" [buttonText]="`Let's Chat`" />
+
+<div class="modal fade" id="projectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content project-modal-content border-0">
+
+      <!-- Modal Header (Optional Image Banner inside modal or just clean header) -->
+      <div class="modal-header border-1 pb-0 pt-4 px-4 position-relative"
+        style="border-color: rgba(var(--bs-emphasis-color-rgb), 0.08)">
+        <div class="d-flex flex-column w-100">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <span class="badge category-pill fs-6">{{selectedProject?.category}}</span>
+            <button type="button" class="btn-close shadow-none modal-close-btn" data-bs-dismiss="modal"
+              aria-label="Close"></button>
+          </div>
+          <h2 class="modal-title fw-bold mb-2">{{selectedProject?.title}}</h2>
+        </div>
+      </div>
+
+      <div class="modal-body px-4 py-3">
+        <!-- <div class="status-bar d-flex justify-content-between align-items-center mb-4">
+          <div class="d-flex align-items-center gap-2 text-secondary">
+            <i class="bi bi-calendar-check text-primary fs-5"></i>
+            <span class="fw-semibold">Completed in</span>
+          </div>
+          <span class="fw-bold fs-6">{{selectedProject?.completedYear}}</span>
+        </div> -->
+
+        <!-- <div class="section-title mb-4 d-flex align-items-center gap-3">
+          <div class="accent-line"></div>
+          <h4 class="mb-0 fw-bold">Project Overview</h4>
+        </div> -->
+
+        <div class="row g-3 mb-4">
+          @if (selectedProject?.clientName) {
+          <div class="col-md-12">
+            <div class="border rounded-4 p-3 h-100 bg-body-tertiary">
+              <div class="fw-semibold text-secondary">Client Name</div>
+              <div class="fw-bold mt-1">{{ selectedProject?.clientName || 'N/A' }}</div>
+            </div>
+          </div>
+          }
+
+          <div class="col-md-6">
+            <div class="border rounded-4 p-3 h-100 bg-body-tertiary d-flex justify-content-between align-items-center">
+              <div class="fw-semibold text-secondary">Completed in</div>
+              <div class="fw-bold mt-1">{{ selectedProject?.completedYear || 'N/A' }}</div>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="border rounded-4 p-3 h-100 bg-body-tertiary d-flex justify-content-between align-items-center">
+              <div class="fw-semibold text-secondary">Team Size</div>
+              <div class="fw-bold mt-1">{{ selectedProject?.teamSize || 'N/A' }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-title mb-4 d-flex align-items-center gap-3">
+          <div class="accent-line"></div>
+          <h4 class="mb-0 fw-bold">Project Overview</h4>
+        </div>
+
+        <div class="description-grid mb-5">
+          @for (descLine of selectedProject?.desc; track $index) {
+          <div class="desc-item-card d-flex gap-3 align-items-start mb-3">
+            <div class="check-icon mt-1">
+              <i class="bi bi-check-circle-fill text-primary"></i>
+            </div>
+            <p class="mb-1 text-secondary fs-6 lh-lg">{{ descLine }}</p>
+          </div>
+          }
+        </div>
+
+        <div class="section-title mb-4 d-flex align-items-center gap-3">
+          <i class="bi bi-braces text-primary fs-4"></i>
+          <h4 class="mb-0 fw-bold">Technologies Used</h4>
+        </div>
+
+        <div class="d-flex flex-wrap gap-2 mb-4">
+          @for (tool of selectedProject?.tools; track tool) {
+          <span class="skill-outline-badge">
+            <i class="bi bi-code-slash text-primary me-1 opacity-50"></i>
+            {{tool}}
+          </span>
+          }
+        </div>
+      </div>
+
+      <div class="modal-footer border-top px-4 py-3 d-flex justify-content-between align-items-center">
+        @if (selectedProject?.link) {
+        <a [href]="selectedProject?.link" target="_blank"
+          class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center gap-2">
+          Visit Live Site <i class="bi bi-box-arrow-up-right"></i>
+        </a>
+        } @else {
+        <div></div>
+        }
+        <button type="button" class="btn btn-light rounded-pill px-4 py-2 border" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

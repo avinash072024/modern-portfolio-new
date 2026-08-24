@@ -1,0 +1,44 @@
+/* Scroll to top button */
+.scroll-top {
+	position: fixed;
+	right: 1.5rem;
+	bottom: 2.5rem;
+	width: 44px;
+	height: 44px;
+	border-radius: 50%;
+	background-color: var(--bs-primary, #0d6efd);
+	color: #fff;
+	border: none;
+	z-index: 1050;
+	cursor: pointer;
+	// transition: transform 0.2s ease, opacity 0.2s ease;
+	transition: all 0.3s ease-in-out;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	/* Hidden by default for better SSR / initial load behavior */
+	opacity: 0;
+	transform: translateY(12px);
+	pointer-events: none;
+}
+
+.scroll-top:hover {
+	transform: translateY(-4px);
+}
+
+/* Visible state when scrolled */
+.scroll-top.show {
+	opacity: 1;
+	transform: translateY(0);
+	pointer-events: auto;
+
+    &:hover {
+        transform: translateY(-4px);
+        transform: scale(1.1);
+    }
+}
+
+/* Adjust color for dark theme if needed */
+:root[data-bs-theme='dark'] .scroll-top {
+	background-color: var(--bs-primary, #0d6efd);
+}

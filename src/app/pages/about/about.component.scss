@@ -1,0 +1,213 @@
+.about-page {
+    // position: relative;
+
+    .bg-primary-subtle {
+        background-color: rgba(var(--primary-rgb), 0.1) !important;
+        border: 1px solid rgba(var(--primary-rgb), 0.2);
+    }
+
+    // Bio Card
+    .bio-card {
+        background: var(--bs-body-bg);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.05) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+        transition: all 0.3s ease;
+
+        &:hover {
+            box-shadow: 0 15px 40px rgba(var(--primary-rgb), 0.08) !important;
+            border-color: rgba(var(--primary-rgb), 0.2) !important;
+        }
+    }
+
+    // Education Timeline
+    .education-timeline {
+        .edu-item {
+            .dot {
+                position: absolute;
+                left: -24.5px; // Aligns with border-start
+                top: 24px;
+                width: 16px;
+                height: 16px;
+                border-radius: 50%;
+                background: var(--primary-color);
+                border: 4px solid var(--bs-body-bg);
+                box-shadow: 0 0 0 2px rgba(var(--primary-rgb), 0.2);
+                transition: all 0.3s ease;
+                z-index: 2;
+            }
+
+            .timeline-card {
+                background: var(--bs-body-bg);
+                border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.05);
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02) !important;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    transform: translateX(5px);
+                    border-color: rgba(var(--primary-rgb), 0.3);
+                    box-shadow: 0 10px 25px rgba(var(--primary-rgb), 0.1) !important;
+                }
+            }
+
+            &:hover .dot {
+                transform: scale(1.2);
+                box-shadow: 0 0 0 4px rgba(var(--primary-rgb), 0.3);
+            }
+        }
+    }
+
+    // Tech Stack Container
+    .tech-stack-container {
+        background: var(--bs-body-bg);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.05) !important;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03) !important;
+    }
+
+    // Tech Card Interactions
+    .tech-card {
+        background: rgba(var(--bs-emphasis-color-rgb), 0.02);
+        border: 1px solid rgba(var(--bs-emphasis-color-rgb), 0.05);
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        height: 100%;
+
+        .icon-wrapper {
+            width: 60px;
+            height: 60px;
+            background: rgba(var(--bs-body-bg-rgb), 1);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        &:hover {
+            transform: translateY(-8px);
+            border-color: var(--primary-color);
+            background: var(--bs-body-bg);
+            box-shadow: 0 15px 30px rgba(var(--primary-rgb), 0.12);
+
+            .icon-wrapper {
+                background: rgba(var(--primary-rgb), 0.1);
+                i {
+                    transform: scale(1.15);
+                    transition: transform 0.3s ease;
+                }
+            }
+
+            .progress .progress-bar {
+                box-shadow: 0 0 12px var(--primary-color);
+            }
+        }
+    }
+
+    .progress {
+        background-color: rgba(var(--bs-emphasis-color-rgb), 0.1);
+        overflow: visible;
+
+        .progress-bar {
+            background-color: var(--primary-color);
+            transition: width 1s ease-in-out, box-shadow 0.3s ease;
+        }
+    }
+
+    .btn-more-stack {
+        transition: all 0.3s ease;
+        
+        i {
+            transition: transform 0.3s ease;
+        }
+
+        &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(var(--primary-rgb), 0.2);
+            
+            i {
+                transform: translateX(4px);
+            }
+        }
+    }
+}
+
+// Skeleton loader styles
+@keyframes shimmer {
+    0% {
+        background-position: -450px 0;
+    }
+    100% {
+        background-position: 450px 0;
+    }
+}
+
+.about-page {
+    .skeleton-line {
+        background: rgba(var(--bs-emphasis-color-rgb), 0.06);
+        background-image: linear-gradient(90deg,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 0px,
+                rgba(var(--bs-emphasis-color-rgb), 0.12) 40px,
+                rgba(var(--bs-emphasis-color-rgb), 0.06) 80px);
+        background-size: 900px 100%;
+        animation: shimmer 2s infinite linear;
+        border-radius: 6px;
+        height: 12px;
+
+        &.sm {
+            width: 40%;
+            height: 10px;
+        }
+
+        &.md {
+            width: 70%;
+        }
+
+        &.lg {
+            width: 90%;
+            height: 16px;
+        }
+    }
+}
+
+// Dark mode support
+[data-bs-theme="dark"] {
+    .about-page {
+        .text-secondary {
+            color: #adb5bd !important;
+        }
+
+        .bio-card, .tech-stack-container, .education-timeline .edu-item .timeline-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05) !important;
+            
+            &:hover {
+                background: rgba(255, 255, 255, 0.03);
+            }
+        }
+
+        .education-timeline .edu-item .dot {
+            // border color natively adapts since it uses var(--bs-body-bg)
+        }
+
+        .tech-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-color: rgba(255, 255, 255, 0.05);
+
+            .icon-wrapper {
+                background: #1a1d20; // Dark theme card-like elevation
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            }
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.04);
+            }
+        }
+
+        .skeleton-line {
+            background: rgba(255, 255, 255, 0.05);
+            background-image: linear-gradient(90deg,
+                    rgba(255, 255, 255, 0.05) 0px,
+                    rgba(255, 255, 255, 0.1) 40px,
+                    rgba(255, 255, 255, 0.05) 80px);
+        }
+    }
+}
+
+.lead2 {
+    font-size: 1.05rem;
+}

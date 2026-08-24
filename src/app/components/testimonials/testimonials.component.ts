@@ -1,0 +1,257 @@
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, inject, OnDestroy, OnInit, signal, ViewChild } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Testimonial } from '../../interfaces/testimonial';
+import { FeedbackService } from '../../services/feedback/feedback.service';
+import { ValidationService } from '../../services/validations/validation.service';
+import { ToastService } from '../../services/toast/toast.service';
+import { ToastComponent } from "../toast/toast.component";
+import { SocketService } from '../../services/socket/socket.service';
+import { Subject, takeUntil } from 'rxjs';
+
+interface BootstrapModalInstance {
+  hide(): void;
+}
+
+interface BootstrapModalApi {
+  getOrCreateInstance(element: Element): BootstrapModalInstance;
+}
+
+interface BootstrapWindow extends Window {
+  bootstrap?: {
+    Modal?: BootstrapModalApi;
+  };
+}
+
+@Component({
+  selector: 'app-testimonials',
+  imports: [CommonModule, ReactiveFormsModule, ToastComponent],
+  templateUrl: './testimonials.component.html',
+  styleUrl: './testimonials.component.scss'
+})
+export class TestimonialsComponent implements OnInit, OnDestroy {
+  @ViewChild('scrollContainer', { static: false }) scrollContainer!: ElementRef;
+
+  private readonly formBuilder = inject(FormBuilder);
+  toastService = inject(ToastService);
+  socketService = inject(SocketService);
+  private destroy$ = new Subject<void>();
+
+  // testimonials: Testimonial[] = TESTIMONIALS;
+  testimonials: Testimonial[] = [];
+
+  feedbackForm = this.formBuilder.group({
+    name: ['', Validators.required],
+    organization: ['', Validators.required],
+    designation: ['', Validators.required],
+    rating: [null as number | null, Validators.required],
+    message: ['', Validators.required]
+  });
+
+  isSubmitting = signal<boolean>(false);
+  isSubmitted = signal(false);
+  submitError = signal<string>('');
+  showToast = signal<boolean>(false);
+  toastMessage = signal<string>('Feedback submitted successfully.');
+  isLoading = signal<boolean>(true);
+
+  private toastTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  constructor(
+    private readonly feedbackService: FeedbackService,
+    public readonly validationService: ValidationService
+  ) { }
+
+  ngOnInit(): void {
+    this.getFeedbacks();
+    this.subscribeToSocketUpdates();
+  }
+
+  private subscribeToSocketUpdates(): void {
+    this.socketService
+      .onRefreshOrDataUpdated(['feedback', 'feedbacks'])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getFeedbacks(true);
+      });
+  }
+
+  getFeedbacks(isSilent: boolean = false): void {
+    if (!isSilent) {
+      this.isLoading.set(true); // Start loading
+    }
+    this.feedbackService.getAllFeedback(isSilent).subscribe({
+      next: (res: any) => {
+        if (res?.success) {
+          let data = res?.feedback || [];
+          this.testimonials = data.filter((item: any) => item.verified === true) || [];
+        }
+        if (!isSilent) {
+          this.isLoading.set(false); // Stop loading
+        }
+      },
+      error: (err: any) => {
+        if (!isSilent) {
+          this.isLoading.set(false); // Stop loading even on error
+        }
+      }
+    })
+  }
+
+  get marqueeItems(): { testimonial: Testimonial; key: string }[] {
+    const sets = this.testimonials.length > 1 ? [0, 1] : [0];
+    return sets.flatMap((set) =>
+      this.testimonials.map((testimonial) => ({
+        testimonial,
+        key: `${testimonial._id ?? testimonial.name}-${set}`
+      }))
+    );
+  }
+
+  getStars(rating: number): boolean[] {
+    return Array(5).fill(false).map((_, i) => i < rating);
+  }
+
+  getAvatarUrl(name: string): string {
+    const primary = getComputedStyle(document.documentElement)
+      .getPropertyValue('--primary-color')
+      .trim()
+      .replace('#', '');
+    const safeName = encodeURIComponent(name || 'User');
+    return `https://ui-avatars.com/api/?name=${safeName}&background=${primary}&color=ffffff&rounded=true&bold=true&size=80`;
+  }
+
+  onFeedbackSubmit(): void {
+    this.isSubmitted.set(true);
+
+    if (this.feedbackForm.invalid) {
+      Object.values(this.feedbackForm.controls).forEach((control) => control.markAsDirty());
+      this.feedbackForm.markAllAsTouched();
+      return;
+    }
+
+    this.isSubmitting.set(true);
+    this.submitError.set('');
+
+    const formValue = this.feedbackForm.getRawValue();
+    this.feedbackService.createFeedback({
+      name: formValue.name ?? '',
+      organization: formValue.organization ?? '',
+      designation: formValue.designation ?? '',
+      rating: formValue.rating ?? 0,
+      message: formValue.message ?? ''
+    }).subscribe({
+      next: () => {
+        this.isSubmitting.set(false);
+        this.feedbackForm.reset({ rating: null });
+        this.isSubmitted.set(false);
+        this.hideFeedbackModal();
+        // this.triggerToast('Feedback submitted successfully.');
+        this.toastService.show(
+          'success',
+          'Feedback Sent !',
+          `Feedback submitted successfully.`
+        );
+      },
+      error: (error: { error?: { message?: string } }) => {
+        this.isSubmitting.set(false);
+        // this.submitError.set(error?.error?.message ?? 'Unable to submit feedback. Please try again.');
+        this.toastService.show(
+          'error',
+          'Failed !',
+          `Failed to submit feedback. Please try again.`
+        );
+      }
+    });
+  }
+
+  resetFeedbackForm(): void {
+    this.feedbackForm.reset({ rating: null });
+    this.isSubmitted.set(false);
+    this.submitError.set('');
+  }
+
+  isControlInvalid(controlName: 'name' | 'organization' | 'designation' | 'rating' | 'message'): boolean {
+    const control = this.feedbackForm.get(controlName);
+    return !!control && control.invalid && (control.dirty || control.touched || this.isSubmitted());
+  }
+
+  closeToast(): void {
+    this.showToast.set(false);
+    if (this.toastTimeoutId) {
+      clearTimeout(this.toastTimeoutId);
+      this.toastTimeoutId = null;
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.toastTimeoutId) {
+      clearTimeout(this.toastTimeoutId);
+    }
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private hideFeedbackModal(): void {
+    const modalElement = document.getElementById('feedbackModal');
+    if (!modalElement) {
+      return;
+    }
+
+    const bootstrapWindow = window as BootstrapWindow;
+    const modalApi = bootstrapWindow.bootstrap?.Modal;
+    if (!modalApi) {
+      return;
+    }
+
+    const modal = modalApi.getOrCreateInstance(modalElement);
+    modal.hide();
+  }
+
+  private triggerToast(message: string): void {
+    this.toastMessage.set(message);
+    this.showToast.set(true);
+
+    if (this.toastTimeoutId) {
+      clearTimeout(this.toastTimeoutId);
+    }
+
+    this.toastTimeoutId = setTimeout(() => {
+      this.showToast.set(false);
+      this.toastTimeoutId = null;
+    }, 4000);
+  }
+
+  onInputChange(event: any, field: string) {
+    let value = event.target.value;
+
+    switch (field) {
+      case 'name':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'organization':
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'designation':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'message':
+        value = this.validationService.capitalizeSentence(value);
+        break;
+    }
+
+    event.target.value = value;
+  }
+
+  scrollCarousel(direction: 'left' | 'right') {
+    if (this.scrollContainer) {
+      const scrollAmount = direction === 'left' ? -420 : 420;
+      this.scrollContainer.nativeElement.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  }
+}

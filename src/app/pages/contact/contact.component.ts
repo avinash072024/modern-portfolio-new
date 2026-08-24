@@ -1,0 +1,145 @@
+import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+
+import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AboutMe } from '../../interfaces/about-me';
+import { Constants } from '../../models/constants';
+import { ContactService } from '../../services/contact/contact.service';
+import { EmailService } from '../../services/email/email.service';
+import { ValidationService } from '../../services/validations/validation.service';
+import { ToastService } from '../../services/toast/toast.service';
+import { ToastComponent } from "../../components/toast/toast.component";
+import { SocketService } from '../../services/socket/socket.service';
+import { Subject, takeUntil } from 'rxjs';
+
+@Component({
+  selector: 'app-contact',
+  standalone: true,
+  imports: [FormsModule, ReactiveFormsModule, ToastComponent],
+  templateUrl: './contact.component.html',
+  styleUrls: ['./contact.component.scss']
+})
+export class ContactComponent implements OnInit, OnDestroy {
+
+  contactForm!: FormGroup;
+  fb = inject(FormBuilder);
+
+  isSending = signal(false);
+  myInformation: any;
+  contactService = inject(ContactService);
+  emailService = inject(EmailService);
+  validationService = inject(ValidationService);
+  toastService = inject(ToastService);
+  socketService = inject(SocketService);
+  private destroy$ = new Subject<void>();
+
+  ngOnInit(): void {
+    this.initForm();
+    this.getContactDetails();
+    this.subscribeToSocketUpdates();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private subscribeToSocketUpdates(): void {
+    this.socketService
+      .onRefreshOrDataUpdated(['contact'])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getContactDetails();
+      });
+  }
+
+  initForm(): void {
+    this.contactForm = this.fb.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      contact: [''],
+      message: ['', Validators.required]
+    });
+  }
+
+  onSubmit() {
+    if (this.contactForm.valid) {
+      this.isSending.set(true);
+
+      const payload = {
+        firstname: this.contactForm.value.firstName,
+        lastname: this.contactForm.value.lastName,
+        email: this.contactForm.value.email,
+        contact: this.contactForm.value.contact,
+        message: this.contactForm.value.message
+      };
+
+      this.emailService.createMail(payload).subscribe({
+        next: (res: any) => {
+          this.isSending.set(false);
+          if (res?.success) {
+            this.contactForm.reset();
+
+            // Clear success message after 5 seconds
+            this.toastService.show(
+              'success',
+              'Message Sent !',
+              `Thank you for reaching out, I'll contact you soon.`
+            );
+          }
+        },
+        error: (err: any) => {
+          this.isSending.set(false);
+          // Try to handle error or alert them
+          // alert(err.error?.message || 'Failed to send message.');
+          this.toastService.show(
+            'error',
+            'Failed !',
+            `Failed to send message. Please try again.`
+          );
+        }
+      });
+    } else {
+      this.contactForm.markAllAsTouched();
+    }
+  }
+
+  getContactDetails(): void {
+    this.contactService.getContact().subscribe({
+      next: (res: any) => {
+        if (res?.success && res?.contact) {
+          this.myInformation = res.contact;
+        }
+      },
+      error: (err: any) => {
+        // alert(err.error.message || 'Failed to load contact details');
+      }
+    });
+  }
+
+  onInputChange(event: any, field: string) {
+    let value = event.target.value;
+
+    switch (field) {
+      case 'firstName':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'lastName':
+        value = this.validationService.onlyCharacters(value);
+        value = this.validationService.capitalizeFirstLetter(value);
+        break;
+
+      case 'contact':
+        value = this.validationService.onlyNumbers(value);
+        break;
+
+      case 'message':
+        value = this.validationService.capitalizeSentence(value);
+        break;
+    }
+
+    event.target.value = value;
+  }
+}
