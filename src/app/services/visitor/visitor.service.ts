@@ -38,4 +38,8 @@ export class VisitorService {
   getVisitor(): Observable<any> {
     return this.getCached('visitors_all', () => this.http.get(environment.apiUrl + '/visitor/all'));
   }
+
+  getVisitorCount(): Observable<any> {
+    return this.getCached('visitors_all', () => this.http.get(environment.apiUrl + '/visitor/count'));
+  }
 }

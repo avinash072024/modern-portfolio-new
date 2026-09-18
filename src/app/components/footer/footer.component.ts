@@ -51,7 +51,7 @@ export class FooterComponent implements OnInit {
     this.isLoading.set(true);
     forkJoin({
       contact: this.contactService.getContact(),
-      visitor: this.visitorService.getVisitor()
+      visitor: this.visitorService.getVisitorCount()
     }).subscribe({
       next: (res: any) => {
         // Handle Contact Data
@@ -60,7 +60,7 @@ export class FooterComponent implements OnInit {
         }
 
         // Handle Visitor Data
-        if (res.visitor?.success && res.visitor?.Visitors) {
+        if (res.visitor?.success && res.visitor?.count) {
           this.visitorCount = res.visitor?.count;
         }
         this.isLoading.set(false);
