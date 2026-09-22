@@ -5,6 +5,7 @@ import { TitleCasePipe } from '@angular/common';
 import { ContactService } from '../../services/contact/contact.service';
 import { VisitorService } from '../../services/visitor/visitor.service';
 import { forkJoin } from 'rxjs';
+import { NumberFormatPipe } from '../../pipes/number-format.pipe';
 
 interface dynamicObject {
   id: number;
@@ -14,7 +15,7 @@ interface dynamicObject {
 
 @Component({
   selector: 'app-footer',
-  imports: [RouterLink, TitleCasePipe],
+  imports: [RouterLink, TitleCasePipe, NumberFormatPipe],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss'
 })
