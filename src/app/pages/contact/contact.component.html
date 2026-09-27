@@ -101,8 +101,8 @@
                 <textarea class="form-control" id="message" formControlName="message" placeholder="Message"
                   style="height: 180px"
                   [class.is-invalid]="contactForm.get('message')?.invalid && contactForm.get('message')?.touched"
-                  (input)="onInputChange($event, 'message')" autocomplete="off"></textarea>
-                <label for="message">How can I help you?</label>
+                  autocomplete="off"></textarea>
+                <label for="message">Message</label>
                 <div class="invalid-feedback">Message cannot be empty.</div>
               </div>
             </div>

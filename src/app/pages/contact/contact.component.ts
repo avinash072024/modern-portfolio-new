@@ -67,8 +67,8 @@ export class ContactComponent implements OnInit, OnDestroy {
       this.isSending.set(true);
 
       const payload = {
-        firstname: this.contactForm.value.firstName,
-        lastname: this.contactForm.value.lastName,
+        firstName: this.contactForm.value.firstName,
+        lastName: this.contactForm.value.lastName,
         email: this.contactForm.value.email,
         contact: this.contactForm.value.contact,
         message: this.contactForm.value.message

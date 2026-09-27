@@ -9,6 +9,6 @@ export class EmailService {
   private http = inject(HttpClient);
 
   createMail(data: any) {
-    return this.http.post(`${environment.apiUrl}/emails`, data);
+    return this.http.post(`${environment.apiUrl}/email/contact`, data);
   }
 }

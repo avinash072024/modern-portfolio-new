@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     // apiUrl: 'http://localhost:5000/api',
-    apiUrl: 'https://portfolio-backend-skax.onrender.com/api',
+    apiUrl: 'https://portfolio-backend-ecru-chi.vercel.app/api',
     siteUrl: 'https://avinash-modern-portfolio.netlify.app',
     /** GA4 Measurement ID (e.g. G-XXXXXXXXXX). Leave empty to disable analytics. */
     googleAnalyticsId: 'G-978CQZM6DF',
