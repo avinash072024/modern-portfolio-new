@@ -19,14 +19,14 @@
         <div class="z-1 position-relative">
           <h3 class="fw-bold mb-4">Contact Information</h3>
           <p class="text-white mb-4">Have a question or a project in mind? Drop me a message and I'll get
-            back to you within 24 hours.</p>
+            back to you shortly.</p>
 
           <div
             class="contact-method d-flex align-items-center mb-4 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
             <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-envelope-at-fill"></i></div>
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Email Me</small>
-              <a [href]="`mailto:${myInformation?.email}`"
+              <a appTooltip="Click to copy" tooltipPlacement="top" [href]="`mailto:${myInformation?.email}`"
                 class="text-white fw-medium text-decoration-none d-block text-break">{{myInformation?.email
                 || '-'}}</a>
             </div>
@@ -37,17 +37,26 @@
             <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-telephone-fill"></i></div>
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Contact Me</small>
-              <a [href]="`tel:${myInformation?.phone}`"
+              <a appTooltip="Click to copy" tooltipPlacement="top" [href]="`tel:${myInformation?.phone}`"
                 class="text-white fw-medium text-decoration-none">{{myInformation?.phone || '-'}}</a>
             </div>
           </div>
 
           <div
-            class="contact-method d-flex align-items-center p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+            class="contact-method d-flex align-items-center mb-4 p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
             <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-geo-alt-fill"></i></div>
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Location</small>
               <span class="fw-medium">{{myInformation?.address || '-'}}</span>
+            </div>
+          </div>
+
+          <div
+            class="contact-method d-flex align-items-center p-3 rounded-4 bg-white bg-opacity-10 border border-white border-opacity-10">
+            <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-clock"></i></div>
+            <div class="flex-grow-1">
+              <small class="d-block text-white-50">Timezone</small>
+              <span class="fw-medium">{{timezone}}</span>
             </div>
           </div>
         </div>

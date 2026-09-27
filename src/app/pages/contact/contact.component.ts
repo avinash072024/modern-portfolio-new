@@ -10,11 +10,12 @@ import { ToastService } from '../../services/toast/toast.service';
 import { ToastComponent } from "../../components/toast/toast.component";
 import { SocketService } from '../../services/socket/socket.service';
 import { Subject, takeUntil } from 'rxjs';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ToastComponent],
+  imports: [FormsModule, ReactiveFormsModule, ToastComponent, TooltipDirective],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -31,6 +32,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   toastService = inject(ToastService);
   socketService = inject(SocketService);
   private destroy$ = new Subject<void>();
+  timezone: string = '-';
 
   ngOnInit(): void {
     this.initForm();
@@ -109,6 +111,7 @@ export class ContactComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         if (res?.success && res?.contact) {
           this.myInformation = res.contact;
+          this.timezone = 'IST (UTC +5:30) · High overlap with EU & US'
         }
       },
       error: (err: any) => {
