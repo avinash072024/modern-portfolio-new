@@ -4,7 +4,9 @@ import { ThemeService } from '../../services/theme/theme.service';
 import { Constants } from '../../models/constants';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ContactService } from '../../services/contact/contact.service';
+import { SocketService } from '../../services/socket/socket.service';
 
 @Component({
   selector: 'app-header',
@@ -21,6 +23,9 @@ export class HeaderComponent {
   currentYear: number = new Date().getFullYear();
   myInformation: any;
   contactService = inject(ContactService);
+  socketService = inject(SocketService);
+
+  private destroy$ = new Subject<void>();
 
   skins = [
     { name: 'Default Blue', class: 'default-blue', hex: '#0d6efd' },
@@ -43,6 +48,7 @@ export class HeaderComponent {
 
   ngOnInit(): void {
     this.getContactDetails();
+    this.subscribeToSocketUpdates();
   }
 
   @HostListener('window:scroll', [])
@@ -63,5 +69,14 @@ export class HeaderComponent {
         // alert(err.error.message || 'Failed to load contact details');
       }
     });
+  }
+
+  private subscribeToSocketUpdates(): void {
+    this.socketService
+      .onRefreshOrDataUpdated(['contact'])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getContactDetails();
+      });
   }
 }

@@ -31,13 +31,17 @@ export class ContactService {
   // cached observable so HTTP request happens only once
   private contactRequest$: Observable<{ success: boolean; contact: ContactInfo }> | null = null;
 
-  getContact(): Observable<{ success: boolean; contact: ContactInfo }> {
-    if (!this.contactRequest$) {
-      this.contactRequest$ = this.http
-        .get<{ success: boolean; contact: ContactInfo }>(`${environment.apiUrl}/contact`)
-        .pipe(shareReplay({ bufferSize: 1, refCount: true }));
-    }
-    return this.contactRequest$;
+  // getContact(): Observable<{ success: boolean; contact: ContactInfo }> {
+  //   if (!this.contactRequest$) {
+  //     this.contactRequest$ = this.http
+  //       .get<{ success: boolean; contact: ContactInfo }>(`${environment.apiUrl}/contact`)
+  //       .pipe(shareReplay({ bufferSize: 1, refCount: true }));
+  //   }
+  //   return this.contactRequest$;
+  // }
+
+  getContact(): Observable<{success: boolean; contact: ContactInfo}> {
+    return this.http.get<{success: boolean; contact: ContactInfo}>(environment.apiUrl + `/contact`);
   }
 
   // optional: allow clearing the cached request (useful for updates or refresh)

@@ -4,9 +4,10 @@ import { Constants } from '../../models/constants';
 import { TitleCasePipe } from '@angular/common';
 import { ContactService } from '../../services/contact/contact.service';
 import { VisitorService } from '../../services/visitor/visitor.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { NumberFormatPipe } from '../../pipes/number-format.pipe';
 import { TooltipDirective } from '../../directives/tooltip.directive';
+import { SocketService } from '../../services/socket/socket.service';
 
 interface dynamicObject {
   id: number;
@@ -27,9 +28,11 @@ export class FooterComponent implements OnInit {
   appName2: string = Constants.APP_NAME2;
   contactService = inject(ContactService);
   visitorService = inject(VisitorService);
+  socketService = inject(SocketService);
   isLoading = signal(true); // 1. Added loading signal
 
   visitorCount: number = 0;
+  private destroy$ = new Subject<void>();
 
   exploreMoreLinks: dynamicObject[] = [
     { id: 1, name: 'About Me', path: '/about' },
@@ -47,6 +50,7 @@ export class FooterComponent implements OnInit {
 
   ngOnInit(): void {
     this.getInitialData();
+    this.subscribeToSocketUpdates();
   }
 
   getInitialData(): void {
@@ -73,5 +77,14 @@ export class FooterComponent implements OnInit {
         this.isLoading.set(false);
       }
     });
+  }
+
+  private subscribeToSocketUpdates(): void {
+    this.socketService
+      .onRefreshOrDataUpdated(['contact', 'visitors', 'visitor'])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.getInitialData();
+      });
   }
 }
