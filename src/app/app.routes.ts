@@ -15,7 +15,7 @@ export const routes: Routes = [
     data: {
       title: `${Constants.APP_NAME} — Home`,
       description: 'Explore the modern portfolio of Avinash Marbhal, a skilled front-end developer specializing in Angular, React, and modern web technologies.',
-      keywords: 'Avinash Marbhal, portfolio, front-end developer, Angular developer, web development, Kolhapur',
+      keywords: 'Avinash Marbhal, portfolio, front-end developer, Angular developer, web development, Kolhapur, Pune',
       image: '/assets/images/yihwxx74geyo1xe1xejz.avif'
     }
   },
