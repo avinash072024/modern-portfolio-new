@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   myInformation: any;
   projectsCount: number = 0;
   totalExperience: number = 0;
+  dedicationCount: string = '0';
   contactService = inject(ContactService);
   projectService = inject(ProjectsService);
   resumesService = inject(ResumesService);
@@ -131,6 +132,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (experienceRes?.success && experienceRes?.experiences) {
           this.totalExperience = experienceRes?.totalExperience || 0;
         }
+
+        this.dedicationCount = '100%';
 
       },
       error: (err: any) => {
