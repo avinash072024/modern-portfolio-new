@@ -379,7 +379,7 @@
         opacity: 0;
         transform: translateY(-100%);
         pointer-events: none;
-        transition: transform 0.35s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.25s ease;
+        transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.25s ease;
 
         .sticky-category {
             flex: 0 0 auto;
@@ -712,6 +712,11 @@
 
         .info-grid {
             grid-template-columns: 1fr;
+        }
+
+        .info-value {
+            width: 100%;
+            text-wrap: auto;
         }
     }
 }
