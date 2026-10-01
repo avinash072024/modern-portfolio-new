@@ -156,11 +156,15 @@
           <!-- Quick info tiles -->
           <div class="info-grid mb-4">
             @if (selectedProject?.clientName) {
-            <div class="info-tile reveal" style="--i: 1">
+            <div class="info-tile client-info-tile reveal" style="--i: 1">
               <span class="info-icon"><i class="bi bi-person-badge"></i></span>
               <div class="min-w-0">
                 <div class="info-label">Client</div>
-                <div appTooltip="{{ selectedProject?.clientName }}" [tooltipPlacement]="'top'" class="info-value text-truncate">{{ selectedProject?.clientName }}</div>
+                @if (selectedProject?.clientName?.length && selectedProject.clientName.length > 21) {
+                  <div appTooltip="{{ selectedProject?.clientName }}" [tooltipPlacement]="'top'" class="info-value w-100 text-truncate">{{ selectedProject?.clientName }}</div>
+                } @else {
+                  <div class="info-value w-100 text-truncate">{{ selectedProject?.clientName }}</div>
+                }
               </div>
             </div>
             }
@@ -217,6 +221,8 @@
           class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center justify-content-center gap-2 m-0">
           Visit Live Site <i class="bi bi-box-arrow-up-right"></i>
         </a>
+        } @else {
+          <div></div>
         }
         <button type="button" class="btn btn-light rounded-pill px-4 py-2 border ms-sm-auto m-0"
           data-bs-dismiss="modal">Close</button>

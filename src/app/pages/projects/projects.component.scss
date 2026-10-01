@@ -518,7 +518,7 @@
     /* Info tiles */
     .info-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 12px;
         margin-top: -2.75rem; // overlap the hero for a layered look
         position: relative;
@@ -554,7 +554,8 @@
         }
 
         .info-label {
-            font-size: 0.72rem;
+            // font-size: 0.72rem;
+            font-size: 0.62rem;
             font-weight: 600;
             letter-spacing: 0.6px;
             text-transform: uppercase;
@@ -564,6 +565,7 @@
         .info-value {
             font-weight: 700;
             color: var(--bs-emphasis-color);
+            overflow-wrap: anywhere;
         }
     }
 
@@ -710,13 +712,15 @@
             }
         }
 
-        .info-grid {
-            grid-template-columns: 1fr;
-        }
+    }
+}
 
-        .info-value {
-            width: 100%;
-            text-wrap: auto;
+@media (max-width: 767.98px) {
+    .project-modal-content .info-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        .client-info-tile {
+            grid-column: 1 / -1;
         }
     }
 }
