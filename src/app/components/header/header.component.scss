@@ -43,7 +43,7 @@
         position: absolute;
         inset: 0;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, transparent 60%);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, transparent 60%);
         pointer-events: none;
     }
 }
@@ -86,6 +86,7 @@
     .logo-badge {
         box-shadow: 0 4px 18px rgba(var(--primary-rgb), 0.5);
     }
+
     .logo-first {
         color: rgba(255, 255, 255, 0.92);
     }
@@ -125,17 +126,148 @@
     }
 }
 
-/* --- Theme/Skin Dropdown --- */
-.btn-palette {
-    background: rgba(var(--primary-rgb), 0.1);
-    color: var(--primary-color);
-    padding: 0.5rem 1rem;
-    border-radius: 12px;
-    border: 1px solid rgba(var(--primary-rgb), 0.1);
+/* ─── Uniform header icon buttons (palette, menu toggler, offcanvas close) ──── */
+.header-icon-btn {
 
-    &:hover {
+    // Doubled selector beats Bootstrap's .btn / .navbar-toggler state styles
+    // without needing !important.
+    &#{&} {
+        width: 44px;
+        height: 44px;
+        min-width: 44px;
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 12px;
+        border: 1px solid rgba(var(--primary-rgb), 0.2);
+        background: rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+        font-size: 1.25rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: none;
+        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+
+        i {
+            line-height: 1;
+        }
+
+        &:hover,
+        &:active,
+        &.show,
+        &[aria-expanded='true'] {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        &:focus-visible {
+            outline: 2px solid rgba(var(--primary-rgb), 0.55);
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+    }
+}
+
+.header-icon-btn-close {
+
+    // Doubled selector beats Bootstrap's .btn / .navbar-toggler state styles
+    // without needing !important.
+    &#{&} {
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        padding: 0;
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        border-radius: 9px;
+        border: 1px solid rgba(var(--primary-rgb), 0.2);
+        background: rgba(var(--primary-rgb), 0.1);
+        color: var(--primary-color);
+        font-size: 1rem;
+        line-height: 1;
+        cursor: pointer;
+        box-shadow: none;
+        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.2s ease;
+
+        i {
+            line-height: 1;
+        }
+
+        &:hover,
+        &:active,
+        &.show,
+        &[aria-expanded='true'] {
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        &:focus-visible {
+            outline: 2px solid rgba(var(--primary-rgb), 0.55);
+            outline-offset: 2px;
+            box-shadow: none;
+        }
+    }
+}
+
+[data-bs-theme='dark'] .header-icon-btn.header-icon-btn {
+    background: rgba(var(--primary-rgb), 0.18);
+    border-color: rgba(var(--primary-rgb), 0.35);
+
+    &:hover,
+    &:active,
+    &.show,
+    &[aria-expanded='true'] {
         background: var(--primary-color);
-        color: white;
+        border-color: var(--primary-color);
+        color: #fff;
+    }
+}
+
+// Palette button: keep it a perfect square on mobile/tablet,
+// show the chevron (and widen slightly) only on desktop.
+.btn-palette .chevron {
+    font-size: 0.7rem;
+}
+
+@media (min-width: 992px) {
+    .header-icon-btn.btn-palette.btn-palette {
+        width: auto;
+        padding: 0 0.9rem;
+    }
+
+    // The offcanvas toggler is hidden on desktop by Bootstrap (navbar-expand-lg)
+}
+
+/* --- Theme/Skin Dropdown --- */
+.skin-menu {
+    min-width: 260px;
+    max-width: calc(100vw - 2rem);
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    border: 1px solid rgba(var(--primary-rgb), 0.35);
+
+    .dropdown-header {
+        color: var(--bs-secondary-color);
+    }
+
+    .dropdown-divider {
+        border-top-color: var(--bs-border-color);
     }
 }
 
@@ -157,10 +289,14 @@
         font-weight: 600;
         transition: all 0.2s;
 
+        &:hover:not(.active) {
+            color: var(--bs-emphasis-color);
+        }
+
         &.active {
             background: var(--bs-body-bg);
             color: var(--primary-color);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
         }
     }
 }
@@ -189,6 +325,11 @@
 
         &:hover {
             transform: scale(1.1);
+        }
+
+        &:focus-visible {
+            outline: 2px solid var(--primary-color);
+            outline-offset: 2px;
         }
     }
 }
@@ -229,20 +370,6 @@
     &.active {
         color: var(--primary-color) !important;
         background: transparent !important;
-    }
-}
-
-.btn-close-custom {
-    background: var(--bs-tertiary-bg);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
-    color: var(--bs-emphasis-color);
-
-    &:hover {
-        background: var(--primary-color);
-        color: white;
     }
 }
 

@@ -11,14 +11,14 @@
       </span>
     </a>
 
-    <div class="d-flex align-items-center gap-3 order-lg-last">
+    <div class="d-flex align-items-center gap-2 gap-md-3 order-lg-last">
       <div class="dropdown">
-        <button class="btn btn-palette shadow-none rounded-pill d-flex align-items-center justify-content-center"
-          type="button" data-bs-toggle="dropdown">
+        <button class="btn header-icon-btn btn-palette shadow-none" type="button" data-bs-toggle="dropdown"
+          data-bs-auto-close="outside" aria-label="Theme settings">
           <i class="bi bi-palette-fill"></i>
-          <i class="bi bi-chevron-down ms-1 small d-none d-md-block"></i>
+          <i class="bi bi-chevron-down chevron d-none d-lg-inline-block"></i>
         </button>
-        <div class="dropdown-menu dropdown-menu-end shadow border-1 border-primary p-4 mt-3 rounded-4">
+        <div class="dropdown-menu dropdown-menu-end skin-menu shadow p-4 mt-3 rounded-4">
           <div class="mb-4">
             <h6 class="dropdown-header px-0 mb-3 text-uppercase fw-bold ls-1 small">Appearance</h6>
             <div class="theme-toggle-group">
@@ -52,9 +52,9 @@
         </div>
       </div>
 
-      <button class="navbar-toggler shadow-none border-0 p-0" type="button" data-bs-toggle="offcanvas"
-        data-bs-target="#mobileMenu">
-        <i class="bi bi-grid-fill fs-2 text-primary"></i>
+      <button class="navbar-toggler header-icon-btn shadow-none" type="button" data-bs-toggle="offcanvas"
+        data-bs-target="#mobileMenu" aria-label="Open menu">
+        <i class="bi bi-grid-fill"></i>
       </button>
     </div>
 
@@ -85,7 +85,7 @@
           class="logo-last">{{ myInformation?.lastName || 'Marbhal' | titlecase }}.</span>
       </span>
     </a>
-    <button type="button" class="btn-close-custom" data-bs-dismiss="offcanvas">
+    <button type="button" class="header-icon-btn-close" data-bs-dismiss="offcanvas" aria-label="Close menu">
       <i class="bi bi-x-lg"></i>
     </button>
   </div>

@@ -1,4 +1,4 @@
-import { Component, HostListener, inject, signal, PLATFORM_ID } from '@angular/core';
+import { Component, HostListener, inject, signal, PLATFORM_ID, OnInit, OnDestroy } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { ThemeService } from '../../services/theme/theme.service';
 import { Constants } from '../../models/constants';
@@ -14,7 +14,7 @@ import { SocketService } from '../../services/socket/socket.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit, OnDestroy {
   themeService = inject(ThemeService);
   isScrolled = signal(false);
   private platformId = inject(PLATFORM_ID);
@@ -69,6 +69,11 @@ export class HeaderComponent {
         // alert(err.error.message || 'Failed to load contact details');
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   private subscribeToSocketUpdates(): void {
