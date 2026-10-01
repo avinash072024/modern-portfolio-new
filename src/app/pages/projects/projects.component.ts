@@ -5,11 +5,12 @@ import { CtaComponent } from '../../components/cta/cta.component';
 import { ProjectsService } from '../../services/projects/projects.service';
 import { SocketService } from '../../services/socket/socket.service';
 import { Subject, takeUntil } from 'rxjs';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 declare var bootstrap: any;
 
 @Component({
   selector: 'app-projects',
-  imports: [CtaComponent],
+  imports: [CtaComponent, TooltipDirective],
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss'
 })

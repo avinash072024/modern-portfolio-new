@@ -101,103 +101,125 @@
 <app-cta [title]="'Ready to start a project?'" [subtitle]="`I'm currently available for freelance work.`"
   [buttonLink]="'/contact'" [buttonText]="`Let's Chat`" />
 
-<div class="modal fade" id="projectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
-  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
-    <div class="modal-content project-modal-content border-0">
+<div class="modal fade" id="projectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="projectModalLabel" aria-hidden="true" (hide.bs.modal)="modalBody.scrollTop = 0">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable modal-fullscreen-sm-down">
+    <div class="modal-content project-modal-content border-0" [class.is-scrolled]="modalBody.scrollTop > 240">
 
-      <!-- Modal Header (Optional Image Banner inside modal or just clean header) -->
-      <div class="modal-header border-1 pb-0 pt-4 px-4 position-relative"
-        style="border-color: rgba(var(--bs-emphasis-color-rgb), 0.08)">
-        <div class="d-flex flex-column w-100">
-          <div class="d-flex justify-content-between align-items-center mb-3">
-            <span class="badge category-pill fs-6">{{selectedProject?.category}}</span>
-            <button type="button" class="btn-close shadow-none modal-close-btn" data-bs-dismiss="modal"
-              aria-label="Close"></button>
+      <!-- Floating close button (stays visible while scrolling) -->
+      <button type="button" class="modal-close-btn btn btn-primary text-white" data-bs-dismiss="modal"
+        aria-label="Close">
+        <i class="bi bi-x-lg"></i>
+        </button>
+
+      <!-- Compact sticky bar: fades in once the hero scrolls away, hides again when scrolling back up -->
+      <div class="modal-sticky-bar" aria-hidden="true">
+        <span class="sticky-category">{{ selectedProject?.category }}</span>
+        <span class="sticky-title text-truncate">{{ selectedProject?.title }}</span>
+        @if (selectedProject?.completedYear) {
+        <span class="sticky-year"><i class="bi bi-calendar3 me-1"></i>{{ selectedProject?.completedYear }}</span>
+        }
+      </div>
+
+      <div class="modal-body p-0" #modalBody (scroll)="modalBody.scrollTop">
+
+        <!-- HERO: image + category + year + title -->
+        <div class="modal-hero">
+          @if (selectedProject?.image) {
+          <img [src]="selectedProject?.image" [alt]="selectedProject?.title" class="hero-img" />
+          } @else {
+          <div class="hero-placeholder d-flex align-items-center justify-content-center">
+            <i class="bi bi-laptop display-1 text-white opacity-50"></i>
           </div>
-          <h2 class="modal-title fw-bold mb-2">{{selectedProject?.title}}</h2>
+          }
+          <div class="hero-overlay"></div>
+
+          <div class="hero-top">
+            <span class="hero-badge hero-category">
+              <i class="bi bi-stars me-1"></i>{{ selectedProject?.category }}
+            </span>
+            @if (selectedProject?.completedYear) {
+            <span class="hero-badge hero-year">
+              <i class="bi bi-calendar3 me-2"></i>{{ selectedProject?.completedYear }}
+            </span>
+            }
+          </div>
+
+          <div class="hero-title">
+            <h2 class="modal-title fw-bold mb-0" id="projectModalLabel">{{ selectedProject?.title }}</h2>
+          </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="modal-content-wrap px-3 px-md-4 py-4">
+
+          <!-- Quick info tiles -->
+          <div class="info-grid mb-4">
+            @if (selectedProject?.clientName) {
+            <div class="info-tile reveal" style="--i: 1">
+              <span class="info-icon"><i class="bi bi-person-badge"></i></span>
+              <div class="min-w-0">
+                <div class="info-label">Client</div>
+                <div appTooltip="{{ selectedProject?.clientName }}" [tooltipPlacement]="'top'" class="info-value text-truncate">{{ selectedProject?.clientName }}</div>
+              </div>
+            </div>
+            }
+            <div class="info-tile reveal" style="--i: 2">
+              <span class="info-icon"><i class="bi bi-calendar-check"></i></span>
+              <div>
+                <div class="info-label">Completed</div>
+                <div class="info-value">{{ selectedProject?.completedYear || 'N/A' }}</div>
+              </div>
+            </div>
+            <div class="info-tile reveal" style="--i: 3">
+              <span class="info-icon"><i class="bi bi-people"></i></span>
+              <div>
+                <div class="info-label">Team Size</div>
+                <div class="info-value">{{ selectedProject?.teamSize || 'N/A' }}</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overview -->
+          <div class="section-heading mb-3 reveal" style="--i: 4">
+            <span class="section-icon"><i class="bi bi-card-text"></i></span>
+            <h4 class="mb-0 fw-bold">Project Overview</h4>
+          </div>
+
+          <div class="description-grid mb-4">
+            @for (descLine of selectedProject?.desc; track $index) {
+            <div class="desc-item-card d-flex gap-3 align-items-start reveal" [style.--i]="$index + 5">
+              <i class="bi bi-check-circle-fill check-icon"></i>
+              <p class="mb-0 text-secondary lh-lg">{{ descLine }}</p>
+            </div>
+            }
+          </div>
+
+          <!-- Tech -->
+          <div class="section-heading mb-3">
+            <span class="section-icon"><i class="bi bi-braces"></i></span>
+            <h4 class="mb-0 fw-bold">Technologies Used</h4>
+          </div>
+
+          <div class="d-flex flex-wrap gap-2">
+            @for (tool of selectedProject?.tools; track tool) {
+            <span class="skill-outline-badge">
+              <i class="bi bi-code-slash me-1"></i>{{ tool }}
+            </span>
+            }
+          </div>
         </div>
       </div>
 
-      <div class="modal-body px-4 py-3">
-        <!-- <div class="status-bar d-flex justify-content-between align-items-center mb-4">
-          <div class="d-flex align-items-center gap-2 text-secondary">
-            <i class="bi bi-calendar-check text-primary fs-5"></i>
-            <span class="fw-semibold">Completed in</span>
-          </div>
-          <span class="fw-bold fs-6">{{selectedProject?.completedYear}}</span>
-        </div> -->
-
-        <!-- <div class="section-title mb-4 d-flex align-items-center gap-3">
-          <div class="accent-line"></div>
-          <h4 class="mb-0 fw-bold">Project Overview</h4>
-        </div> -->
-
-        <div class="row g-3 mb-4">
-          @if (selectedProject?.clientName) {
-          <div class="col-md-12">
-            <div class="border rounded-4 p-3 h-100 bg-body-tertiary">
-              <div class="fw-semibold text-secondary">Client Name</div>
-              <div class="fw-bold mt-1">{{ selectedProject?.clientName || 'N/A' }}</div>
-            </div>
-          </div>
-          }
-
-          <div class="col-md-6">
-            <div class="border rounded-4 p-3 h-100 bg-body-tertiary d-flex justify-content-between align-items-center">
-              <div class="fw-semibold text-secondary">Completed in</div>
-              <div class="fw-bold mt-1">{{ selectedProject?.completedYear || 'N/A' }}</div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <div class="border rounded-4 p-3 h-100 bg-body-tertiary d-flex justify-content-between align-items-center">
-              <div class="fw-semibold text-secondary">Team Size</div>
-              <div class="fw-bold mt-1">{{ selectedProject?.teamSize || 'N/A' }}</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="section-title mb-4 d-flex align-items-center gap-3">
-          <div class="accent-line"></div>
-          <h4 class="mb-0 fw-bold">Project Overview</h4>
-        </div>
-
-        <div class="description-grid mb-5">
-          @for (descLine of selectedProject?.desc; track $index) {
-          <div class="desc-item-card d-flex gap-3 align-items-start mb-3">
-            <div class="check-icon mt-1">
-              <i class="bi bi-check-circle-fill text-primary"></i>
-            </div>
-            <p class="mb-1 text-secondary fs-6 lh-lg">{{ descLine }}</p>
-          </div>
-          }
-        </div>
-
-        <div class="section-title mb-4 d-flex align-items-center gap-3">
-          <i class="bi bi-braces text-primary fs-4"></i>
-          <h4 class="mb-0 fw-bold">Technologies Used</h4>
-        </div>
-
-        <div class="d-flex flex-wrap gap-2 mb-4">
-          @for (tool of selectedProject?.tools; track tool) {
-          <span class="skill-outline-badge">
-            <i class="bi bi-code-slash text-primary me-1 opacity-50"></i>
-            {{tool}}
-          </span>
-          }
-        </div>
-      </div>
-
-      <div class="modal-footer border-top px-4 py-3 d-flex justify-content-between align-items-center">
+      <div class="modal-footer px-3 px-md-4 py-3 d-flex flex-column flex-sm-row align-items-stretch gap-2">
         @if (selectedProject?.link) {
-        <a [href]="selectedProject?.link" target="_blank"
-          class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center gap-2">
+        <a [href]="selectedProject?.link" target="_blank" rel="noopener"
+          class="btn btn-primary rounded-pill px-4 py-2 d-flex align-items-center justify-content-center gap-2 m-0">
           Visit Live Site <i class="bi bi-box-arrow-up-right"></i>
         </a>
-        } @else {
-        <div></div>
         }
-        <button type="button" class="btn btn-light rounded-pill px-4 py-2 border" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-light rounded-pill px-4 py-2 border ms-sm-auto m-0"
+          data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
