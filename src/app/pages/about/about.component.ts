@@ -35,12 +35,12 @@ export class AboutComponent implements OnInit, OnDestroy {
   totalExperience: number = 0;
 
   techStack = [
-    { name: 'Angular', icon: 'bi-patch-check', level: '95%' },
-    { name: 'TypeScript', icon: 'bi-code-slash', level: '90%' },
-    { name: 'Bootstrap', icon: 'bi-bootstrap', level: '95%' },
-    { name: 'Node.js', icon: 'bi-server', level: '80%' },
-    { name: 'Firebase', icon: 'bi-cloud', level: '85%' },
-    { name: 'UI/UX', icon: 'bi-palette', level: '88%' }
+    { name: 'Angular', icon: 'fa-angular fa-brands', level: '95%' },
+    { name: 'TypeScript', icon: 'bi bi-typescript', level: '90%' },
+    { name: 'Bootstrap', icon: 'bi bi-bootstrap', level: '95%' },
+    { name: 'Node.js', icon: 'ti ti-brand-nodejs', level: '80%' },
+    { name: 'Mongo DB', icon: 'bi bi-leaf', level: '85%' },
+    { name: 'UI/UX', icon: 'ti ti-brand-figma', level: '88%' }
   ];
 
   experiences: any;
