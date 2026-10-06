@@ -1,7 +1,7 @@
 export const environment = {
     production: true,
     // apiUrl: 'http://localhost:5000/api',
-    apiUrl: 'https://portfolio-backend-tau-coral-41.vercel.app/api',
+    apiUrl: 'https://portfolio-backend-nine-beta.vercel.app/api',
     siteUrl: 'https://avinash-modern-portfolio.netlify.app',
     /** GA4 Measurement ID (e.g. G-XXXXXXXXXX). Leave empty to disable analytics. */
     googleAnalyticsId: 'G-978CQZM6DF',
