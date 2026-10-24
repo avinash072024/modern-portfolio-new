@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
+import { Component, inject, OnInit, OnDestroy, signal, computed } from '@angular/core';
 import { Project } from '../../interfaces/projects';
 import { CtaComponent } from '../../components/cta/cta.component';
 
@@ -25,6 +25,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   socketService = inject(SocketService);
   private destroy$ = new Subject<void>();
   isLoading = signal(true); // 1. Add loading signal
+  projectSelectedForReview = signal(false);
 
   ngOnInit(): void {
     this.getProjects();
@@ -53,6 +54,9 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       next: (res: any) => {
         if (res?.success) {
           this.projects = res?.projects;
+          if (this.projectSelectedForReview()) {
+            this.selectedProject = this.projects.find(p => p._id === this.selectedProject._id) || null;
+          }
         }
         this.isLoading.set(false);
       },
@@ -63,6 +67,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   openProjectModal(project: Project) {
+    this.projectSelectedForReview.set(true);
     this.selectedProject = project;
     const modalElement = document.getElementById('projectModal');
     const modal = new bootstrap.Modal(modalElement);
