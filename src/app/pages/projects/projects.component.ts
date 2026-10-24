@@ -38,7 +38,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
 
   private subscribeToSocketUpdates(): void {
     this.socketService
-      .onRefreshOrDataUpdated(['projects', 'project'])
+      .onRefreshOrDataUpdated(['projects', 'project', 'project-category'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getProjects(true, true);

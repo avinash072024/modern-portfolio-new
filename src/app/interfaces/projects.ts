@@ -1,3 +1,8 @@
+export interface Category {
+  _id: string;
+  name: string;
+}
+
 export interface ProjectDescription {
     [key: string]: string;
 }
@@ -5,7 +10,7 @@ export interface ProjectDescription {
 export interface Project {
     _id: string;
     title: string;
-    category: string;
+    category: Category;
     completedYear: string;
     desc: ProjectDescription[];
     image: string;
