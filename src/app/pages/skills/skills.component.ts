@@ -1,6 +1,5 @@
 import { Component, inject, OnInit, OnDestroy, signal, computed } from '@angular/core';
-import { SkillCategory } from '../../interfaces/skills';
-import { Constants } from '../../models/constants';
+import { Skill, SkillCategory } from '../../interfaces/skills';
 import { SkillsService } from '../../services/skills/skills.service';
 import { SocketService } from '../../services/socket/socket.service';
 import { CtaComponent } from '../../components/cta/cta.component';
@@ -14,7 +13,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrl: './skills.component.scss'
 })
 export class SkillsComponent implements OnInit, OnDestroy {
-  categories = signal<any[]>([]);
+  categories = signal<SkillCategory[]>([]);
   skillsService = inject(SkillsService);
   socketService = inject(SocketService);
   private destroy$ = new Subject<void>();
@@ -55,20 +54,28 @@ export class SkillsComponent implements OnInit, OnDestroy {
       this.isLoading.set(true);
     }
     this.skillsService.getSkills(forceRefresh).subscribe({
-      next: (res: any) => {
-        if(res?.success){
-          const skills = res?.skills;
-          const groupedSkills = skills.reduce((acc: any[], skill: any) => {
-            const index = acc.findIndex((c: any) => c.title === skill.category);
-            if (index > -1) {
-              acc[index].skills.push(skill);
-            } else {
-              acc.push({ title: skill.category, skills: [skill] });
-            }
-            return acc;
-          }, []);
+      next: (res) => {
+        if (res.success) {
+          const groupedSkills = res.skills
+            .filter((skill: Skill) => skill.isActive && skill.category?.isActive)
+            .reduce((categories: SkillCategory[], skill: Skill) => {
+              const title = skill.category.name;
+              const category = categories.find((item) => item.title === title);
+              if (category) {
+                category.skills.push(skill);
+              } else {
+                categories.push({ title, skills: [skill] });
+              }
+              return categories;
+            }, []);
           this.categories.set(groupedSkills);
         }
+        if (!isSilent) {
+          this.isLoading.set(false);
+        }
+      },
+      error: (error: unknown) => {
+        console.error('Failed to load skills:', error);
         if (!isSilent) {
           this.isLoading.set(false);
         }
@@ -80,4 +87,3 @@ export class SkillsComponent implements OnInit, OnDestroy {
     this.activeCategory.set(category);
   }
 }
-

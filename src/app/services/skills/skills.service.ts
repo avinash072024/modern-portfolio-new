@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
 import { environment } from '../../../environments/environment.development';
 import { SocketService } from '../socket/socket.service';
+import { SkillsResponse } from '../../interfaces/skills';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class SkillsService {
     return this.getCached(key, () => this.http.get(`${environment.apiUrl}/skills${params}`));
   }
 
-  getSkills(forceRefresh: boolean = false): Observable<any> {
+  getSkills(forceRefresh: boolean = false): Observable<SkillsResponse> {
     if (forceRefresh) {
       this.cache.delete('skills_all');
     }
