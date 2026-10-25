@@ -46,7 +46,7 @@
                                     <div class="icon-glow"></div>
                                     <i [class]="service?.icon" class="text-primary display-5"></i>
                                 </div>
-                                <span class="service-number">0{{ i + 1 }}</span>
+                                <span class="service-number">{{ (i + 1) | number: '2.0-0' }}</span>
                             </div>
                             <h3 class="fw-bold h4 mb-3 service-title">{{service?.title}}</h3>
                             <div class="title-separator mb-3"></div>

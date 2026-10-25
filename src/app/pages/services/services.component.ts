@@ -5,10 +5,11 @@ import { ServiceService } from '../../services/service/service.service';
 import { Service } from '../../interfaces/service';
 import { SocketService } from '../../services/socket/socket.service';
 import { Subject, takeUntil } from 'rxjs';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-services',
-  imports: [CtaComponent],
+  imports: [CtaComponent, DecimalPipe],
   templateUrl: './services.component.html',
   styleUrl: './services.component.scss'
 })
