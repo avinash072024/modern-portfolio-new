@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { shareReplay } from 'rxjs/operators';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { SocketService } from '../socket/socket.service';
 
 @Injectable({

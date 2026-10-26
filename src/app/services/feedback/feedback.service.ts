@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, shareReplay } from 'rxjs';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 export interface CreateFeedbackPayload {
   name: string;

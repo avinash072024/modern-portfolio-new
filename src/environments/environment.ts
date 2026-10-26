@@ -1,6 +1,6 @@
 export const environment = {
-    production: false,
-    // apiUrl: 'http://localhost:5000/api'
+    production: true,
+    // apiUrl: 'http://localhost:5000/api',
     apiUrl: 'https://portfolio-backend-topaz-theta.vercel.app/api',
     siteUrl: 'https://avinash-modern-portfolio.netlify.app',
     /** GA4 Measurement ID (e.g. G-XXXXXXXXXX). Leave empty to disable analytics. */

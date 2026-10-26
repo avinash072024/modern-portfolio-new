@@ -2,7 +2,7 @@ import { Injectable, NgZone, inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { fromEvent, Observable, share, merge, filter } from 'rxjs';
 import { io, Socket } from 'socket.io-client';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
