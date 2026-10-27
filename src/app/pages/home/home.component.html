@@ -56,40 +56,31 @@
         <div class="hero-social-row" data-aos="fade-up" data-aos-delay="100">
           <span class="social-label">Find me on</span>
           <div class="social-divider"></div>
-          <!-- @if (myInformation?.github) {
-            <a [href]="myInformation.github" target="_blank" rel="noopener" class="social-icon-btn" title="GitHub">
-              <i class="bi bi-github"></i>
-            </a>
-          } @else {
-            <a href="https://github.com/" target="_blank" rel="noopener" class="social-icon-btn" title="GitHub">
-              <i class="bi bi-github"></i>
-            </a>
-          } -->
           @if (myInformation?.linkedin) {
-          <a [href]="myInformation.linkedin" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+          <a [appTooltip]="'LinkedIn'" tooltipPlacement="top" [href]="myInformation.linkedin" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
             <i class="bi bi-linkedin"></i>
           </a>
           } @else {
-          <a href="https://linkedin.com/" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
+          <a [appTooltip]="'LinkedIn'" tooltipPlacement="top" href="https://linkedin.com/" target="_blank" rel="noopener" class="social-icon-btn" title="LinkedIn">
             <i class="bi bi-linkedin"></i>
           </a>
           }
           @if(myInformation?.email) {
-          <a [href]="`mailto:${myInformation?.email}`" target="_blank" rel="noopener" class="social-icon-btn"
+          <a [appTooltip]="'Email'" tooltipPlacement="top" [href]="`mailto:${myInformation?.email}`" target="_blank" rel="noopener" class="social-icon-btn"
             title="Email">
             <i class="bi bi-envelope-fill"></i>
           </a>
           } @else {
-          <a routerLink="/contact" class="social-icon-btn" title="Email">
+          <a [appTooltip]="'Email'" tooltipPlacement="top" routerLink="/contact" class="social-icon-btn" title="Email">
             <i class="bi bi-envelope-fill"></i>
           </a>
           }
           @if (myInformation?.instagram) {
-          <a [href]="myInformation.instagram" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
+          <a [appTooltip]="'Instagram'" tooltipPlacement="top" [href]="myInformation.instagram" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
             <i class="bi bi-instagram"></i>
           </a>
           } @else {
-          <a href="https://instagram.com/" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
+          <a [appTooltip]="'Instagram'" tooltipPlacement="top" href="https://instagram.com/" target="_blank" rel="noopener" class="social-icon-btn" title="Instagram">
             <i class="bi bi-instagram"></i>
           </a>
           }
@@ -113,14 +104,6 @@
         </div>
       </div>
 
-    </div>
-
-    <!-- Scroll indicator -->
-    <div class="scroll-indicator">
-      <div class="scroll-mouse">
-        <div class="scroll-wheel"></div>
-      </div>
-      <span>Scroll down</span>
     </div>
   </div>
 </section>

@@ -26,7 +26,7 @@
             <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-envelope-at-fill"></i></div>
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Email Me</small>
-              <a appTooltip="Click to copy" tooltipPlacement="top" [href]="`mailto:${myInformation?.email}`"
+              <a [href]="`mailto:${myInformation?.email}`"
                 class="text-white fw-medium text-decoration-none d-block text-break">{{myInformation?.email
                 || '-'}}</a>
             </div>
@@ -37,7 +37,7 @@
             <div class="icon-box me-3 fs-4 text-white"><i class="bi bi-telephone-fill"></i></div>
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Contact Me</small>
-              <a appTooltip="Click to copy" tooltipPlacement="top" [href]="`tel:${myInformation?.phone}`"
+              <a [href]="`tel:${myInformation?.phone}`"
                 class="text-white fw-medium text-decoration-none">{{myInformation?.phone || '-'}}</a>
             </div>
           </div>

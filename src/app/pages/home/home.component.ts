@@ -11,6 +11,7 @@ import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ResumesService } from '../../services/resume/resumes.service';
 import { SocketService } from '../../services/socket/socket.service';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 declare var $: any;
 
 interface SkillsTag {
@@ -20,7 +21,7 @@ interface SkillsTag {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink, TestimonialsComponent, CtaComponent],
+  imports: [CommonModule, RouterLink, TestimonialsComponent, CtaComponent, TooltipDirective],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
