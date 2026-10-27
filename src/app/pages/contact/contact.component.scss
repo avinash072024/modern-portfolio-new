@@ -1,4 +1,8 @@
 .contact-section {
+    .contact-method .flex-grow-1 {
+        min-width: 0;
+    }
+
     .bento-wrapper {
         border-color: rgba(var(--bs-emphasis-color-rgb), 0.05) !important;
     }

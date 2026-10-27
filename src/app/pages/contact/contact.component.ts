@@ -1,8 +1,6 @@
 import { Component, inject, OnInit, OnDestroy, signal } from '@angular/core';
 
 import { FormsModule, ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AboutMe } from '../../interfaces/about-me';
-import { Constants } from '../../models/constants';
 import { ContactService } from '../../services/contact/contact.service';
 import { EmailService } from '../../services/email/email.service';
 import { ValidationService } from '../../services/validations/validation.service';
@@ -10,11 +8,12 @@ import { ToastService } from '../../services/toast/toast.service';
 import { ToastComponent } from "../../components/toast/toast.component";
 import { SocketService } from '../../services/socket/socket.service';
 import { Subject, takeUntil } from 'rxjs';
+import { TooltipDirective } from '../../directives/tooltip.directive';
 
 @Component({
   selector: 'app-contact',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, ToastComponent],
+  imports: [FormsModule, ReactiveFormsModule, ToastComponent, TooltipDirective],
   templateUrl: './contact.component.html',
   styleUrls: ['./contact.component.scss']
 })
@@ -42,6 +41,24 @@ export class ContactComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+  }
+
+  async copyContact(value: string | null | undefined, label: string): Promise<void> {
+    if (!value) {
+      return;
+    }
+
+    if (typeof navigator === 'undefined' || !navigator.clipboard) {
+      this.toastService.show('error', 'Copy failed', 'Clipboard access is not available in this browser.');
+      return;
+    }
+
+    try {
+      await navigator.clipboard.writeText(value);
+      this.toastService.show('success', 'Copied', `${label} copied to clipboard.`);
+    } catch {
+      this.toastService.show('error', 'Copy failed', `Could not copy the ${label.toLowerCase()}. Please try again.`);
+    }
   }
 
   private subscribeToSocketUpdates(): void {

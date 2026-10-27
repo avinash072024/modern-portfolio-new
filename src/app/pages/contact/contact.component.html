@@ -27,9 +27,15 @@
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Email Me</small>
               <a [href]="`mailto:${myInformation?.email}`"
-                class="text-white fw-medium text-decoration-none d-block text-break">{{myInformation?.email
-                || '-'}}</a>
+                class="text-white fw-medium text-decoration-none d-block text-break">{{myInformation?.email || '-'}}</a>
             </div>
+            @if (myInformation?.email) {
+            <button type="button" class="btn btn-outline-light border-0 ms-2"
+              [disabled]="!myInformation?.email" aria-label="Copy email address" [appTooltip]="'Copy email'" tooltipPlacement="top"
+              (click)="copyContact(myInformation?.email, 'Email address')">
+              <i class="bi bi-clipboard" aria-hidden="true"></i>
+            </button>
+            }
           </div>
 
           <div
@@ -38,8 +44,15 @@
             <div class="flex-grow-1">
               <small class="d-block text-white-50">Contact Me</small>
               <a [href]="`tel:${myInformation?.phone}`"
-                class="text-white fw-medium text-decoration-none">{{myInformation?.phone || '-'}}</a>
+                class="text-white fw-medium text-decoration-none text-break">{{myInformation?.phone || '-'}}</a>
             </div>
+            @if (myInformation?.phone) {
+            <button type="button" class="btn btn-outline-light border-0 ms-2"
+              [disabled]="!myInformation?.phone" aria-label="Copy contact number" [appTooltip]="'Copy contact'" tooltipPlacement="top"
+              (click)="copyContact(myInformation?.phone, 'Contact number')">
+              <i class="bi bi-clipboard" aria-hidden="true"></i>
+            </button>
+            }
           </div>
 
           <div
