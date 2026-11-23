@@ -1,0 +1,50 @@
+<div class="dropdown">
+    <button class="theme-trigger" type="button" data-bs-toggle="dropdown" aria-expanded="false"
+        aria-label="Open appearance settings" title="Appearance settings">
+        <i class="bi bi-palette-fill"></i>
+        <!-- <span>Appearance</span> -->
+        <i class="bi bi-chevron-down trigger-chevron"></i>
+    </button>
+    <div class="dropdown-menu dropdown-menu-end appearance-menu shadow">
+        <div class="appearance-heading">
+            <span class="appearance-icon"><i class="bi bi-sliders2"></i></span>
+            <div>
+                <strong>Appearance</strong>
+                <small>Make it feel like yours</small>
+            </div>
+        </div>
+
+        <div class="appearance-section">
+            <h6>Color mode</h6>
+            <div class="theme-toggle-group" role="group" aria-label="Color mode">
+                <button class="theme-btn" type="button" [class.active]="themeService.theme() === 'light'"
+                    [attr.aria-pressed]="themeService.theme() === 'light'" (click)="themeService.toggleTheme('light')">
+                    <i class="bi bi-sun"></i> Light
+                </button>
+                <button class="theme-btn" type="button" [class.active]="themeService.theme() === 'dark'"
+                    [attr.aria-pressed]="themeService.theme() === 'dark'" (click)="themeService.toggleTheme('dark')">
+                    <i class="bi bi-moon-stars"></i> Dark
+                </button>
+            </div>
+        </div>
+
+        <div class="appearance-section">
+            <div class="skin-heading">
+                <h6>Accent color</h6>
+                <span>{{ selectedSkinName }}</span>
+            </div>
+            <div class="skin-grid" role="group" aria-label="Accent color">
+                @for (skin of skins; track skin.class) {
+                <button class="skin-node" [style.background-color]="skin.hex"
+                    [class.active]="themeService.skin() === skin.class"
+                    [attr.aria-pressed]="themeService.skin() === skin.class" (click)="themeService.setSkin(skin.class)"
+                    [title]="skin.name" [attr.aria-label]="skin.name">
+                    @if (themeService.skin() === skin.class) {
+                    <i class="bi bi-check-lg"></i>
+                    }
+                </button>
+                }
+            </div>
+        </div>
+    </div>
+</div>

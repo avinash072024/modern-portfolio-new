@@ -7,10 +7,11 @@ import { CommonModule } from '@angular/common';
 import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ContactService } from '../../services/contact/contact.service';
 import { SocketService } from '../../services/socket/socket.service';
+import { ThemeTogglerComponent } from '../theme-toggler/theme-toggler.component';
 
 @Component({
   selector: 'app-header',
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, ThemeTogglerComponent],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
