@@ -197,7 +197,7 @@ export class TestimonialsComponent implements OnInit, OnDestroy {
     if (!isSilent) {
       this.isLoading.set(true);
     }
-    this.feedbackService.getAllFeedback(isSilent).subscribe({
+    this.feedbackService.getAllFeedback().subscribe({
       next: (res: any) => {
         if (res?.success) {
           const data = res?.feedback || [];

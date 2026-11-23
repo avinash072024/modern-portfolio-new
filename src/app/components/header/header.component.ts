@@ -78,7 +78,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   private subscribeToSocketUpdates(): void {
     this.socketService
-      .onRefreshOrDataUpdated(['contact'])
+      .onRefreshOrDataUpdated(['contact', 'contacts'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getContactDetails();

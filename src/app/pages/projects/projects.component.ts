@@ -42,15 +42,15 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       .onRefreshOrDataUpdated(['projects', 'project', 'project-category'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.getProjects(true, true);
+        this.getProjects(true);
       });
   }
 
-  getProjects(forceRefresh: boolean = false, isSilent: boolean = false): void {
+  getProjects(isSilent: boolean = false): void {
     if (!isSilent) {
       this.isLoading.set(true);
     }
-    this.projectService.getProjects(forceRefresh).subscribe({
+    this.projectService.getProjects().subscribe({
       next: (res: any) => {
         if (res?.success) {
           this.projects = res?.projects;

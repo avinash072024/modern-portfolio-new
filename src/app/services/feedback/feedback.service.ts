@@ -28,15 +28,7 @@ export class FeedbackService {
     return this.http.post<CreateFeedbackResponse>(`${environment.apiUrl}/feedback`, payload);
   }
 
-  getAllFeedback(forceRefresh: boolean = false): Observable<{ success: boolean; count: number; feedback: CreateFeedbackPayload }> {
-    if (forceRefresh) {
-      this.feedbackRequest$ = null;
-    }
-    if (!this.feedbackRequest$) {
-      this.feedbackRequest$ = this.http
-        .get<{ success: boolean; count: number; feedback: CreateFeedbackPayload }>(`${environment.apiUrl}/feedback`)
-        .pipe(shareReplay({ bufferSize: 1, refCount: true }));
-    }
-    return this.feedbackRequest$;
+  getAllFeedback(): Observable<{ success: boolean; count: number; feedback: CreateFeedbackPayload }> {
+    return this.http.get<{ success: boolean; count: number; feedback: CreateFeedbackPayload }>(`${environment.apiUrl}/feedback`)
   }
 }

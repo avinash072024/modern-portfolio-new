@@ -81,7 +81,7 @@ export class FooterComponent implements OnInit {
 
   private subscribeToSocketUpdates(): void {
     this.socketService
-      .onRefreshOrDataUpdated(['contact', 'visitors', 'visitor'])
+      .onRefreshOrDataUpdated(['contacts', 'contact', 'visitors', 'visitor'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
         this.getInitialData();

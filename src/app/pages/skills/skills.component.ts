@@ -44,16 +44,16 @@ export class SkillsComponent implements OnInit, OnDestroy {
       .onRefreshOrDataUpdated(['skills', 'skill', 'skill-categories', 'skill-category'])
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        this.getSkills(true, true);
+        this.getSkills(true);
       });
   }
 
-  getSkills(forceRefresh: boolean = false, isSilent: boolean = false): void {
+  getSkills(isSilent: boolean = false): void {
     if (!isSilent) {
       this.categories.set([]);
       this.isLoading.set(true);
     }
-    this.skillsService.getSkills(forceRefresh).subscribe({
+    this.skillsService.getSkills().subscribe({
       next: (res) => {
         if (res.success) {
           const groupedSkills = res.skills

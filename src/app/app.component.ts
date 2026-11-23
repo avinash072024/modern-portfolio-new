@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
   seoService = inject(SeoService);
   analyticsService = inject(AnalyticsService);
   networkService = inject(NetworkService);
-  private themeService = inject(ThemeService);
   private router = inject(Router);
   private platformId = inject(PLATFORM_ID);
   private socketService = inject(SocketService);
