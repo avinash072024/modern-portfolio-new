@@ -9,7 +9,6 @@ import { forkJoin, Subject, takeUntil } from 'rxjs';
 import { ExperienceService } from '../../services/experience/experience.service';
 import { HttpClient } from '@angular/common/http';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { ResumesService } from '../../services/resume/resumes.service';
 import { SocketService } from '../../services/socket/socket.service';
 import { TooltipDirective } from '../../directives/tooltip.directive';
 declare var $: any;
@@ -39,7 +38,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   dedicationCount: string = '0';
   contactService = inject(ContactService);
   projectService = inject(ProjectsService);
-  resumesService = inject(ResumesService);
   experienceService = inject(ExperienceService);
   socketService = inject(SocketService);
   private platformId = inject(PLATFORM_ID);
@@ -141,89 +139,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.error(err?.error?.message || 'Failed to load dashboard data');
       }
     });
-  }
-
-  downloadResume(): void {
-    this.isDownloading.set(true);
-    this.resumesService.getATSResume().subscribe({
-      next: (blob: Blob) => {
-
-        const blobUrl = window.URL.createObjectURL(blob);
-        this.dynamicResumeUrl = this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-
-        const fileName = this.myInformation
-          ? `${this.myInformation.firstName || 'Avinash'}_${this.myInformation.lastName || 'Marbhal'}_Resume_Angular.pdf`
-          : 'Resume_Angular.pdf';
-
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = fileName;
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        this.isDownloading.set(false);
-        this.resumeAvailable = true;
-        this.showModal();
-      },
-      error: (err: any) => {
-        console.error('Error fetching ATS resume from API:', err);
-        // this.downloadUploadedResume();
-        this.isDownloading.set(false);
-        this.resumeAvailable = false;
-        this.showModal();
-      }
-    });
-  }
-
-  private downloadUploadedResume(): void {
-    this.resumesService.getResumes().subscribe({
-      next: (res: any) => {
-        console.log('API Response:', res);
-        if (res?.success !== true || !res?.resumes || res?.resumes.length === 0 || !res?.resumes[0]?.pdfData) {
-          this.resumeAvailable = false;
-          this.showModal();
-          return;
-        }
-
-        let base64 = res.resumes[0].pdfData;
-        const pureBase64 = base64.includes(',') ? base64.split(',')[1] : base64;
-
-        const byteCharacters = atob(pureBase64);
-        const byteNumbers = new Array(byteCharacters.length);
-        for (let i = 0; i < byteCharacters.length; i++) {
-          byteNumbers[i] = byteCharacters.charCodeAt(i);
-        }
-        const byteArray = new Uint8Array(byteNumbers);
-        const blob = new Blob([byteArray], { type: 'application/pdf' });
-
-        const blobUrl = window.URL.createObjectURL(blob);
-        this.dynamicResumeUrl = this.sanitizer.bypassSecurityTrustUrl(blobUrl);
-
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = res?.resumes[0].fileName || 'resume.pdf';
-        document.body.appendChild(link);
-        link.click();
-        link.remove();
-        this.resumeAvailable = true;
-        this.showModal();
-      },
-      error: (err: any) => {
-        console.error('Error fetching uploaded resume from API:', err);
-        this.resumeAvailable = false;
-        this.showModal();
-      }
-    });
-  }
-
-  private showModal(): void {
-    const modalEl = document.getElementById('staticBackdrop');
-    if ((window as any).bootstrap && modalEl) {
-      const bsModal = new (window as any).bootstrap.Modal(modalEl, { backdrop: 'static', keyboard: false });
-      bsModal.show();
-    } else if (typeof $ !== 'undefined' && ($ as any)('#staticBackdrop').modal) {
-      ($ as any)('#staticBackdrop').modal('show');
-    }
   }
 
 }
